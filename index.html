@@ -12,7 +12,6 @@
 
         window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // لێرەدا دەڵێین کاتێک Supabase ئامادە بوو، ڕاستەوخۆ initApp بانگ بکە با سایتەکە کار بکات
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof window.initApp === 'function') {
                 window.initApp();
@@ -428,12 +427,16 @@
 
             <hr style="border-color: #5c3a21; margin: 20px 0;">
 
-            <h3>🎵 گۆڕینی مۆسیقای ماڵپەڕ</h3>
+            <h3>🎵 گۆڕینی مۆسیقای ماڵپەڕ لە داتابەیس</h3>
+            <div class="form-group">
+                <label>ناوی مۆسیقا (Title):</label>
+                <input type="text" id="dbMusicTitleInput" placeholder="نموونە: مۆسیقای هێمنی ١" value="مۆسیقای هێمنی قاوەخانە">
+            </div>
             <div class="form-group">
                 <label>فایلی دەنگی (MP3) هەڵبژێرە:</label>
                 <input type="file" id="dbMusicFile" accept="audio/*" style="padding: 6px;">
             </div>
-            <button type="button" class="btn-add" onclick="uploadMusicToSupabase()">نوێکردنەوەی مۆسیقا</button>
+            <button type="button" class="btn-add" onclick="uploadMusicToSupabase()">پاشەکەوتکردن لە داتابەیس</button>
         </div>
 
         <div class="menu-grid" id="menuGrid">
@@ -450,14 +453,14 @@
             </div>
             <div class="music-player-box" id="audioPlayerContainer">
                 <audio controls loop id="bgAudioPlayer">
-                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+                    <source src="" type="audio/mp3" id="bgAudioSource">
                     پەڕەی گەڕۆکەکەت پشتگیری ئەم فایلی دەنگییە ناکات.
                 </audio>
             </div>
         </div>
 
         <div class="map-section">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828064438342!2d45.4367!3d35.5558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDMzMjEuMCJOIDQ1wrAyNicxMi4xIkU!5e0!3m2!1sen!2siq!4v1620000000000!5m2!1sen!2siq" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828064438342!2d45.4367!3d35.5558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMzXCsDMzMjEuMCJOIDQ1wrAyNicxMi4xIkU!5e0!3m2!1sen!2siq!4v1620000000000!5m2!1sen!2siq" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 
@@ -494,17 +497,13 @@
                     document.getElementById('tableIndicator').innerText = `🪑 مێز: ${savedTable}`;
                 }
             }
-
-            const savedMusic = localStorage.getItem('coffee_site_music_url');
-            if(savedMusic) {
-                const audioPlayer = document.getElementById('bgAudioPlayer');
-                audioPlayer.src = savedMusic;
-                audioPlayer.load();
-            }
         });
 
+        // بەرزکردنەوەی مۆسیقا بۆ Supabase Storage و پاشەکەوتکردنی لە خشتەی site_settings
         async function uploadMusicToSupabase() {
             const fileInput = document.getElementById('dbMusicFile');
+            const titleInput = document.getElementById('dbMusicTitleInput').value || 'مۆسیقای هێمنی قاوەخانە';
+
             if(fileInput.files.length === 0) {
                 alert("تکایە سەرەتا فایلی دەنگی (MP3) هەڵبژێرە!");
                 return;
@@ -519,29 +518,57 @@
                 return;
             }
 
-            const { data, error } = await window.supabase.storage
+            // ١. بارکردنی فایلەکە بۆ بەکێتی audio
+            const { data: uploadData, error: uploadError } = await window.supabase.storage
                 .from('audio')
                 .upload(fileName, file);
 
-            if (error) {
-                alert('هەڵە لە بەرزکردنەوەی فایل: ' + error.message);
+            if (uploadError) {
+                alert('هەڵە لە بەرزکردنەوەی فایلی دەنگی: ' + uploadError.message);
                 return;
             }
 
+            // ٢. وەرگرتنی بەستەری گشتی (Public URL) بۆ فایلەکە
             const { data: publicUrlData } = window.supabase.storage
                 .from('audio')
                 .getPublicUrl(fileName);
 
             const musicUrl = publicUrlData.publicUrl;
 
-            localStorage.setItem('coffee_site_music_url', musicUrl);
-            
-            const audioPlayer = document.getElementById('bgAudioPlayer');
-            audioPlayer.src = musicUrl;
-            audioPlayer.load();
-            audioPlayer.play().catch(e => console.log("Auto-play blocked:", e));
+            // ٣. سڕینەوەی ڕیزەکانی پێشووی خشتەی site_settings (بۆ ئەوەی هەمیشە تەنها یەک مۆسیقای کارا هەبێت)
+            await window.supabase.from('site_settings').delete().neq('id', 0);
 
-            alert("مۆسیقاکە بە سەرکەوتوویی بارکرا و نوێکرایەوە! 🎵");
+            // ٤. پاشەکەوتکردنی ناونیشان و بەستەری مۆسیقاکە لە خشتەی site_settings
+            const { error: dbError } = await window.supabase
+                .from('site_settings')
+                .insert([{ title: titleInput, music_url: musicUrl }]);
+
+            if (dbError) {
+                alert('هەڵە لە پاشەکەوتکردنی زانیاری لە خشتە: ' + dbError.message);
+            } else {
+                alert("مۆسیقاکە بە سەرکەوتوویی لە داتابەیس نوێکرایەوە! 🎵");
+                fetchMusicFromSupabase();
+            }
+        }
+
+        // هێنانی مۆسیقا لە داتابەیس و کارپێکردنی لە سایتەکەدا
+        async function fetchMusicFromSupabase() {
+            if(!window.supabase) return;
+            const { data, error } = await window.supabase
+                .from('site_settings')
+                .select('*')
+                .limit(1);
+
+            if(!error && data && data.length > 0) {
+                const musicData = data[0];
+                if(musicData.music_url) {
+                    document.getElementById('txtMusicTitle').innerText = musicData.title || 'مۆسیقای هێمنی قاوەخانە';
+                    const audioPlayer = document.getElementById('bgAudioPlayer');
+                    const audioSource = document.getElementById('bgAudioSource');
+                    audioSource.src = musicData.music_url;
+                    audioPlayer.load();
+                }
+            }
         }
 
         function changeTableNumber() {
@@ -566,12 +593,20 @@
 
         async function initApp() {
             await fetchMenuFromSupabase();
+            await fetchMusicFromSupabase();
             
             if(window.supabase) {
                 window.supabase
                     .channel('public:menu_items')
                     .on('postgres_changes', { event: '*', schema: 'public', table: 'menu_items' }, () => {
                         fetchMenuFromSupabase();
+                    })
+                    .subscribe();
+
+                window.supabase
+                    .channel('public:site_settings')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'site_settings' }, () => {
+                        fetchMusicFromSupabase();
                     })
                     .subscribe();
             }
@@ -590,7 +625,6 @@
                 adminBtn: "🔑 چوونه‌ژووره‌وه‌ی بەڕێوەبەر",
                 dailyTitle: "🌟 قاوەی تایبەتی ئەمڕۆ (Guest Coffee)",
                 dailyDesc: "قاوەی ئەسیوبی برژاوی تایبەت - بۆ ئەمڕۆ تاقی بکەرەوە!",
-                musicTitle: "مۆسیقای هێمنی قاوەخانە",
                 musicSub: "بۆ ئارامی لە کاتی خواردنەوەی قاوەکەتدا",
                 whatsapp: "💬 چات لە واتسئاپ",
                 map: "📍 نەخشەی ناونیشان",
@@ -607,7 +641,6 @@
                 adminBtn: "🔑 Admin Login",
                 dailyTitle: "🌟 Today's Special Roast (Guest Coffee)",
                 dailyDesc: "Special Ethiopian roasted coffee - try it today!",
-                musicTitle: "Coffee Shop Background Music",
                 musicSub: "Relaxing tunes for your coffee time",
                 whatsapp: "💬 WhatsApp Chat",
                 map: "📍 Location Map",
@@ -624,7 +657,6 @@
                 adminBtn: "🔑 دخول المشرف",
                 dailyTitle: "🌟 قهوة اليوم الخاصة (Guest Coffee)",
                 dailyDesc: "قهوة إثيوبية محمصة خاصة - جربها اليوم!",
-                musicTitle: "موسيقى المقهى الهادئة",
                 musicSub: "ألحان هادئة أثناء احتساء قهوتك",
                 whatsapp: "💬 چات واتساب",
                 map: "📍 خريطة الموقع",
@@ -646,7 +678,6 @@
             document.getElementById('adminBtn').innerText = isAdmin ? (lang === 'en' ? '🔓 Logout Admin' : '🔓 دەربازبوون لە بەشی بەڕێوەبەر') : t.adminBtn;
             document.getElementById('txtDailySpecialTitle').innerText = t.dailyTitle;
             document.getElementById('txtDailySpecialDesc').innerText = t.dailyDesc;
-            document.getElementById('txtMusicTitle').innerText = t.musicTitle;
             document.getElementById('txtMusicSub').innerText = t.musicSub;
             document.getElementById('txtWhatsApp').innerText = t.whatsapp;
             document.getElementById('txtMap').innerText = t.map;
