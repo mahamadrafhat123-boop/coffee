@@ -312,7 +312,15 @@
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         .music-text-title { font-weight: bold; color: #d4a373; font-size: 0.95rem; }
         .music-text-sub { font-size: 0.8rem; color: #b0a69f; }
-        .music-player-box audio { width: 100%; max-width: 250px; height: 40px; outline: none; }
+        
+        /* دڵنیابوونەوە لە دەرکەوتنی دوگمەی Play/Pause و کۆنترۆڵەکان */
+        .music-player-box audio { 
+            width: 100%; 
+            max-width: 280px; 
+            height: 45px; 
+            outline: none; 
+            filter: sepia(20%) saturate(70%) hue-rotate(330deg);
+        }
 
         .map-section { margin-top: 30px; border-radius: 12px; overflow: hidden; border: 1px solid #4a2814; }
         .map-section iframe { width: 100%; height: 250px; border: 0; display: block; }
@@ -451,8 +459,9 @@
                     <div class="music-text-sub" id="txtMusicSub">بۆ ئارامی لە کاتی خواردنەوەی قاوەکەتدا</div>
                 </div>
             </div>
+            <!-- زیادکردنی تایبەتمەندی controls بۆ دەرکەوتنی دوگمەکانی لێدان و راوەستان -->
             <div class="music-player-box" id="audioPlayerContainer">
-                <audio controls loop id="bgAudioPlayer">
+                <audio controls id="bgAudioPlayer">
                     <source src="" type="audio/mp3" id="bgAudioSource">
                     پەڕەی گەڕۆکەکەت پشتگیری ئەم فایلی دەنگییە ناکات.
                 </audio>
@@ -499,7 +508,6 @@
             }
         });
 
-        // بەرزکردنەوەی مۆسیقا بۆ Supabase Storage و پاشەکەوتکردنی لە خشتەی site_settings
         async function uploadMusicToSupabase() {
             const fileInput = document.getElementById('dbMusicFile');
             const titleInput = document.getElementById('dbMusicTitleInput').value || 'مۆسیقای هێمنی قاوەخانە';
@@ -518,7 +526,6 @@
                 return;
             }
 
-            // ١. بارکردنی فایلەکە بۆ بەکێتی audio
             const { data: uploadData, error: uploadError } = await window.supabase.storage
                 .from('audio')
                 .upload(fileName, file);
@@ -528,17 +535,14 @@
                 return;
             }
 
-            // ٢. وەرگرتنی بەستەری گشتی (Public URL) بۆ فایلەکە
             const { data: publicUrlData } = window.supabase.storage
                 .from('audio')
                 .getPublicUrl(fileName);
 
             const musicUrl = publicUrlData.publicUrl;
 
-            // ٣. سڕینەوەی ڕیزەکانی پێشووی خشتەی site_settings (بۆ ئەوەی هەمیشە تەنها یەک مۆسیقای کارا هەبێت)
             await window.supabase.from('site_settings').delete().neq('id', 0);
 
-            // ٤. پاشەکەوتکردنی ناونیشان و بەستەری مۆسیقاکە لە خشتەی site_settings
             const { error: dbError } = await window.supabase
                 .from('site_settings')
                 .insert([{ title: titleInput, music_url: musicUrl }]);
@@ -551,7 +555,6 @@
             }
         }
 
-        // هێنانی مۆسیقا لە داتابەیس و کارپێکردنی لە سایتەکەدا
         async function fetchMusicFromSupabase() {
             if(!window.supabase) return;
             const { data, error } = await window.supabase
