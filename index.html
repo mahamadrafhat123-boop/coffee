@@ -485,6 +485,7 @@
             border: 1px solid #5c3a21;
             padding: 12px 15px;
             border-radius: 10px;
+            position: relative;
         }
         .review-author { font-weight: bold; color: #f5ebe0; font-size: 0.9rem; }
         .review-stars { color: #f39c12; font-size: 0.85rem; margin: 4px 0; }
@@ -723,6 +724,7 @@
     <script>
         const whatsappNumber = "9647517283166";
         let menuItems = [];
+        let reviewsList = [];
         let currentCat = 'هەمووی';
         let isAdmin = false;
         let cart = [];
@@ -794,7 +796,6 @@
             let totalSum = 0;
 
             cart.forEach(i => {
-                // پاککردنەوەی نرخ بۆ تەنها ژمارە ئەگەر دەستکاری کرابێت بۆ حیسابکردن
                 const numericPrice = parseFloat(i.price.replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
@@ -923,7 +924,8 @@
                 return;
             }
 
-            renderReviews(data || []);
+            reviewsList = data || [];
+            renderReviews(reviewsList);
         }
 
         function renderReviews(reviews) {
@@ -940,12 +942,37 @@
                 const card = document.createElement('div');
                 card.className = 'review-card';
                 card.innerHTML = `
-                    <div class="review-author">${r.customer_name}</div>
-                    <div class="review-stars">${stars}</div>
-                    <div class="review-text">${r.comment}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <div class="review-author">${r.customer_name}</div>
+                            <div class="review-stars">${stars}</div>
+                        </div>
+                        <button class="btn-del" style="display: ${isAdmin ? 'block' : 'none'}; width: auto; padding: 3px 8px; font-size: 0.75rem; margin: 0;" onclick="deleteReview('${r.id}')">🗑️</button>
+                    </div>
+                    <div class="review-text" style="margin-top: 8px;">${r.comment}</div>
                 `;
                 grid.appendChild(card);
             });
+        }
+
+        async function deleteReview(id) {
+            if(confirm("دڵنیایت لە سڕینەوەی ئەم کۆمێنتە؟")) {
+                if(!window.supabase) {
+                    alert("پەیوەندی بە داتابەیسەوە نییە!");
+                    return;
+                }
+
+                const { error } = await window.supabase
+                    .from('reviews')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) {
+                    alert('هەڵە لە سڕینەوەی کۆمێنت: ' + error.message);
+                } else {
+                    fetchReviews();
+                }
+            }
         }
 
         async function submitReview(e) {
@@ -1116,6 +1143,7 @@
                     document.getElementById('adminSection').style.display = 'block';
                     document.getElementById('adminBtn').innerText = currentLang === 'en' ? '🔓 Logout Admin' : '🔓 دەربازبوون لە بەشی بەڕێوەبەر';
                     renderMenu();
+                    renderReviews(reviewsList);
                 } else if (pass !== null) {
                     alert("پاسپۆرد هەڵەیە!");
                 }
@@ -1124,6 +1152,7 @@
                 document.getElementById('adminSection').style.display = 'none';
                 document.getElementById('adminBtn').innerText = translations[currentLang].adminBtn;
                 renderMenu();
+                renderReviews(reviewsList);
             }
         }
 
