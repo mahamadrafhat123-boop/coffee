@@ -156,7 +156,6 @@
         .action-btn:active { transform: scale(0.98); }
         .btn-bill { background-color: #e67e22; }
 
-        /* Floating Cart Icon Styles */
         .floating-cart-btn {
             position: fixed;
             bottom: 20px;
@@ -189,7 +188,6 @@
             font-weight: bold;
         }
 
-        /* Cart Modal / Drawer */
         .cart-modal {
             display: none;
             position: fixed;
@@ -515,13 +513,11 @@
         <div class="splash-text">تکایە چاوەڕوان بە...</div>
     </div>
 
-    <!-- Floating Cart Button -->
     <button class="floating-cart-btn" onclick="toggleCartModal()">
         🛒
         <span class="cart-counter" id="cartCounter">0</span>
     </button>
 
-    <!-- Cart Modal Drawer -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <div class="cart-header">
@@ -708,7 +704,7 @@
         </div>
 
         <div class="map-section">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.828064438342!2d45.4367!3d35.5558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMzXCsDMzMjEuMCJOIDQ1wrAyNicxMi4xIkU!5e0!3m2!1sen!2siq!4v1620000000000!5m2!1sen!2siq" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://maps.google.com/maps?q=Sulaymaniyah&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 
@@ -749,7 +745,6 @@
             }
         });
 
-        // Cart Functions
         function toggleCartModal() {
             const modal = document.getElementById('cartModal');
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
@@ -859,7 +854,7 @@
                 return;
             }
 
-            const { data: uploadData, error: uploadError } = await window.supabase.storage
+            const { error: uploadError } = await window.supabase.storage
                 .from('audio')
                 .upload(fileName, file);
 
@@ -955,6 +950,7 @@
             });
         }
 
+        // چارەسەرکردنی کێشەی سڕینەوەی کۆمێنت
         async function deleteReview(id) {
             if(confirm("دڵنیایت لە سڕینەوەی ئەم کۆمێنتە؟")) {
                 if(!window.supabase) {
