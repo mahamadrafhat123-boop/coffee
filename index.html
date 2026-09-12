@@ -50,6 +50,12 @@
         body.light-mode .music-section { background: #e3d5ca; border-color: #d5bdaf; }
         body.light-mode .music-text-title { color: #2c160b; }
         body.light-mode .music-text-sub { color: #5c4033; }
+        body.light-mode .reviews-section { background: #e3d5ca; border-color: #d5bdaf; }
+        body.light-mode .reviews-title { color: #2c160b; }
+        body.light-mode .review-card { background: #faf0e6; border-color: #d5bdaf; }
+        body.light-mode .review-author { color: #2c160b; }
+        body.light-mode .review-text { color: #5c4033; }
+        body.light-mode .review-form-box { background: #faf0e6; border-color: #b0a69f; }
         body.light-mode footer { background: #e3d5ca; border-top: 1px solid #d5bdaf; }
         body.light-mode .social-btn { background: #f5ebe0; color: #2c160b; border-color: #b0a69f; }
 
@@ -310,7 +316,6 @@
         .music-text-title { font-weight: bold; color: #d4a373; font-size: 0.95rem; }
         .music-text-sub { font-size: 0.8rem; color: #b0a69f; }
         
-        /* دڵنیابوونەوە لە دەرکەوتنی تەواوی کۆنترۆڵەکان بە بێ ونبوون */
         .music-player-box {
             display: flex;
             align-items: center;
@@ -324,6 +329,57 @@
             height: 35px; 
             outline: none; 
             filter: sepia(20%) saturate(70%) hue-rotate(330deg);
+        }
+
+        /* بەشی ڕای کڕیاران */
+        .reviews-section {
+            margin-top: 40px;
+            background: #23140a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #4a2814;
+        }
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .reviews-title { color: #d4a373; font-size: 1.1rem; font-weight: bold; }
+        .add-review-btn {
+            background: #d4a373;
+            color: #2c160b;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        .review-card {
+            background: #1a0f0a;
+            border: 1px solid #5c3a21;
+            padding: 12px 15px;
+            border-radius: 10px;
+        }
+        .review-author { font-weight: bold; color: #f5ebe0; font-size: 0.9rem; }
+        .review-stars { color: #f39c12; font-size: 0.85rem; margin: 4px 0; }
+        .review-text { font-size: 0.8rem; color: #b0a69f; }
+
+        .review-form-box {
+            display: none;
+            background: #1a0f0a;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #8c5830;
+            margin-bottom: 20px;
         }
 
         .map-section { margin-top: 30px; border-radius: 12px; overflow: hidden; border: 1px solid #4a2814; }
@@ -463,12 +519,48 @@
                     <div class="music-text-sub" id="txtMusicSub">بۆ ئارامی لە کاتی خواردنەوەی قاوەکەتدا</div>
                 </div>
             </div>
-            <!-- دوگمەکانی کۆنترۆڵ و لێدان بە شێوازێکی زۆر ڕوون -->
             <div class="music-player-box">
                 <audio controls id="bgAudioPlayer">
                     <source src="" type="audio/mp3" id="bgAudioSource">
                     پەڕەی گەڕۆکەکەت پشتگیری ئەم فایلی دەنگییە ناکات.
                 </audio>
+            </div>
+        </div>
+
+        <!-- بەشی ڕای کڕیاران -->
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <div class="reviews-title" id="txtReviewsTitle">💬 ڕای کڕیاران و سەردانکەران</div>
+                <button class="add-review-btn" onclick="toggleReviewForm()" id="txtAddReviewBtn">⭐ ڕای خۆت بنووسە</button>
+            </div>
+
+            <div class="review-form-box" id="reviewFormBox">
+                <h4 style="color: #d4a373; margin-bottom: 10px; font-size: 0.95rem;">بۆچوونی خۆت لەسەر قاوەخانەکەمان بنووسە</h4>
+                <form id="submitReviewForm" onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label>ناوی بەڕێزت:</label>
+                        <input type="text" id="revName" required placeholder="ناوی خۆت...">
+                    </div>
+                    <div class="form-group">
+                        <label>هەڵسەنگاندن (ئەستێرە):</label>
+                        <select id="revRating">
+                            <option value="5">⭐⭐⭐⭐⭐ (ناوازەیە)</option>
+                            <option value="4">⭐⭐⭐⭐ (باشە)</option>
+                            <option value="3">⭐⭐⭐ (تێکڕایی)</option>
+                            <option value="2">⭐⭐ (خراپ نییە)</option>
+                            <option value="1">⭐ (پێویستی بە چاکسازییە)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>تێبینی یان بۆچوونت:</label>
+                        <input type="text" id="revComment" required placeholder="خزمەتگوزاری و قاوەکە چۆن بوو؟">
+                    </div>
+                    <button type="submit" class="btn-add">ناردنی ڕای خۆم</button>
+                </form>
+            </div>
+
+            <div class="reviews-grid" id="reviewsGrid">
+                <p style="color: #b0a69f; text-align: center; grid-column: 1/-1;">سەرقاڵی هێنانی ڕای کڕیاران...</p>
             </div>
         </div>
 
@@ -578,6 +670,74 @@
             }
         }
 
+        // بەشی ڕای کڕیاران (JavaScript Functions)
+        function toggleReviewForm() {
+            const box = document.getElementById('reviewFormBox');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function fetchReviews() {
+            if(!window.supabase) return;
+            const { data, error } = await window.supabase
+                .from('reviews')
+                .select('*')
+                .order('id', { ascending: false });
+
+            if(error) {
+                console.error('هەڵە لە هێنانی ڕای کڕیاران:', error);
+                return;
+            }
+
+            renderReviews(data || []);
+        }
+
+        function renderReviews(reviews) {
+            const grid = document.getElementById('reviewsGrid');
+            grid.innerHTML = '';
+
+            if(reviews.length === 0) {
+                grid.innerHTML = '<p style="color: #b0a69f; text-align: center; grid-column: 1/-1;">تا ئێستا هیچ ڕایەک نەنوسراوە. یەکەم کەس بە بۆچوونی خۆت بنووسە!</p>';
+                return;
+            }
+
+            reviews.forEach(r => {
+                const stars = '⭐'.repeat(r.rating);
+                const card = document.createElement('div');
+                card.className = 'review-card';
+                card.innerHTML = `
+                    <div class="review-author">${r.customer_name}</div>
+                    <div class="review-stars">${stars}</div>
+                    <div class="review-text">${r.comment}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function submitReview(e) {
+            e.preventDefault();
+            const customer_name = document.getElementById('revName').value;
+            const rating = parseInt(document.getElementById('revRating').value);
+            const comment = document.getElementById('revComment').value;
+
+            if(!window.supabase) {
+                alert("پەیوەندی بە داتابەیسەوە نییە!");
+                return;
+            }
+
+            const { error } = await window.supabase
+                .from('reviews')
+                .insert([{ customer_name, rating, comment }]);
+
+            if(error) {
+                alert('هەڵە لە ناردنی ڕای کڕیار: ' + error.message);
+            } else {
+                alert('سوپاس بۆ بۆچوونەکەت! ڕایت بە سەرکەوتوویی بڵاوکرایەوە ✨');
+                document.getElementById('submitReviewForm').reset();
+                document.getElementById('reviewFormBox').style.display = 'none';
+                fetchReviews();
+            }
+        }
+
         function changeTableNumber() {
             const num = prompt("ژمارەی مێزەکەت بنووسە (نموونە: 4):");
             if(num) {
@@ -601,6 +761,7 @@
         async function initApp() {
             await fetchMenuFromSupabase();
             await fetchMusicFromSupabase();
+            await fetchReviews();
             
             if(window.supabase) {
                 window.supabase
@@ -614,6 +775,13 @@
                     .channel('public:site_settings')
                     .on('postgres_changes', { event: '*', schema: 'public', table: 'site_settings' }, () => {
                         fetchMusicFromSupabase();
+                    })
+                    .subscribe();
+
+                window.supabase
+                    .channel('public:reviews')
+                    .on('postgres_changes', { event: '*', schema: 'public', table: 'reviews' }, () => {
+                        fetchReviews();
                     })
                     .subscribe();
             }
@@ -633,6 +801,8 @@
                 dailyTitle: "🌟 قاوەی تایبەتی ئەمڕۆ (Guest Coffee)",
                 dailyDesc: "قاوەی ئەسیوبی برژاوی تایبەت - بۆ ئەمڕۆ تاقی بکەرەوە!",
                 musicSub: "بۆ ئارامی لە کاتی خواردنەوەی قاوەکەتدا",
+                reviewsTitle: "💬 ڕای کڕیاران و سەردانکەران",
+                addReviewBtn: "⭐ ڕای خۆت بنووسە",
                 whatsapp: "💬 چات لە واتسئاپ",
                 map: "📍 نەخشەی ناونیشان",
                 footer: "مێنیووی دیجیتاڵی قاوەخانە - هەموو مافێک پارێزراوە"
@@ -649,6 +819,8 @@
                 dailyTitle: "🌟 Today's Special Roast (Guest Coffee)",
                 dailyDesc: "Special Ethiopian roasted coffee - try it today!",
                 musicSub: "Relaxing tunes for your coffee time",
+                reviewsTitle: "💬 Customer Reviews & Feedback",
+                addReviewBtn: "⭐ Write a Review",
                 whatsapp: "💬 WhatsApp Chat",
                 map: "📍 Location Map",
                 footer: "Coffee House Digital Menu - All Rights Reserved"
@@ -665,6 +837,8 @@
                 dailyTitle: "🌟 قهوة اليوم الخاصة (Guest Coffee)",
                 dailyDesc: "قهوة إثيوبية محمصة خاصة - جربها اليوم!",
                 musicSub: "ألحان هادئة أثناء احتساء قهوتك",
+                reviewsTitle: "💬 آراء الزبائن والزوار",
+                addReviewBtn: "⭐ أضف رأيك",
                 whatsapp: "💬 چات واتساب",
                 map: "📍 خريطة الموقع",
                 footer: "القائمة الرقمية للمقهى - جميع الحقوق محفوظة"
@@ -686,6 +860,8 @@
             document.getElementById('txtDailySpecialTitle').innerText = t.dailyTitle;
             document.getElementById('txtDailySpecialDesc').innerText = t.dailyDesc;
             document.getElementById('txtMusicSub').innerText = t.musicSub;
+            document.getElementById('txtReviewsTitle').innerText = t.reviewsTitle;
+            document.getElementById('txtAddReviewBtn').innerText = t.addReviewBtn;
             document.getElementById('txtWhatsApp').innerText = t.whatsapp;
             document.getElementById('txtMap').innerText = t.map;
             document.getElementById('txtFooter').innerText = t.footer;
