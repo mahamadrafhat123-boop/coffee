@@ -156,6 +156,111 @@
         .action-btn:active { transform: scale(0.98); }
         .btn-bill { background-color: #e67e22; }
 
+        /* Floating Cart Icon Styles */
+        .floating-cart-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #d4a373;
+            color: #2c160b;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        .floating-cart-btn:hover { transform: scale(1.1); }
+        .cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #a43030;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* Cart Modal / Drawer */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .cart-content {
+            background: #23140a;
+            border: 1px solid #d4a373;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+        }
+        body.light-mode .cart-content { background: #faf0e6; border-color: #8c5830; }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #4a2814;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #d4a373;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .close-cart { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+        body.light-mode .close-cart { color: #2c160b; }
+        .cart-items-list {
+            overflow-y: auto;
+            flex: 1;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a0f0a;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #422414;
+            font-size: 0.85rem;
+        }
+        body.light-mode .cart-item-row { background: #fff; border-color: #d5bdaf; color: #2c160b; }
+        .cart-item-controls { display: flex; align-items: center; gap: 8px; }
+        .qty-btn { background: #3d2314; color: #d4a373; border: none; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .cart-footer { border-top: 1px solid #4a2814; padding-top: 12px; }
+        .cart-total { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 12px; color: #d4a373; font-size: 1rem; }
+        .btn-send-whatsapp {
+            width: 100%;
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
         header { 
             position: relative;
             text-align: center; 
@@ -295,7 +400,20 @@
         .item-desc { font-size: 0.8rem; color: #b0a69f; margin: 5px 0 10px; }
         .item-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .item-price { color: #d4a373; font-weight: bold; font-size: 1rem; }
-        .item-badge-inhouse { background: #3d2314; color: #d4a373; padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; border: 1px solid #704224; }
+        
+        .btn-add-cart {
+            background: #d4a373;
+            color: #2c160b;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .btn-add-cart:hover { background: #b08958; }
+
         .btn-del { display: none; background: #a43030; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; width: 100%; }
 
         .music-section {
@@ -394,6 +512,32 @@
     <div id="splashScreen">
         <div class="splash-logo">Coffee House</div>
         <div class="splash-text">تکایە چاوەڕوان بە...</div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" onclick="toggleCartModal()">
+        🛒
+        <span class="cart-counter" id="cartCounter">0</span>
+    </button>
+
+    <!-- Cart Modal Drawer -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <span>🛒 سەبەتەی داواکارییەکان</span>
+                <button class="close-cart" onclick="toggleCartModal()">✕</button>
+            </div>
+            <div class="cart-items-list" id="cartItemsList">
+                <p style="color:#b0a69f; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>کۆی گشتی:</span>
+                    <span id="cartTotalPrice">0 دینار</span>
+                </div>
+                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ واتسئاپ</button>
+            </div>
+        </div>
     </div>
 
     <div class="top-bar">
@@ -581,6 +725,7 @@
         let menuItems = [];
         let currentCat = 'هەمووی';
         let isAdmin = false;
+        let cart = [];
 
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -601,6 +746,99 @@
                 }
             }
         });
+
+        // Cart Functions
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function addToCart(id) {
+            const item = menuItems.find(i => i.id == id);
+            if(!item) return;
+
+            const existing = cart.find(i => i.id == id);
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function updateCartQty(id, change) {
+            const item = cart.find(i => i.id == id);
+            if(!item) return;
+            item.qty += change;
+            if(item.qty <= 0) {
+                cart = cart.filter(i => i.id != id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const counter = document.getElementById('cartCounter');
+            const list = document.getElementById('cartItemsList');
+            const totalPriceEl = document.getElementById('cartTotalPrice');
+
+            const totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
+            counter.innerText = totalCount;
+
+            if(cart.length === 0) {
+                list.innerHTML = '<p style="color:#b0a69f; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>';
+                totalPriceEl.innerText = '0 دینار';
+                return;
+            }
+
+            list.innerHTML = '';
+            let totalSum = 0;
+
+            cart.forEach(i => {
+                // پاککردنەوەی نرخ بۆ تەنها ژمارە ئەگەر دەستکاری کرابێت بۆ حیسابکردن
+                const numericPrice = parseFloat(i.price.replace(/[^\d.]/g, '')) || 0;
+                const itemTotal = numericPrice * i.qty;
+                totalSum += itemTotal;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item-row';
+                row.innerHTML = `
+                    <div>
+                        <div style="font-weight:bold;">${i.name}</div>
+                        <div style="color:#d4a373; font-size:0.75rem;">${i.price}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="updateCartQty('${i.id}', -1)">-</button>
+                        <span>${i.qty}</span>
+                        <button class="qty-btn" onclick="updateCartQty('${i.id}', 1)">+</button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+
+            totalPriceEl.innerText = totalSum.toLocaleString() + ' دینار';
+        }
+
+        function sendCartToWhatsApp() {
+            if(cart.length === 0) {
+                alert("سەبەتەکەت خاڵییە!");
+                return;
+            }
+
+            const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
+            let message = `🛒 *داواکاری نوێ لە مێز ژمارە (${currentTable})*%0A%0A`;
+            
+            let totalSum = 0;
+            cart.forEach((i, index) => {
+                const numericPrice = parseFloat(i.price.replace(/[^\d.]/g, '')) || 0;
+                const itemTotal = numericPrice * i.qty;
+                totalSum += itemTotal;
+                message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}%0A`;
+            });
+
+            message += `%0A💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
 
         async function uploadMusicToSupabase() {
             const fileInput = document.getElementById('dbMusicFile');
@@ -996,7 +1234,7 @@
                         </div>
                         <div class="item-bottom">
                             <span class="item-price">${i.price}</span>
-                            <span class="item-badge-inhouse">☕ تەنها لە قاوەخانە</span>
+                            <button class="btn-add-cart" onclick="addToCart('${i.id}')">➕ زیادکردن</button>
                         </div>
                         <button class="btn-del" style="display: ${isAdmin ? 'block' : 'none'}" onclick="deleteItem('${i.id}')">🗑️ سڕینەوە</button>
                     </div>
