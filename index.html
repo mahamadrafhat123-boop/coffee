@@ -556,7 +556,7 @@
 </head>
 <body>
 
-    <div id="successBanner">🚀 داواکارییەکەتان بە سەرکەوتوویی نێردرا بۆ واتسئاپ!</div>
+    <div id="successBanner">🚀 داواکارییەکەتان بە سەرکەوتوویی تۆمارکرا و نێردرا بۆ سیستەمی چێشتخانە!</div>
 
     <div id="splashScreen">
         <div class="splash-logo">Coffee House</div>
@@ -582,7 +582,7 @@
                     <span>کۆی گشتی:</span>
                     <span id="cartTotalPrice">0 دینار</span>
                 </div>
-                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ واتسئاپ</button>
+                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ قاوەخانە</button>
             </div>
         </div>
     </div>
@@ -889,30 +889,22 @@
             }
 
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
-            let message = `🛒 *داواکاری نوێ لە مێز ژمارە (${currentTable})*\n\n`;
-            
             let totalSum = 0;
-            cart.forEach((i, index) => {
+            
+            cart.forEach(i => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
-                message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}\n`;
             });
 
-            message += `\n💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
-
+            // تۆمارکردنی داهات لە داتای ناوخۆیی و ڕاپۆرتی فرۆش
             addDailyRevenue(totalSum, cart);
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
+            // خاوێنکردنەوەی سەبەتە و داخستنی پەنجەرە و پیشاندانی پەیامی سەرکەوتن
             cart = [];
             updateCartUI();
             toggleCartModal();
             showSuccessBanner();
-
-            // کردنەوەی واتسئاپ بۆ ناردنی نامەکە
-            window.open(whatsappURL, '_blank');
         }
 
         function addDailyRevenue(amount, soldItems) {
