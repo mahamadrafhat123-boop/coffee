@@ -79,7 +79,6 @@
         .splash-text { color: #e3d5ca; margin-top: 10px; font-size: 1.1rem; letter-spacing: 1px; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
 
-        /* پەیامی سەرکەوتنی سەرووی مینیوو */
         #successBanner {
             display: none;
             position: fixed;
@@ -890,26 +889,30 @@
             }
 
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
-            let message = `🛒 *داواکاری نوێ لە مێز ژمارە (${currentTable})*%0A%0A`;
+            let message = `🛒 *داواکاری نوێ لە مێز ژمارە (${currentTable})*\n\n`;
             
             let totalSum = 0;
             cart.forEach((i, index) => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
-                message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}%0A`;
+                message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}\n`;
             });
 
-            message += `%0A💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
+            message += `\n💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
 
             addDailyRevenue(totalSum, cart);
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
             cart = [];
             updateCartUI();
             toggleCartModal();
-
-            // پیشاندانی پەیامی سەرکەوتنی سەرووی سایتەکە (بێ کردنەوەی واتسئاپ)
             showSuccessBanner();
+
+            // کردنەوەی واتسئاپ بۆ ناردنی نامەکە
+            window.open(whatsappURL, '_blank');
         }
 
         function addDailyRevenue(amount, soldItems) {
