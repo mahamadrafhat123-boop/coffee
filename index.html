@@ -890,12 +890,24 @@
 
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             let totalSum = 0;
+            let itemsSummary = [];
             
             cart.forEach(i => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
+                itemsSummary.push(`${i.qty} دەنکە ${i.name} (${itemTotal.toLocaleString()} دینار)`);
             });
+
+            // دروستکردنی دەقی واتسئاپ بە شێوازێکی زۆر ڕوون و خاوێن
+            let whatsappMessage = `🚨 داواکاری نوێ لە مێز: (${currentTable})\n\n`;
+            whatsappMessage += `📋 لیست:\n` + itemsSummary.join('\n') + `\n\n`;
+            whatsappMessage += `💰 کۆی گشتی: ${totalSum.toLocaleString()} دینار`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // کردنەوەی ڕاستەوخۆی واتسئاپ بۆ ناردنی داواکارییەکە
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
 
             // تۆمارکردنی داهات لە داتای ناوخۆیی و ڕاپۆرتی فرۆش
             addDailyRevenue(totalSum, cart);
