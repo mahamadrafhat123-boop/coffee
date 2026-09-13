@@ -880,7 +880,7 @@
             banner.style.display = 'block';
             setTimeout(() => {
                 banner.style.display = 'none';
-            }, 4000); // پەیامەکە دوای 4 چرکە خۆکارانە دەمڕێتەوە
+            }, 4000); 
         }
 
         function sendCartToWhatsApp() {
@@ -908,11 +908,8 @@
             updateCartUI();
             toggleCartModal();
 
-            // پیشانپدانی پەیامی سەرکەوتن لە سەرووی سایتەکەدا بێ ئەوەی سایتەکە بڕوات
+            // پیشاندانی پەیامی سەرکەوتنی سەرووی سایتەکە (بێ کردنەوەی واتسئاپ)
             showSuccessBanner();
-
-            // کردنەوەی واتسئاپ لە تابی نوێدا
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         }
 
         function addDailyRevenue(amount, soldItems) {
