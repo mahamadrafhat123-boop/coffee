@@ -79,6 +79,7 @@
         .splash-text { color: #e3d5ca; margin-top: 10px; font-size: 1.1rem; letter-spacing: 1px; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
 
+        /* پەیامی سەرکەوتنی سەرووی مینیوو */
         #successBanner {
             display: none;
             position: fixed;
@@ -556,7 +557,7 @@
 </head>
 <body>
 
-    <div id="successBanner">🚀 داواکارییەکەتان بە سەرکەوتوویی تۆمارکرا و نێردرا بۆ سیستەمی چێشتخانە!</div>
+    <div id="successBanner">🚀 داواکارییەکەتان بە سەرکەوتوویی نێردرا بۆ واتسئاپ!</div>
 
     <div id="splashScreen">
         <div class="splash-logo">Coffee House</div>
@@ -582,7 +583,7 @@
                     <span>کۆی گشتی:</span>
                     <span id="cartTotalPrice">0 دینار</span>
                 </div>
-                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ قاوەخانە</button>
+                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ واتسئاپ</button>
             </div>
         </div>
     </div>
@@ -879,7 +880,7 @@
             banner.style.display = 'block';
             setTimeout(() => {
                 banner.style.display = 'none';
-            }, 4000); 
+            }, 4000); // پەیامەکە دوای 4 چرکە خۆکارانە دەمڕێتەوە
         }
 
         function sendCartToWhatsApp() {
@@ -889,34 +890,29 @@
             }
 
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
-            let totalSum = 0;
-            let itemsSummary = [];
+            let message = `🛒 *داواکاری نوێ لە مێز ژمارە (${currentTable})*%0A%0A`;
             
-            cart.forEach(i => {
+            let totalSum = 0;
+            cart.forEach((i, index) => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
-                itemsSummary.push(`${i.qty} دەنکە ${i.name} (${itemTotal.toLocaleString()} دینار)`);
+                message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}%0A`;
             });
 
-            // دروستکردنی دەقی واتسئاپ بە شێوازێکی زۆر ڕوون و خاوێن
-            let whatsappMessage = `🚨 داواکاری نوێ لە مێز: (${currentTable})\n\n`;
-            whatsappMessage += `📋 لیست:\n` + itemsSummary.join('\n') + `\n\n`;
-            whatsappMessage += `💰 کۆی گشتی: ${totalSum.toLocaleString()} دینار`;
+            message += `%0A💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
 
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            
-            // کردنەوەی ڕاستەوخۆی واتسئاپ بۆ ناردنی داواکارییەکە
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-
-            // تۆمارکردنی داهات لە داتای ناوخۆیی و ڕاپۆرتی فرۆش
             addDailyRevenue(totalSum, cart);
 
-            // خاوێنکردنەوەی سەبەتە و داخستنی پەنجەرە و پیشاندانی پەیامی سەرکەوتن
             cart = [];
             updateCartUI();
             toggleCartModal();
+
+            // پیشانپدانی پەیامی سەرکەوتن لە سەرووی سایتەکەدا بێ ئەوەی سایتەکە بڕوات
             showSuccessBanner();
+
+            // کردنەوەی واتسئاپ لە تابی نوێدا
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         }
 
         function addDailyRevenue(amount, soldItems) {
