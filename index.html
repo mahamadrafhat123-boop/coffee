@@ -370,6 +370,34 @@
 
         .admin-section { display: none; background: #2c160b; padding: 20px; border-radius: 12px; border: 1px solid #5c3a21; margin-bottom: 30px; }
         .admin-section h3 { color: #d4a373; margin-bottom: 15px; }
+        
+        /* Daily Revenue Box Style */
+        .daily-revenue-box {
+            background: linear-gradient(135deg, #1f3a29, #112217);
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .daily-revenue-title {
+            color: #2ecc71;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .daily-revenue-amount {
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        .daily-revenue-desc {
+            color: #a3e4d7;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; margin-bottom: 4px; font-size: 0.9rem; color: #d5bdaf; }
         .form-group input, .form-group select { width: 100%; padding: 8px 12px; background: #1a0f0a; border: 1px solid #5c3a21; color: #fff; border-radius: 6px; }
@@ -513,11 +541,13 @@
         <div class="splash-text">تکایە چاوەڕوان بە...</div>
     </div>
 
+    <!-- Floating Cart Button -->
     <button class="floating-cart-btn" onclick="toggleCartModal()">
         🛒
         <span class="cart-counter" id="cartCounter">0</span>
     </button>
 
+    <!-- Cart Modal Drawer -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <div class="cart-header">
@@ -602,6 +632,13 @@
         <button class="admin-toggle-btn" id="adminBtn" onclick="toggleAdmin()">🔑 چوونه‌ژووره‌وه‌ی بەڕێوەبەر</button>
 
         <div class="admin-section" id="adminSection">
+            <!-- Daily Revenue Display Box -->
+            <div class="daily-revenue-box">
+                <div class="daily-revenue-title">📊 کۆی داهاتی فرۆشی ئەمڕۆ</div>
+                <div class="daily-revenue-amount" id="dailyRevenueAmount">0 دینار</div>
+                <div class="daily-revenue-desc" id="dailyRevenueDesc">ئەمڕۆ هێشتا هیچ فرۆشتنێک تۆمار نەکراوە</div>
+            </div>
+
             <h3>⚙️ بەشی بەڕێوەبەر - زیادکردنی بەرهەم یان ئۆفەر</h3>
             <form id="itemForm">
                 <div class="form-group">
@@ -743,6 +780,8 @@
                     document.getElementById('tableIndicator').innerText = `🪑 مێز: ${savedTable}`;
                 }
             }
+
+            updateDailyRevenueUI();
         });
 
         function toggleCartModal() {
@@ -833,7 +872,62 @@
 
             message += `%0A💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
 
+            // زیادکردنی نرخەکە بۆ داهاتی ئەمڕۆ کاتێک داواکاری دەچێتە واتسئاپ
+            addDailyRevenue(totalSum, cart);
+
+            // خاوێنکردنەوەی سەبەتە دوای ناردن
+            cart = [];
+            updateCartUI();
+            toggleCartModal();
+
             window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
+
+        // سیستمی پاشەکەوت و بەڕێوەبردنی داهاتی ڕۆژانە
+        function addDailyRevenue(amount, soldItems) {
+            const todayKey = 'coffee_revenue_' + new Date().toISOString().slice(0, 10);
+            const itemsKey = 'coffee_sold_items_' + new Date().toISOString().slice(0, 10);
+            
+            let currentRev = parseFloat(localStorage.getItem(todayKey)) || 0;
+            currentRev += amount;
+            localStorage.setItem(todayKey, currentRev);
+
+            let storedSoldItems = JSON.parse(localStorage.getItem(itemsKey)) || [];
+            soldItems.forEach(si => {
+                const found = storedSoldItems.find(x => x.name === si.name);
+                if(found) {
+                    found.qty += si.qty;
+                } else {
+                    storedSoldItems.push({ name: si.name, qty: si.qty });
+                }
+            });
+            localStorage.setItem(itemsKey, JSON.stringify(storedSoldItems));
+
+            updateDailyRevenueUI();
+        }
+
+        function updateDailyRevenueUI() {
+            const todayKey = 'coffee_revenue_' + new Date().toISOString().slice(0, 10);
+            const itemsKey = 'coffee_sold_items_' + new Date().toISOString().slice(0, 10);
+            
+            const currentRev = parseFloat(localStorage.getItem(todayKey)) || 0;
+            const storedSoldItems = JSON.parse(localStorage.getItem(itemsKey)) || [];
+
+            const amountEl = document.getElementById('dailyRevenueAmount');
+            const descEl = document.getElementById('dailyRevenueDesc');
+
+            if(amountEl) {
+                amountEl.innerText = currentRev.toLocaleString() + ' دینار';
+            }
+
+            if(descEl) {
+                if(storedSoldItems.length === 0) {
+                    descEl.innerText = "ئەمڕۆ هێشتا هیچ فرۆشتنێک تۆمار نەکراوە";
+                } else {
+                    let textList = storedSoldItems.map(i => `${i.qty} دەنکە ${i.name}`).join('، ');
+                    descEl.innerText = `ئەمڕۆ فرۆشراوە: ${textList}`;
+                }
+            }
         }
 
         async function uploadMusicToSupabase() {
@@ -950,7 +1044,6 @@
             });
         }
 
-        // چارەسەرکردنی کێشەی سڕینەوەی کۆمێنت
         async function deleteReview(id) {
             if(confirm("دڵنیایت لە سڕینەوەی ئەم کۆمێنتە؟")) {
                 if(!window.supabase) {
@@ -1138,6 +1231,7 @@
                     isAdmin = true;
                     document.getElementById('adminSection').style.display = 'block';
                     document.getElementById('adminBtn').innerText = currentLang === 'en' ? '🔓 Logout Admin' : '🔓 دەربازبوون لە بەشی بەڕێوەبەر';
+                    updateDailyRevenueUI();
                     renderMenu();
                     renderReviews(reviewsList);
                 } else if (pass !== null) {
