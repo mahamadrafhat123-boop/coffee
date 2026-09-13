@@ -371,7 +371,6 @@
         .admin-section { display: none; background: #2c160b; padding: 20px; border-radius: 12px; border: 1px solid #5c3a21; margin-bottom: 30px; }
         .admin-section h3 { color: #d4a373; margin-bottom: 15px; }
         
-        /* Daily Revenue Box Style */
         .daily-revenue-box {
             background: linear-gradient(135deg, #1f3a29, #112217);
             border: 2px solid #27ae60;
@@ -632,7 +631,6 @@
         <button class="admin-toggle-btn" id="adminBtn" onclick="toggleAdmin()">🔑 چوونه‌ژووره‌وه‌ی بەڕێوەبەر</button>
 
         <div class="admin-section" id="adminSection">
-            <!-- Daily Revenue Display Box -->
             <div class="daily-revenue-box">
                 <div class="daily-revenue-title">📊 کۆی داهاتی فرۆشی ئەمڕۆ</div>
                 <div class="daily-revenue-amount" id="dailyRevenueAmount">0 دینار</div>
@@ -765,8 +763,10 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splashScreen');
-                splash.style.opacity = '0';
-                setTimeout(() => splash.style.display = 'none', 500);
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.style.display = 'none', 500);
+                }
             }, 800);
             
             const urlParams = new URLSearchParams(window.location.search);
@@ -830,7 +830,7 @@
             let totalSum = 0;
 
             cart.forEach(i => {
-                const numericPrice = parseFloat(i.price.replace(/[^\d.]/g, '')) || 0;
+                const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
 
@@ -864,7 +864,7 @@
             
             let totalSum = 0;
             cart.forEach((i, index) => {
-                const numericPrice = parseFloat(i.price.replace(/[^\d.]/g, '')) || 0;
+                const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
                 message += `${index + 1}. *${i.name}* - بڕ: ${i.qty} - نرخ: ${i.price}%0A`;
@@ -872,10 +872,9 @@
 
             message += `%0A💰 *کۆی گشتی نرخ:* ${totalSum.toLocaleString()} دینار`;
 
-            // زیادکردنی نرخەکە بۆ داهاتی ئەمڕۆ کاتێک داواکاری دەچێتە واتسئاپ
+            // تۆمارکردنی داهاتی ئەمڕۆ لێرەدا دەکرێت بە شێوازێکی زۆر دروست
             addDailyRevenue(totalSum, cart);
 
-            // خاوێنکردنەوەی سەبەتە دوای ناردن
             cart = [];
             updateCartUI();
             toggleCartModal();
@@ -883,22 +882,21 @@
             window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         }
 
-        // سیستمی پاشەکەوت و بەڕێوەبردنی داهاتی ڕۆژانە
         function addDailyRevenue(amount, soldItems) {
             const todayKey = 'coffee_revenue_' + new Date().toISOString().slice(0, 10);
             const itemsKey = 'coffee_sold_items_' + new Date().toISOString().slice(0, 10);
             
             let currentRev = parseFloat(localStorage.getItem(todayKey)) || 0;
-            currentRev += amount;
+            currentRev += Number(amount);
             localStorage.setItem(todayKey, currentRev);
 
             let storedSoldItems = JSON.parse(localStorage.getItem(itemsKey)) || [];
             soldItems.forEach(si => {
                 const found = storedSoldItems.find(x => x.name === si.name);
                 if(found) {
-                    found.qty += si.qty;
+                    found.qty += Number(si.qty);
                 } else {
-                    storedSoldItems.push({ name: si.name, qty: si.qty });
+                    storedSoldItems.push({ name: si.name, qty: Number(si.qty) });
                 }
             });
             localStorage.setItem(itemsKey, JSON.stringify(storedSoldItems));
@@ -910,7 +908,7 @@
             const todayKey = 'coffee_revenue_' + new Date().toISOString().slice(0, 10);
             const itemsKey = 'coffee_sold_items_' + new Date().toISOString().slice(0, 10);
             
-            const currentRev = parseFloat(localStorage.getItem(todayKey)) || 0;
+            let currentRev = parseFloat(localStorage.getItem(todayKey)) || 0;
             const storedSoldItems = JSON.parse(localStorage.getItem(itemsKey)) || [];
 
             const amountEl = document.getElementById('dailyRevenueAmount');
@@ -1027,7 +1025,7 @@
             }
 
             reviews.forEach(r => {
-                const stars = '⭐'.repeat(r.rating);
+                const stars = '⭐'.repeat(r.rating || 5);
                 const card = document.createElement('div');
                 card.className = 'review-card';
                 card.innerHTML = `
