@@ -279,6 +279,9 @@
             font-size: 1rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             letter-spacing: 0.5px;
+            text-align: center;
+            display: block;
+            text-decoration: none;
         }
 
         header { 
@@ -531,7 +534,7 @@
 </head>
 <body>
 
-    <div id="successBanner">🚀 داواکارییەکەت بە سەرکەوتوویی ناردرا بۆ قاوەخانە!</div>
+    <div id="successBanner">🚀 داواکارییەکەت ئامادەیە، تکایە دوگمەی Send دابگرە لە پەنجەرەی واتسئاپدا!</div>
 
     <div id="splashScreen">
         <div class="splash-logo">Coffee House</div>
@@ -557,8 +560,7 @@
                     <span>کۆی گشتی:</span>
                     <span id="cartTotalPrice">0 دینار</span>
                 </div>
-                <!-- لێرەدا دوگمەکە کرا بە Send و بە شێوازێک ڕێکخراوە کە لە وێبسایت دەرنەچێت -->
-                <button class="btn-send-whatsapp" onclick="sendCartViaSendButton()">📤 Send / ناردنی داواکاری</button>
+                <a href="#" id="whatsappSendLink" class="btn-send-whatsapp" onclick="triggerSendWhatsApp(event)">📤 Send (ناردن بۆ واتسئاپ)</a>
             </div>
         </div>
     </div>
@@ -743,9 +745,6 @@
         <p style="color: #8c7a6b; font-size: 0.8rem;" id="txtFooter">مێنیووی دیجیتاڵی قاوەخانە - هەموو مافێک پارێزراوە</p>
     </footer>
 
-    <!-- <iframe> شاراوە بۆ ناردنی نامە بۆ واتسئاپ بە بێ دەرچوون لە وێبسایت -->
-    <iframe name="hidden_whatsapp_frame" id="hiddenWhatsappFrame" style="display:none;"></iframe>
-
     <script>
         const whatsappNumber = "9647517283166";
         let menuItems = [];
@@ -843,31 +842,13 @@
             });
 
             totalPriceEl.innerText = totalSum.toLocaleString() + ' دینار';
-        }
 
-        function showSuccessBanner() {
-            const banner = document.getElementById('successBanner');
-            banner.style.display = 'block';
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, 4000); 
-        }
-
-        // ئەم فەنکشنە دوگمەی Send پێکدەهێنێت بە بێ ئەوەی کڕیار لە وێبسایتەکە دەرچێت
-        function sendCartViaSendButton() {
-            if(cart.length === 0) {
-                alert("سەبەتەکەت خاڵییە!");
-                return;
-            }
-
+            // دروستکردنی لینکی ڕاستەوخۆی واتسئاپ لەگەڵ داواکارییەکە
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
-            let totalSum = 0;
             let itemsSummary = [];
-            
             cart.forEach(i => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
-                totalSum += itemTotal;
                 itemsSummary.push(`${i.qty} دەنکە ${i.name} (${itemTotal.toLocaleString()} دینار)`);
             });
 
@@ -876,22 +857,31 @@
             whatsappMessage += `💰 کۆی گشتی: ${totalSum.toLocaleString()} دینار`;
 
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            document.getElementById('whatsappSendLink').href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        }
 
-            // دروستکردنی فۆرمێکی کاتی و ناردنی بۆ iframe شاراوە بۆ ئەوەی ناچار نەبێت پەنجەرەی سەرەکی بگۆڕێت
-            const form = document.createElement('form');
-            form.action = waUrl;
-            form.method = 'GET';
-            form.target = 'hidden_whatsapp_frame';
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
+        function showSuccessBanner() {
+            const banner = document.getElementById('successBanner');
+            banner.style.display = 'block';
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 5000); 
+        }
 
-            // خاوێنکردنەوەی سەبەتە، داخستنی مۆداڵ و نیشاندانی پەیامی سەرکەوتوویی
-            cart = [];
-            updateCartUI();
-            toggleCartModal();
-            showSuccessBanner();
+        function triggerSendWhatsApp(e) {
+            if(cart.length === 0) {
+                e.preventDefault();
+                alert("سەبەتەکەت خاڵییە!");
+                return;
+            }
+
+            // پاککردنەوەی سەبەتە و داخستنی مۆداڵ پاش کرتە کردن لەسەر ناردن
+            setTimeout(() => {
+                cart = [];
+                updateCartUI();
+                toggleCartModal();
+                showSuccessBanner();
+            }, 300);
         }
 
         async function uploadMusicToSupabase() {
@@ -1064,27 +1054,13 @@
         function callWaiter() {
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             const message = encodeURIComponent(`سڵاو، تکایە گارسۆن بنێرن بۆ مێز ژمارە (${currentTable}).`);
-            const form = document.createElement('form');
-            form.action = `https://wa.me/${whatsappNumber}?text=${message}`;
-            form.method = 'GET';
-            form.target = 'hidden_whatsapp_frame';
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-            alert("🔔 بانگکردنی گارسۆن بە سەرکەوتوویی ناردرا!");
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         }
 
         function requestBill() {
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             const message = encodeURIComponent(`سڵاو، تکایە حیسابەکەمان بۆ بنێرن بۆ مێز ژمارە (${currentTable}).`);
-            const form = document.createElement('form');
-            form.action = `https://wa.me/${whatsappNumber}?text=${message}`;
-            form.method = 'GET';
-            form.target = 'hidden_whatsapp_frame';
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-            alert("🧾 داوای حیساب بە سەرکەوتوویی ناردرا!");
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         }
 
         async function initApp() {
