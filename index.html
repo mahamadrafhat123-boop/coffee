@@ -272,12 +272,13 @@
             background: #27ae60;
             color: #fff;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 1rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
         }
 
         header { 
@@ -530,7 +531,7 @@
 </head>
 <body>
 
-    <div id="successBanner">🚀 نامەکان بە سەرکەوتوویی ناردرا!</div>
+    <div id="successBanner">🚀 داواکارییەکەت بە سەرکەوتوویی ناردرا بۆ قاوەخانە!</div>
 
     <div id="splashScreen">
         <div class="splash-logo">Coffee House</div>
@@ -556,7 +557,8 @@
                     <span>کۆی گشتی:</span>
                     <span id="cartTotalPrice">0 دینار</span>
                 </div>
-                <button class="btn-send-whatsapp" onclick="sendCartToWhatsApp()">📤 ناردنی داواکاری بۆ واتسئاپ</button>
+                <!-- لێرەدا دوگمەکە کرا بە Send و بە شێوازێک ڕێکخراوە کە لە وێبسایت دەرنەچێت -->
+                <button class="btn-send-whatsapp" onclick="sendCartViaSendButton()">📤 Send / ناردنی داواکاری</button>
             </div>
         </div>
     </div>
@@ -741,6 +743,9 @@
         <p style="color: #8c7a6b; font-size: 0.8rem;" id="txtFooter">مێنیووی دیجیتاڵی قاوەخانە - هەموو مافێک پارێزراوە</p>
     </footer>
 
+    <!-- <iframe> شاراوە بۆ ناردنی نامە بۆ واتسئاپ بە بێ دەرچوون لە وێبسایت -->
+    <iframe name="hidden_whatsapp_frame" id="hiddenWhatsappFrame" style="display:none;"></iframe>
+
     <script>
         const whatsappNumber = "9647517283166";
         let menuItems = [];
@@ -848,7 +853,8 @@
             }, 4000); 
         }
 
-        function sendCartToWhatsApp() {
+        // ئەم فەنکشنە دوگمەی Send پێکدەهێنێت بە بێ ئەوەی کڕیار لە وێبسایتەکە دەرچێت
+        function sendCartViaSendButton() {
             if(cart.length === 0) {
                 alert("سەبەتەکەت خاڵییە!");
                 return;
@@ -870,17 +876,18 @@
             whatsappMessage += `💰 کۆی گشتی: ${totalSum.toLocaleString()} دینار`;
 
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            
-            // ناردنی نامە بۆ واتسئاپ بە بێ داخستنی وێبسایتەکە (لە تاییلێکی لاوەکی یان پسوولەی پشتەوە دەکرێتەوە)
-            const waWindow = window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-            
-            // ئەگەر نەتویست پەنجەرەی واتسئاپ بەڕوکەشی دیار بێت و تەنها لە پشتەوە بنێردرێت (بۆ هەندێک براوسەر قەدەغەیە، بەڵام ئەمە ڕێگەی ئارامە):
-            if(waWindow) {
-                waWindow.blur();
-                window.focus();
-            }
+            const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-            // خاوێنکردنەوەی سەبەتە و داخستنی مۆداڵ و پیشاندانی پەیامی سەرکەوتوویی لەسەرەوە
+            // دروستکردنی فۆرمێکی کاتی و ناردنی بۆ iframe شاراوە بۆ ئەوەی ناچار نەبێت پەنجەرەی سەرەکی بگۆڕێت
+            const form = document.createElement('form');
+            form.action = waUrl;
+            form.method = 'GET';
+            form.target = 'hidden_whatsapp_frame';
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+
+            // خاوێنکردنەوەی سەبەتە، داخستنی مۆداڵ و نیشاندانی پەیامی سەرکەوتوویی
             cart = [];
             updateCartUI();
             toggleCartModal();
@@ -1057,13 +1064,27 @@
         function callWaiter() {
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             const message = encodeURIComponent(`سڵاو، تکایە گارسۆن بنێرن بۆ مێز ژمارە (${currentTable}).`);
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+            const form = document.createElement('form');
+            form.action = `https://wa.me/${whatsappNumber}?text=${message}`;
+            form.method = 'GET';
+            form.target = 'hidden_whatsapp_frame';
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            alert("🔔 بانگکردنی گارسۆن بە سەرکەوتوویی ناردرا!");
         }
 
         function requestBill() {
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             const message = encodeURIComponent(`سڵاو، تکایە حیسابەکەمان بۆ بنێرن بۆ مێز ژمارە (${currentTable}).`);
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+            const form = document.createElement('form');
+            form.action = `https://wa.me/${whatsappNumber}?text=${message}`;
+            form.method = 'GET';
+            form.target = 'hidden_whatsapp_frame';
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            alert("🧾 داوای حیساب بە سەرکەوتوویی ناردرا!");
         }
 
         async function initApp() {
