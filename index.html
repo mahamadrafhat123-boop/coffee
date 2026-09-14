@@ -762,6 +762,7 @@
                 }
             }, 800);
             
+            // وەرگرتن و پاشەکەوتکردنی ژمارەی مێز بۆ ئەوەی بە گەڕانەوە نەفەوتێت
             const urlParams = new URLSearchParams(window.location.search);
             const tableParam = urlParams.get('table');
             if(tableParam) {
@@ -773,6 +774,10 @@
                     document.getElementById('tableIndicator').innerText = `🪑 مێز: ${savedTable}`;
                 }
             }
+
+            // سەبەتە بەتاڵ دەبێتەوە کاتێک پەڕەکە باردەبێتەوە (دوای ناردنی داواکاری یان سەرەتای کردنەوە)
+            cart = [];
+            updateCartUI();
         });
 
         function toggleCartModal() {
@@ -843,7 +848,7 @@
 
             totalPriceEl.innerText = totalSum.toLocaleString() + ' دینار';
 
-            // دروستکردنی لینکی ڕاستەوخۆی واتسئاپ لەگەڵ داواکارییەکە
+            // دروستکردنی نامەی واتسئاپ
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
             let itemsSummary = [];
             cart.forEach(i => {
@@ -875,7 +880,7 @@
                 return;
             }
 
-            // پاککردنەوەی سەبەتە و داخستنی مۆداڵ پاش کرتە کردن لەسەر ناردن
+            // کاتێک نامە دەنێردرێت، سەبەتە خاڵی دەبێتەوە و پەیامی سەرکەوتوو نیشان دەدرێت
             setTimeout(() => {
                 cart = [];
                 updateCartUI();
