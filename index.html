@@ -177,35 +177,33 @@
         .action-btn:active { transform: scale(0.98); }
         .btn-bill { background-color: #e67e22; }
 
+        /* گۆڕینی دیزاینی سەبەتە بۆ شێوازێکی پان و سەرنجڕاکێشتر لە گۆشە یان خوارەوە */
         .floating-cart-btn {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #d4a373;
+            bottom: 25px;
+            left: 25px;
+            background: linear-gradient(135deg, #d4a373, #b08958);
             color: #2c160b;
-            border: none;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
             z-index: 1000;
             transition: transform 0.2s;
         }
-        .floating-cart-btn:hover { transform: scale(1.1); }
+        .floating-cart-btn:hover { transform: scale(1.05); }
         .cart-counter {
-            position: absolute;
-            top: -5px;
-            right: -5px;
             background: #a43030;
             color: #fff;
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 50%;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
             font-weight: bold;
         }
 
@@ -213,7 +211,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -221,28 +219,29 @@
         }
         .cart-content {
             background: #23140a;
-            border: 1px solid #d4a373;
+            border: 2px solid #d4a373;
             width: 100%;
-            max-width: 450px;
-            border-radius: 12px;
-            padding: 20px;
+            max-width: 500px;
+            border-radius: 16px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            max-height: 80vh;
+            max-height: 85vh;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
         body.light-mode .cart-content { background: #faf0e6; border-color: #8c5830; }
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #4a2814;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #4a2814;
+            padding-bottom: 12px;
             margin-bottom: 15px;
             color: #d4a373;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
-        .close-cart { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+        .close-cart { background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; }
         body.light-mode .close-cart { color: #2c160b; }
         .cart-items-list {
             overflow-y: auto;
@@ -250,34 +249,34 @@
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .cart-item-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #1a0f0a;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
             border: 1px solid #422414;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         body.light-mode .cart-item-row { background: #fff; border-color: #d5bdaf; color: #2c160b; }
         .cart-item-controls { display: flex; align-items: center; gap: 8px; }
-        .qty-btn { background: #3d2314; color: #d4a373; border: none; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .cart-footer { border-top: 1px solid #4a2814; padding-top: 12px; }
-        .cart-total { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 12px; color: #d4a373; font-size: 1rem; }
+        .qty-btn { background: #3d2314; color: #d4a373; border: none; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .cart-footer { border-top: 2px solid #4a2814; padding-top: 15px; }
+        .cart-total { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #d4a373; font-size: 1.1rem; }
         .btn-send-whatsapp {
             width: 100%;
             background: #27ae60;
             color: #fff;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-size: 1.05rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             letter-spacing: 0.5px;
             text-align: center;
             display: block;
@@ -422,6 +421,23 @@
         .item-details { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .item-title { font-size: 1.05rem; color: #f5ebe0; font-weight: bold; }
         .item-desc { font-size: 0.8rem; color: #b0a69f; margin: 5px 0 10px; }
+        
+        /* شێوازی هەڵبژاردنی شیر ڕاستەوخۆ لە ناو کارتدا */
+        .milk-select-box {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1a0f0a;
+            padding: 5px 8px;
+            border-radius: 6px;
+            border: 1px solid #422414;
+        }
+        body.light-mode .milk-select-box { background: #fff; border-color: #d5bdaf; }
+        .milk-select-box label { font-size: 0.75rem; color: #d5bdaf; font-weight: bold; }
+        .milk-select-box select { background: #23140a; color: #d4a373; border: 1px solid #5c3a21; font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; outline: none; }
+        body.light-mode .milk-select-box select { background: #faf0e6; color: #2c160b; border-color: #b0a69f; }
+
         .item-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .item-price { color: #d4a373; font-weight: bold; font-size: 1rem; }
         
@@ -541,8 +557,9 @@
         <div class="splash-text">تکایە چاوەڕوان بە...</div>
     </div>
 
+    <!-- دوگمەی سەبەتەی گۆڕدراو بۆ شێوازێکی پان و سەرنجڕاکێشتر -->
     <button class="floating-cart-btn" onclick="toggleCartModal()">
-        🛒
+        🛒 <span>سەبەتە</span>
         <span class="cart-counter" id="cartCounter">0</span>
     </button>
 
@@ -783,20 +800,20 @@
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // زیادکردن بۆ سەبەتە لەگەڵ پرسیارکردن بۆ بڕی شیر
+        // وەرگرتنی بڕی شیر ڕاستەوخۆ لە کارتی بەرهەمەکە بە بێ Prompt
         function addToCart(id) {
             const item = menuItems.find(i => i.id == id);
             if(!item) return;
 
-            let milkChoice = prompt("بڕی شیر دیاری بکە بۆ (" + item.name + "):\n1. شیر ئاسایی\n2. کەم شیر\n3. زۆر شیر\n4. بێ شیر", "1");
-            if(milkChoice === null) return; // ئەگەر پەشیمان بووەوە
+            const milkSelectElem = document.getElementById(`milk_${id}`);
+            const milkVal = milkSelectElem ? milkSelectElem.value : "1";
             
             let milkText = "شیر: ئاسایی";
-            if(milkChoice === "2") milkText = "کەم شیر";
-            else if(milkChoice === "3") milkText = "زۆر شیر";
-            else if(milkChoice === "4") milkText = "بێ شیر";
+            if(milkVal === "2") milkText = "کەم شیر";
+            else if(milkVal === "3") milkText = "زۆر شیر";
+            else if(milkVal === "4") milkText = "بێ شیر";
 
-            const cartItemId = `${id}_${milkChoice}`;
+            const cartItemId = `${id}_${milkVal}`;
             const existing = cart.find(i => i.cartItemId == cartItemId);
 
             if(existing) {
@@ -810,6 +827,18 @@
                 });
             }
             updateCartUI();
+            
+            // نیشاندانی نامەیەکی خێرا کە بەرهەمەکە زیادکرا
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "✅ زیادکرا";
+            btn.style.background = "#27ae60";
+            btn.style.color = "#fff";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "";
+                btn.style.color = "";
+            }, 800);
         }
 
         function updateCartQty(cartItemId, change) {
@@ -1316,7 +1345,19 @@
                         <div>
                             <div class="item-title">${i.name}</div>
                             <div class="item-desc">${i.desc || ''}</div>
+                            
+                            <!-- بژاردەی دیاریکردنی شیر ڕاستەوخۆ لە ناو کارتدا -->
+                            <div class="milk-select-box">
+                                <label>🥛 بڕی شیر:</label>
+                                <select id="milk_${i.id}">
+                                    <option value="1">شیر ئاسایی</option>
+                                    <option value="2">کەم شیر</option>
+                                    <option value="3">زۆر شیر</option>
+                                    <option value="4">بێ شیر</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="item-bottom">
                             <span class="item-price">${i.price}</span>
                             <button class="btn-add-cart" onclick="addToCart('${i.id}')">➕ زیادکردن</button>
