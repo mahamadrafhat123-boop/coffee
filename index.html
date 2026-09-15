@@ -762,7 +762,6 @@
                 }
             }, 800);
             
-            // وەرگرتن و پاشەکەوتکردنی ژمارەی مێز بۆ ئەوەی بە گەڕانەوە نەفەوتێت
             const urlParams = new URLSearchParams(window.location.search);
             const tableParam = urlParams.get('table');
             if(tableParam) {
@@ -775,7 +774,6 @@
                 }
             }
 
-            // سەبەتە بەتاڵ دەبێتەوە کاتێک پەڕەکە باردەبێتەوە (دوای ناردنی داواکاری یان سەرەتای کردنەوە)
             cart = [];
             updateCartUI();
         });
@@ -785,25 +783,41 @@
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
 
+        // زیادکردن بۆ سەبەتە لەگەڵ پرسیارکردن بۆ بڕی شیر
         function addToCart(id) {
             const item = menuItems.find(i => i.id == id);
             if(!item) return;
 
-            const existing = cart.find(i => i.id == id);
+            let milkChoice = prompt("بڕی شیر دیاری بکە بۆ (" + item.name + "):\n1. شیر ئاسایی\n2. کەم شیر\n3. زۆر شیر\n4. بێ شیر", "1");
+            if(milkChoice === null) return; // ئەگەر پەشیمان بووەوە
+            
+            let milkText = "شیر: ئاسایی";
+            if(milkChoice === "2") milkText = "کەم شیر";
+            else if(milkChoice === "3") milkText = "زۆر شیر";
+            else if(milkChoice === "4") milkText = "بێ شیر";
+
+            const cartItemId = `${id}_${milkChoice}`;
+            const existing = cart.find(i => i.cartItemId == cartItemId);
+
             if(existing) {
                 existing.qty += 1;
             } else {
-                cart.push({ ...item, qty: 1 });
+                cart.push({ 
+                    ...item, 
+                    cartItemId: cartItemId,
+                    milk: milkText,
+                    qty: 1 
+                });
             }
             updateCartUI();
         }
 
-        function updateCartQty(id, change) {
-            const item = cart.find(i => i.id == id);
+        function updateCartQty(cartItemId, change) {
+            const item = cart.find(i => i.cartItemId == cartItemId);
             if(!item) return;
             item.qty += change;
             if(item.qty <= 0) {
-                cart = cart.filter(i => i.id != id);
+                cart = cart.filter(i => i.cartItemId != cartItemId);
             }
             updateCartUI();
         }
@@ -824,23 +838,26 @@
 
             list.innerHTML = '';
             let totalSum = 0;
+            let itemsSummary = [];
 
             cart.forEach(i => {
                 const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
                 const itemTotal = numericPrice * i.qty;
                 totalSum += itemTotal;
 
+                itemsSummary.push(`${i.qty} دەنکە ${i.name} (${i.milk}) - (${itemTotal.toLocaleString()} دینار)`);
+
                 const row = document.createElement('div');
                 row.className = 'cart-item-row';
                 row.innerHTML = `
                     <div>
                         <div style="font-weight:bold;">${i.name}</div>
-                        <div style="color:#d4a373; font-size:0.75rem;">${i.price}</div>
+                        <div style="color:#d4a373; font-size:0.75rem;">${i.price} | <span style="color:#e9edc9;">${i.milk}</span></div>
                     </div>
                     <div class="cart-item-controls">
-                        <button class="qty-btn" onclick="updateCartQty('${i.id}', -1)">-</button>
+                        <button class="qty-btn" onclick="updateCartQty('${i.cartItemId}', -1)">-</button>
                         <span>${i.qty}</span>
-                        <button class="qty-btn" onclick="updateCartQty('${i.id}', 1)">+</button>
+                        <button class="qty-btn" onclick="updateCartQty('${i.cartItemId}', 1)">+</button>
                     </div>
                 `;
                 list.appendChild(row);
@@ -848,15 +865,7 @@
 
             totalPriceEl.innerText = totalSum.toLocaleString() + ' دینار';
 
-            // دروستکردنی نامەی واتسئاپ
             const currentTable = localStorage.getItem('coffee_table_num') || 'نادیار';
-            let itemsSummary = [];
-            cart.forEach(i => {
-                const numericPrice = parseFloat(String(i.price).replace(/[^\d.]/g, '')) || 0;
-                const itemTotal = numericPrice * i.qty;
-                itemsSummary.push(`${i.qty} دەنکە ${i.name} (${itemTotal.toLocaleString()} دینار)`);
-            });
-
             let whatsappMessage = `🚨 داواکاری نوێ لە مێز: (${currentTable})\n\n`;
             whatsappMessage += `📋 لیست:\n` + itemsSummary.join('\n') + `\n\n`;
             whatsappMessage += `💰 کۆی گشتی: ${totalSum.toLocaleString()} دینار`;
@@ -880,7 +889,6 @@
                 return;
             }
 
-            // کاتێک نامە دەنێردرێت، سەبەتە خاڵی دەبێتەوە و پەیامی سەرکەوتوو نیشان دەدرێت
             setTimeout(() => {
                 cart = [];
                 updateCartUI();
