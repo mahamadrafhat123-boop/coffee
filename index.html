@@ -21,48 +21,50 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
+        /* دۆخی سەرەکی (تاریک / سەوزی تۆخ و دارستانی) */
         body { 
-            background-color: #121212;
-            color: #f2e9e1; 
+            background-color: #0d1b12;
+            color: #e8f5e9; 
             padding-bottom: 80px; 
             transition: background 0.3s, color 0.3s;
         }
 
+        /* دۆخی ڕووناک (سپێ و سەوزی کاڵ و پاک) */
         body.light-mode {
-            background-color: #f5ebe0;
-            color: #2c160b;
+            background-color: #f4f9f4;
+            color: #1b3b22;
         }
-        body.light-mode .top-bar { background: #e3d5ca; border-bottom: 1px solid #d5bdaf; }
-        body.light-mode .lang-switcher select { background: #f5ebe0; color: #2c160b; border-color: #b0a69f; }
-        body.light-mode .info-card-header { background: #e3d5ca; border-color: #b0a69f; color: #2c160b; }
-        body.light-mode .search-box { background: #fff; color: #2c160b; border-color: #b0a69f; }
-        body.light-mode nav button { background: #e3d5ca; color: #2c160b; border-color: #b0a69f; }
-        body.light-mode nav button.active { background: #8c5830; color: #fff; }
-        body.light-mode .admin-toggle-btn { background: #e3d5ca; color: #2c160b; border-color: #b0a69f; }
-        body.light-mode .admin-section { background: #e3d5ca; border-color: #b0a69f; }
-        body.light-mode .admin-section label { color: #2c160b; }
-        body.light-mode .admin-section input, body.light-mode .admin-section select { background: #fff; color: #2c160b; border-color: #b0a69f; }
-        body.light-mode .item-card { background: #faf0e6; border-color: #d5bdaf; }
-        body.light-mode .item-title { color: #2c160b; }
-        body.light-mode .item-desc { color: #5c4033; }
-        body.light-mode .item-price { color: #8c5830; }
-        body.light-mode .special-coffee-banner { background: #e3d5ca; border-color: #d5bdaf; color: #2c160b; }
-        body.light-mode .music-section { background: #e3d5ca; border-color: #d5bdaf; }
-        body.light-mode .music-text-title { color: #2c160b; }
-        body.light-mode .music-text-sub { color: #5c4033; }
-        body.light-mode .reviews-section { background: #e3d5ca; border-color: #d5bdaf; }
-        body.light-mode .reviews-title { color: #2c160b; }
-        body.light-mode .review-card { background: #faf0e6; border-color: #d5bdaf; }
-        body.light-mode .review-author { color: #2c160b; }
-        body.light-mode .review-text { color: #5c4033; }
-        body.light-mode .review-form-box { background: #faf0e6; border-color: #b0a69f; }
-        body.light-mode footer { background: #e3d5ca; border-top: 1px solid #d5bdaf; }
-        body.light-mode .social-btn { background: #f5ebe0; color: #2c160b; border-color: #b0a69f; }
+        body.light-mode .top-bar { background: #d8e8dc; border-bottom: 1px solid #b7d5be; }
+        body.light-mode .lang-switcher select { background: #f4f9f4; color: #1b3b22; border-color: #9abfa5; }
+        body.light-mode .info-card-header { background: #d8e8dc; border-color: #b7d5be; color: #1b3b22; }
+        body.light-mode .search-box { background: #fff; color: #1b3b22; border-color: #9abfa5; }
+        body.light-mode nav button { background: #d8e8dc; color: #1b3b22; border-color: #b7d5be; }
+        body.light-mode nav button.active { background: #2d6a4f; color: #fff; }
+        body.light-mode .admin-toggle-btn { background: #d8e8dc; color: #1b3b22; border-color: #b7d5be; }
+        body.light-mode .admin-section { background: #d8e8dc; border-color: #b7d5be; }
+        body.light-mode .admin-section label { color: #1b3b22; }
+        body.light-mode .admin-section input, body.light-mode .admin-section select { background: #fff; color: #1b3b22; border-color: #9abfa5; }
+        body.light-mode .item-card { background: #ffffff; border-color: #c2dcc8; }
+        body.light-mode .item-title { color: #1b3b22; }
+        body.light-mode .item-desc { color: #405d49; }
+        body.light-mode .item-price { color: #2d6a4f; }
+        body.light-mode .special-coffee-banner { background: #d8e8dc; border-color: #b7d5be; color: #1b3b22; }
+        body.light-mode .music-section { background: #d8e8dc; border-color: #b7d5be; }
+        body.light-mode .music-text-title { color: #1b3b22; }
+        body.light-mode .music-text-sub { color: #405d49; }
+        body.light-mode .reviews-section { background: #d8e8dc; border-color: #b7d5be; }
+        body.light-mode .reviews-title { color: #1b3b22; }
+        body.light-mode .review-card { background: #ffffff; border-color: #c2dcc8; }
+        body.light-mode .review-author { color: #1b3b22; }
+        body.light-mode .review-text { color: #405d49; }
+        body.light-mode .review-form-box { background: #ffffff; border-color: #9abfa5; }
+        body.light-mode footer { background: #d8e8dc; border-top: 1px solid #b7d5be; }
+        body.light-mode .social-btn { background: #f4f9f4; color: #1b3b22; border-color: #9abfa5; }
 
         #splashScreen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #1a0f0a;
+            background: #08120b;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -73,10 +75,10 @@
         .splash-logo {
             font-family: 'Brush Script MT', cursive, sans-serif;
             font-size: 3.5rem;
-            color: #d4a373;
+            color: #52b788;
             animation: pulse 1.5s infinite;
         }
-        .splash-text { color: #e3d5ca; margin-top: 10px; font-size: 1.1rem; letter-spacing: 1px; }
+        .splash-text { color: #b7e4c7; margin-top: 10px; font-size: 1.1rem; letter-spacing: 1px; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
 
         #successBanner {
@@ -85,7 +87,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: #27ae60;
+            background: #2d6a4f;
             color: white;
             text-align: center;
             padding: 14px;
@@ -105,8 +107,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 20px;
-            background: #1a0f0a;
-            border-bottom: 1px solid #3d2314;
+            background: #112618;
+            border-bottom: 1px solid #1b4332;
             font-size: 0.85rem;
             flex-wrap: wrap;
             gap: 10px;
@@ -115,9 +117,9 @@
         .top-bar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
         .lang-switcher select {
-            background: #2c160b;
-            color: #d4a373;
-            border: 1px solid #5c3a21;
+            background: #1b4332;
+            color: #52b788;
+            border: 1px solid #2d6a4f;
             padding: 4px 8px;
             border-radius: 6px;
             cursor: pointer;
@@ -125,9 +127,9 @@
         }
 
         .theme-toggle-btn, .table-badge-btn {
-            background: #2c160b;
-            color: #d4a373;
-            border: 1px solid #5c3a21;
+            background: #1b4332;
+            color: #52b788;
+            border: 1px solid #2d6a4f;
             padding: 4px 10px;
             border-radius: 6px;
             cursor: pointer;
@@ -135,7 +137,7 @@
         }
 
         .welcome-ticker {
-            background: #1f1209;
+            background: #0f2215;
             color: #ffffff;
             padding: 10px 0;
             text-align: center;
@@ -143,8 +145,8 @@
             font-size: 0.95rem;
             overflow: hidden;
             white-space: nowrap;
-            border-top: 1px solid #4a2814;
-            border-bottom: 1px solid #4a2814;
+            border-top: 1px solid #1b4332;
+            border-bottom: 1px solid #1b4332;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
         }
         .welcome-ticker span {
@@ -163,7 +165,7 @@
             justify-content: center;
         }
         .action-btn {
-            background-color: #27ae60;
+            background-color: #2d6a4f;
             color: white;
             border: none;
             padding: 10px 16px;
@@ -175,15 +177,14 @@
             transition: 0.2s;
         }
         .action-btn:active { transform: scale(0.98); }
-        .btn-bill { background-color: #e67e22; }
+        .btn-bill { background-color: #40916c; }
 
-        /* گۆڕینی دیزاینی سەبەتە بۆ شێوازێکی پان و سەرنجڕاکێشتر لە گۆشە یان خوارەوە */
         .floating-cart-btn {
             position: fixed;
             bottom: 25px;
             left: 25px;
-            background: linear-gradient(135deg, #d4a373, #b08958);
-            color: #2c160b;
+            background: linear-gradient(135deg, #52b788, #40916c);
+            color: #0d1b12;
             border: 2px solid #fff;
             padding: 10px 20px;
             border-radius: 30px;
@@ -199,7 +200,7 @@
         }
         .floating-cart-btn:hover { transform: scale(1.05); }
         .cart-counter {
-            background: #a43030;
+            background: #d90429;
             color: #fff;
             font-size: 0.8rem;
             padding: 2px 8px;
@@ -218,8 +219,8 @@
             padding: 20px;
         }
         .cart-content {
-            background: #23140a;
-            border: 2px solid #d4a373;
+            background: #112618;
+            border: 2px solid #52b788;
             width: 100%;
             max-width: 500px;
             border-radius: 16px;
@@ -229,20 +230,20 @@
             max-height: 85vh;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        body.light-mode .cart-content { background: #faf0e6; border-color: #8c5830; }
+        body.light-mode .cart-content { background: #ffffff; border-color: #2d6a4f; }
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #4a2814;
+            border-bottom: 2px solid #1b4332;
             padding-bottom: 12px;
             margin-bottom: 15px;
-            color: #d4a373;
+            color: #52b788;
             font-weight: bold;
             font-size: 1.2rem;
         }
         .close-cart { background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; }
-        body.light-mode .close-cart { color: #2c160b; }
+        body.light-mode .close-cart { color: #1b3b22; }
         .cart-items-list {
             overflow-y: auto;
             flex: 1;
@@ -255,20 +256,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #1a0f0a;
+            background: #0d1b12;
             padding: 10px 14px;
             border-radius: 10px;
-            border: 1px solid #422414;
+            border: 1px solid #1b4332;
             font-size: 0.9rem;
         }
-        body.light-mode .cart-item-row { background: #fff; border-color: #d5bdaf; color: #2c160b; }
+        body.light-mode .cart-item-row { background: #f4f9f4; border-color: #c2dcc8; color: #1b3b22; }
         .cart-item-controls { display: flex; align-items: center; gap: 8px; }
-        .qty-btn { background: #3d2314; color: #d4a373; border: none; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .cart-footer { border-top: 2px solid #4a2814; padding-top: 15px; }
-        .cart-total { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #d4a373; font-size: 1.1rem; }
+        .qty-btn { background: #1b4332; color: #52b788; border: none; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .cart-footer { border-top: 2px solid #1b4332; padding-top: 15px; }
+        .cart-total { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px; color: #52b788; font-size: 1.1rem; }
         .btn-send-whatsapp {
             width: 100%;
-            background: #27ae60;
+            background: #2d6a4f;
             color: #fff;
             border: none;
             padding: 14px;
@@ -287,10 +288,10 @@
             position: relative;
             text-align: center; 
             padding: 30px 20px; 
-            background: linear-gradient(rgba(44, 22, 11, 0.92), rgba(26, 15, 10, 0.96)), 
+            background: linear-gradient(rgba(13, 27, 18, 0.92), rgba(8, 18, 11, 0.96)), 
                         url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800') no-repeat center center;
             background-size: cover;
-            border-bottom: 2px solid #5c3a21;
+            border-bottom: 2px solid #1b4332;
             box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
 
@@ -306,21 +307,21 @@
         .coffee-fancy-text {
             font-family: 'Brush Script MT', cursive, sans-serif;
             font-size: 2.2rem;
-            color: #2c160b;
+            color: #1b3b22;
             font-weight: bold;
             letter-spacing: 2px;
         }
 
         .restaurant-name { 
             font-size: 1.7rem; 
-            color: #ffecd1; 
+            color: #e8f5e9; 
             margin-bottom: 5px; 
             font-weight: bold; 
             text-shadow: 2px 2px 6px rgba(0,0,0,0.9); 
         }
 
         .restaurant-info { 
-            color: #e3d5ca; 
+            color: #b7e4c7; 
             font-size: 0.85rem; 
             margin-bottom: 15px; 
             display: flex; 
@@ -331,14 +332,14 @@
         }
 
         .info-card-header {
-            background: rgba(61, 35, 20, 0.85);
-            border: 1px solid #8c5830;
+            background: rgba(27, 67, 50, 0.85);
+            border: 1px solid #52b788;
             padding: 8px 15px;
             border-radius: 10px;
             margin: 0 auto 15px;
             max-width: 550px;
             font-size: 0.8rem;
-            color: #f5ebe0;
+            color: #e8f5e9;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
@@ -350,34 +351,34 @@
             max-width: 400px; 
             padding: 10px 18px; 
             border-radius: 20px; 
-            border: 1px solid #8c5830; 
-            background: rgba(44, 22, 11, 0.85); 
+            border: 1px solid #52b788; 
+            background: rgba(13, 27, 18, 0.85); 
             color: #fff; 
             outline: none; 
             font-size: 0.95rem; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
-        .search-box:focus { border-color: #d4a373; }
+        .search-box:focus { border-color: #74c69d; }
 
         nav { display: flex; justify-content: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; padding: 0 10px; }
         nav button { 
             padding: 7px 14px; 
-            border: 1px solid #704224; 
-            background: rgba(44, 22, 11, 0.9); 
-            color: #e3d5ca; 
+            border: 1px solid #2d6a4f; 
+            background: rgba(13, 27, 18, 0.9); 
+            color: #b7e4c7; 
             border-radius: 20px; 
             cursor: pointer; 
             transition: 0.2s; 
             font-size: 0.85rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
-        nav button:hover, nav button.active { background: #d4a373; color: #2c160b; border-color: #d4a373; font-weight: bold; }
+        nav button:hover, nav button.active { background: #52b788; color: #0d1b12; border-color: #52b788; font-weight: bold; }
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
         .special-coffee-banner {
-            background: linear-gradient(135deg, #3d2314, #23140a);
-            border: 1px solid #d4a373;
+            background: linear-gradient(135deg, #1b4332, #0d1b12);
+            border: 1px solid #52b788;
             padding: 12px 18px;
             border-radius: 12px;
             margin-bottom: 20px;
@@ -386,29 +387,29 @@
             align-items: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .special-coffee-title { font-weight: bold; color: #d4a373; font-size: 0.95rem; }
-        .special-coffee-desc { font-size: 0.85rem; color: #e3d5ca; }
+        .special-coffee-title { font-weight: bold; color: #52b788; font-size: 0.95rem; }
+        .special-coffee-desc { font-size: 0.85rem; color: #b7e4c7; }
         
-        .admin-toggle-btn { background: #3d2314; color: #e3d5ca; border: 1px solid #704224; border-radius: 20px; font-size: 0.85rem; cursor: pointer; display: block; margin: 0 auto 15px; padding: 6px 15px; transition: 0.2s; }
-        .admin-toggle-btn:hover { background: #d4a373; color: #2c160b; }
+        .admin-toggle-btn { background: #1b4332; color: #b7e4c7; border: 1px solid #2d6a4f; border-radius: 20px; font-size: 0.85rem; cursor: pointer; display: block; margin: 0 auto 15px; padding: 6px 15px; transition: 0.2s; }
+        .admin-toggle-btn:hover { background: #52b788; color: #0d1b12; }
 
-        .admin-section { display: none; background: #2c160b; padding: 20px; border-radius: 12px; border: 1px solid #5c3a21; margin-bottom: 30px; }
-        .admin-section h3 { color: #d4a373; margin-bottom: 15px; }
+        .admin-section { display: none; background: #112618; padding: 20px; border-radius: 12px; border: 1px solid #2d6a4f; margin-bottom: 30px; }
+        .admin-section h3 { color: #52b788; margin-bottom: 15px; }
 
         .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; margin-bottom: 4px; font-size: 0.9rem; color: #d5bdaf; }
-        .form-group input, .form-group select { width: 100%; padding: 8px 12px; background: #1a0f0a; border: 1px solid #5c3a21; color: #fff; border-radius: 6px; }
-        .btn-add { width: 100%; background: #d4a373; color: #2c160b; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .form-group label { display: block; margin-bottom: 4px; font-size: 0.9rem; color: #b7e4c7; }
+        .form-group input, .form-group select { width: 100%; padding: 8px 12px; background: #0d1b12; border: 1px solid #2d6a4f; color: #fff; border-radius: 6px; }
+        .btn-add { width: 100%; background: #52b788; color: #0d1b12; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
-        .item-card { background: #23140a; border-radius: 12px; overflow: hidden; border: 1px solid #4a2814; display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
+        .item-card { background: #112618; border-radius: 12px; overflow: hidden; border: 1px solid #1b4332; display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
         .item-card:hover { transform: translateY(-3px); }
         
         .offer-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #b05721;
+            background: #2d6a4f;
             color: #fff;
             padding: 3px 8px;
             font-size: 0.75rem;
@@ -417,33 +418,32 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        .item-img { width: 100%; height: 160px; object-fit: cover; background: #1a0f0a; }
+        .item-img { width: 100%; height: 160px; object-fit: cover; background: #0d1b12; }
         .item-details { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .item-title { font-size: 1.05rem; color: #f5ebe0; font-weight: bold; }
-        .item-desc { font-size: 0.8rem; color: #b0a69f; margin: 5px 0 10px; }
+        .item-title { font-size: 1.05rem; color: #e8f5e9; font-weight: bold; }
+        .item-desc { font-size: 0.8rem; color: #95d5b2; margin: 5px 0 10px; }
         
-        /* شێوازی هەڵبژاردنی شیر ڕاستەوخۆ لە ناو کارتدا */
         .milk-select-box {
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #1a0f0a;
+            background: #0d1b12;
             padding: 5px 8px;
             border-radius: 6px;
-            border: 1px solid #422414;
+            border: 1px solid #1b4332;
         }
-        body.light-mode .milk-select-box { background: #fff; border-color: #d5bdaf; }
-        .milk-select-box label { font-size: 0.75rem; color: #d5bdaf; font-weight: bold; }
-        .milk-select-box select { background: #23140a; color: #d4a373; border: 1px solid #5c3a21; font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; outline: none; }
-        body.light-mode .milk-select-box select { background: #faf0e6; color: #2c160b; border-color: #b0a69f; }
+        body.light-mode .milk-select-box { background: #fff; border-color: #c2dcc8; }
+        .milk-select-box label { font-size: 0.75rem; color: #b7e4c7; font-weight: bold; }
+        .milk-select-box select { background: #112618; color: #52b788; border: 1px solid #2d6a4f; font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; outline: none; }
+        body.light-mode .milk-select-box select { background: #f4f9f4; color: #1b3b22; border-color: #9abfa5; }
 
         .item-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
-        .item-price { color: #d4a373; font-weight: bold; font-size: 1rem; }
+        .item-price { color: #52b788; font-weight: bold; font-size: 1rem; }
         
         .btn-add-cart {
-            background: #d4a373;
-            color: #2c160b;
+            background: #52b788;
+            color: #0d1b12;
             border: none;
             padding: 6px 12px;
             border-radius: 6px;
@@ -452,16 +452,16 @@
             font-size: 0.85rem;
             transition: 0.2s;
         }
-        .btn-add-cart:hover { background: #b08958; }
+        .btn-add-cart:hover { background: #74c69d; }
 
-        .btn-del { display: none; background: #a43030; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; width: 100%; }
+        .btn-del { display: none; background: #d90429; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; width: 100%; }
 
         .music-section {
             margin-top: 40px;
-            background: #23140a;
+            background: #112618;
             padding: 15px 20px;
             border-radius: 12px;
-            border: 1px solid #4a2814;
+            border: 1px solid #1b4332;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -471,30 +471,30 @@
         .music-info { display: flex; align-items: center; gap: 10px; }
         .music-icon { font-size: 1.5rem; animation: bounce 1.5s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .music-text-title { font-weight: bold; color: #d4a373; font-size: 0.95rem; }
-        .music-text-sub { font-size: 0.8rem; color: #b0a69f; }
+        .music-text-title { font-weight: bold; color: #52b788; font-size: 0.95rem; }
+        .music-text-sub { font-size: 0.8rem; color: #95d5b2; }
         
         .music-player-box {
             display: flex;
             align-items: center;
-            background: #1a0f0a;
+            background: #0d1b12;
             padding: 8px 12px;
             border-radius: 30px;
-            border: 1px solid #5c3a21;
+            border: 1px solid #2d6a4f;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
         }
         .music-player-box audio { 
             height: 35px; 
             outline: none; 
-            filter: sepia(20%) saturate(70%) hue-rotate(330deg);
+            filter: hue-rotate(90deg);
         }
 
         .reviews-section {
             margin-top: 40px;
-            background: #23140a;
+            background: #112618;
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid #4a2814;
+            border: 1px solid #1b4332;
         }
         .reviews-header {
             display: flex;
@@ -504,10 +504,10 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .reviews-title { color: #d4a373; font-size: 1.1rem; font-weight: bold; }
+        .reviews-title { color: #52b788; font-size: 1.1rem; font-weight: bold; }
         .add-review-btn {
-            background: #d4a373;
-            color: #2c160b;
+            background: #52b788;
+            color: #0d1b12;
             border: none;
             padding: 6px 14px;
             border-radius: 8px;
@@ -521,31 +521,31 @@
             gap: 15px;
         }
         .review-card {
-            background: #1a0f0a;
-            border: 1px solid #5c3a21;
+            background: #0d1b12;
+            border: 1px solid #2d6a4f;
             padding: 12px 15px;
             border-radius: 10px;
             position: relative;
         }
-        .review-author { font-weight: bold; color: #f5ebe0; font-size: 0.9rem; }
+        .review-author { font-weight: bold; color: #e8f5e9; font-size: 0.9rem; }
         .review-stars { color: #f39c12; font-size: 0.85rem; margin: 4px 0; }
-        .review-text { font-size: 0.8rem; color: #b0a69f; }
+        .review-text { font-size: 0.8rem; color: #95d5b2; }
 
         .review-form-box {
             display: none;
-            background: #1a0f0a;
+            background: #0d1b12;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #8c5830;
+            border: 1px solid #52b788;
             margin-bottom: 20px;
         }
 
-        .map-section { margin-top: 30px; border-radius: 12px; overflow: hidden; border: 1px solid #4a2814; }
+        .map-section { margin-top: 30px; border-radius: 12px; overflow: hidden; border: 1px solid #1b4332; }
         .map-section iframe { width: 100%; height: 250px; border: 0; display: block; }
 
-        footer { text-align: center; padding: 20px; background: #1a0f0a; margin-top: 40px; border-top: 1px solid #3d2314; }
+        footer { text-align: center; padding: 20px; background: #0d1b12; margin-top: 40px; border-top: 1px solid #1b4332; }
         .social-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
-        .social-btn { color: #e3d5ca; text-decoration: none; font-size: 0.9rem; border: 1px solid #5c3a21; padding: 6px 12px; border-radius: 15px; background: #2c160b; }
+        .social-btn { color: #b7e4c7; text-decoration: none; font-size: 0.9rem; border: 1px solid #2d6a4f; padding: 6px 12px; border-radius: 15px; background: #112618; }
     </style>
 </head>
 <body>
@@ -557,7 +557,6 @@
         <div class="splash-text">تکایە چاوەڕوان بە...</div>
     </div>
 
-    <!-- دوگمەی سەبەتەی گۆڕدراو بۆ شێوازێکی پان و سەرنجڕاکێشتر -->
     <button class="floating-cart-btn" onclick="toggleCartModal()">
         🛒 <span>سەبەتە</span>
         <span class="cart-counter" id="cartCounter">0</span>
@@ -570,7 +569,7 @@
                 <button class="close-cart" onclick="toggleCartModal()">✕</button>
             </div>
             <div class="cart-items-list" id="cartItemsList">
-                <p style="color:#b0a69f; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>
+                <p style="color:#95d5b2; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>
             </div>
             <div class="cart-footer">
                 <div class="cart-total">
@@ -678,7 +677,7 @@
                 <button type="submit" class="btn-add">زیادکردن بۆ مێنیوو</button>
             </form>
 
-            <hr style="border-color: #5c3a21; margin: 20px 0;">
+            <hr style="border-color: #2d6a4f; margin: 20px 0;">
 
             <h3>🎵 گۆڕینی مۆسیقای ماڵپەڕ لە داتابەیس</h3>
             <div class="form-group">
@@ -693,7 +692,7 @@
         </div>
 
         <div class="menu-grid" id="menuGrid">
-            <p style="grid-column: 1/-1; text-align:center; color:#b0a69f;">سەرقاڵی هێنانی داتاکان لە داتابەیس...</p>
+            <p style="grid-column: 1/-1; text-align:center; color:#95d5b2;">سەرقاڵی هێنانی داتاکان لە داتابەیس...</p>
         </div>
 
         <div class="music-section">
@@ -719,7 +718,7 @@
             </div>
 
             <div class="review-form-box" id="reviewFormBox">
-                <h4 style="color: #d4a373; margin-bottom: 10px; font-size: 0.95rem;">بۆچوونی خۆت لەسەر قاوەخانەکەمان بنووسە</h4>
+                <h4 style="color: #52b788; margin-bottom: 10px; font-size: 0.95rem;">بۆچوونی خۆت لەسەر قاوەخانەکەمان بنووسە</h4>
                 <form id="submitReviewForm" onsubmit="submitReview(event)">
                     <div class="form-group">
                         <label>ناوی بەڕێزت:</label>
@@ -744,7 +743,7 @@
             </div>
 
             <div class="reviews-grid" id="reviewsGrid">
-                <p style="color: #b0a69f; text-align: center; grid-column: 1/-1;">سەرقاڵی هێنانی ڕای کڕیاران...</p>
+                <p style="color: #95d5b2; text-align: center; grid-column: 1/-1;">سەرقاڵی هێنانی ڕای کڕیاران...</p>
             </div>
         </div>
 
@@ -759,7 +758,7 @@
             <a href="https://instagram.com" target="_blank" class="social-btn">📸 ئینستاگرام</a>
             <a href="https://maps.google.com" target="_blank" class="social-btn" id="txtMap">📍 نەخشەی ناونیشان</a>
         </div>
-        <p style="color: #8c7a6b; font-size: 0.8rem;" id="txtFooter">مێنیووی دیجیتاڵی قاوەخانە - هەموو مافێک پارێزراوە</p>
+        <p style="color: #74c69d; font-size: 0.8rem;" id="txtFooter">مێنیووی دیجیتاڵی قاوەخانە - هەموو مافێک پارێزراوە</p>
     </footer>
 
     <script>
@@ -800,7 +799,6 @@
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // وەرگرتنی بڕی شیر ڕاستەوخۆ لە کارتی بەرهەمەکە بە بێ Prompt
         function addToCart(id) {
             const item = menuItems.find(i => i.id == id);
             if(!item) return;
@@ -828,12 +826,11 @@
             }
             updateCartUI();
             
-            // نیشاندانی نامەیەکی خێرا کە بەرهەمەکە زیادکرا
             const btn = event.target;
             const originalText = btn.innerText;
             btn.innerText = "✅ زیادکرا";
-            btn.style.background = "#27ae60";
-            btn.style.color = "#fff";
+            btn.style.background = "#52b788";
+            btn.style.color = "#0d1b12";
             setTimeout(() => {
                 btn.innerText = originalText;
                 btn.style.background = "";
@@ -860,7 +857,7 @@
             counter.innerText = totalCount;
 
             if(cart.length === 0) {
-                list.innerHTML = '<p style="color:#b0a69f; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>';
+                list.innerHTML = '<p style="color:#95d5b2; text-align:center; margin-top:20px;">سەبەتەکەت خاڵییە</p>';
                 totalPriceEl.innerText = '0 دینار';
                 return;
             }
@@ -881,7 +878,7 @@
                 row.innerHTML = `
                     <div>
                         <div style="font-weight:bold;">${i.name}</div>
-                        <div style="color:#d4a373; font-size:0.75rem;">${i.price} | <span style="color:#e9edc9;">${i.milk}</span></div>
+                        <div style="color:#52b788; font-size:0.75rem;">${i.price} | <span style="color:#b7e4c7;">${i.milk}</span></div>
                     </div>
                     <div class="cart-item-controls">
                         <button class="qty-btn" onclick="updateCartQty('${i.cartItemId}', -1)">-</button>
@@ -1018,7 +1015,7 @@
             grid.innerHTML = '';
 
             if(reviews.length === 0) {
-                grid.innerHTML = '<p style="color: #b0a69f; text-align: center; grid-column: 1/-1;">تا ئێستا هیچ ڕایەک نەنوسراوە. یەکەم کەس بە بۆچوونی خۆت بنووسە!</p>';
+                grid.innerHTML = '<p style="color: #95d5b2; text-align: center; grid-column: 1/-1;">تا ئێستا هیچ ڕایەک نەنوسراوە. یەکەم کەس بە بۆچوونی خۆت بنووسە!</p>';
                 return;
             }
 
@@ -1032,7 +1029,7 @@
                             <div class="review-author">${r.customer_name}</div>
                             <div class="review-stars">${stars}</div>
                         </div>
-                        <button class="btn-del" style="display: ${isAdmin ? 'block' : 'none'}; width: auto; padding: 4px 10px; font-size: 0.8rem; margin: 0; background: #a43030; color: #fff; border-radius: 6px; border: none; cursor: pointer;" onclick="deleteReview('${r.id}')">سڕینەوە</button>
+                        <button class="btn-del" style="display: ${isAdmin ? 'block' : 'none'}; width: auto; padding: 4px 10px; font-size: 0.8rem; margin: 0; background: #d90429; color: #fff; border-radius: 6px; border: none; cursor: pointer;" onclick="deleteReview('${r.id}')">سڕینەوە</button>
                     </div>
                     <div class="review-text" style="margin-top: 8px;">${r.comment}</div>
                 `;
@@ -1331,7 +1328,7 @@
             if(query) list = list.filter(i => i.name.toLowerCase().includes(query) || (i.desc && i.desc.toLowerCase().includes(query)));
 
             if(list.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#b0a69f; padding: 20px;">هیچ بەرهەمێک نەدۆزرایەوە.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#95d5b2; padding: 20px;">هیچ بەرهەمێک نەدۆزرایەوە.</p>';
                 return;
             }
 
@@ -1346,7 +1343,6 @@
                             <div class="item-title">${i.name}</div>
                             <div class="item-desc">${i.desc || ''}</div>
                             
-                            <!-- بژاردەی دیاریکردنی شیر ڕاستەوخۆ لە ناو کارتدا -->
                             <div class="milk-select-box">
                                 <label>🥛 بڕی شیر:</label>
                                 <select id="milk_${i.id}">
