@@ -285,25 +285,28 @@
             box-shadow: 0 5px 25px rgba(0,0,0,0.6);
             border: 1px solid #2c5e3b;
             max-height: 90vh;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         .modal-content img {
-            width: 120px;
-            height: 180px;
+            width: 110px;
+            height: 150px;
             object-fit: contain;
-            margin-bottom: 15px;
+            margin: 0 auto 12px;
             border-radius: 8px;
+            background: #222;
+            padding: 5px;
         }
         .modal-content h3 {
             color: #ffffff;
             font-size: 1.3rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .modal-content .modal-price {
             color: #27ae60;
             font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .modal-content .modal-benefits {
             text-align: right;
@@ -316,15 +319,18 @@
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 20px;
+            max-height: 250px;
+            overflow-y: auto; /* ئەمە وەک لێرە ڕێکخراوە بۆ ئەوەی بتوانیت بچیتە خوارەوە */
         }
         .close-modal-btn {
             background: #c0392b;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
+            margin-top: auto;
         }
 
         /* Cart Modal / Drawer Styles */
@@ -495,9 +501,7 @@
         <div class="cart-modal-content" onclick="event.stopPropagation()">
             <h3>🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
             
-            <div class="cart-items-list" id="cartItemsList">
-                <!-- Items populated by JS -->
-            </div>
+            <div class="cart-items-list" id="cartItemsList"></div>
 
             <div style="margin-top: 15px;">
                 <div class="customer-form-group">
@@ -664,7 +668,6 @@
         </div>
     </div>
 
-    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://nwebunawa.supabase.co';
@@ -808,14 +811,17 @@
                 const card = document.createElement('div');
                 card.className = 'product-card' + (isAdminOpen ? ' admin-mode' : '');
                 
+                // دڵنیابوونەوە لەوەی ئەگەر وێنەی بەرهەم نەبوو لۆگۆ پیشان نەدات بەڵکو وێنەی دروست بەکاربێت
+                let validImg = (p.img && p.img.trim() !== "") ? p.img : 'msh.logo.jpg';
+
                 card.onclick = function() {
-                    openProductModal(p.name, p.price, p.benefits, p.img);
+                    openProductModal(p.name, p.price, p.benefits, validImg);
                 };
 
                 card.innerHTML = `
                     <div class="product-clickable">
                         <div class="product-img-wrapper">
-                            <img src="${p.img}" alt="${p.name}">
+                            <img src="${validImg}" alt="${p.name}" onerror="this.src='msh.logo.jpg'">
                         </div>
                         <div class="product-info">
                             <h4>${p.name}</h4>
@@ -834,7 +840,7 @@
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('modalPrice').innerText = price;
             document.getElementById('modalBenefits').innerText = benefits;
-            document.getElementById('modalImg').src = img;
+            document.getElementById('modalImg').src = (img && img.trim() !== "") ? img : 'msh.logo.jpg';
             document.getElementById('productModal').style.display = 'flex';
         }
 
