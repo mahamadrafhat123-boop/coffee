@@ -327,6 +327,122 @@
             font-weight: bold;
         }
 
+        /* Cart Modal / Drawer Styles */
+        #cartModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .cart-modal-content {
+            background: #181818;
+            color: #e0e0e0;
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+            border: 1px solid #25D366;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: right;
+        }
+        .cart-modal-content h3 {
+            color: #25D366;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .cart-items-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #222;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qty-btn {
+            background: #2c5e3b;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:hover { background: #21472c; }
+        
+        .customer-form-group {
+            margin-bottom: 12px;
+        }
+        .customer-form-group label {
+            display: block;
+            margin-bottom: 4px;
+            color: #25D366;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .customer-form-group input {
+            width: 100%;
+            padding: 10px;
+            background: #262626;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .customer-form-group input:focus { border-color: #25D366; }
+
+        .checkout-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn-confirm-order {
+            background: #25D366;
+            color: #121212;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            flex: 1;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .btn-confirm-order:hover { background: #20b858; }
+        .btn-close-cart {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .reviews-section { margin: 50px 0; background: #1a1a1a; padding: 30px 20px; border-radius: 15px; border: 1px solid #2a2a2a; }
         .reviews-section h3 { text-align: center; color: #25D366; margin-bottom: 25px; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
@@ -371,6 +487,37 @@
             <div class="modal-price" id="modalPrice"></div>
             <div class="modal-benefits" id="modalBenefits"></div>
             <button class="close-modal-btn" onclick="closeProductModal()">داخستن</button>
+        </div>
+    </div>
+
+    <!-- Cart & Checkout Modal -->
+    <div id="cartModal" onclick="closeCartModal()">
+        <div class="cart-modal-content" onclick="event.stopPropagation()">
+            <h3>🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
+            
+            <div class="cart-items-list" id="cartItemsList">
+                <!-- Items populated by JS -->
+            </div>
+
+            <div style="margin-top: 15px;">
+                <div class="customer-form-group">
+                    <label>ناوی کەسەکە (ناوی تەواو):</label>
+                    <input type="text" id="custName" placeholder="ناوی خۆت لێرە بنووسە...">
+                </div>
+                <div class="customer-form-group">
+                    <label>ژمارەی مۆبایل:</label>
+                    <input type="tel" id="custPhone" placeholder="0770XXXXXXX">
+                </div>
+                <div class="customer-form-group">
+                    <label>ناونیشانی تەواو:</label>
+                    <input type="text" id="custAddress" placeholder="شار، کۆڵان، خانوو...">
+                </div>
+            </div>
+
+            <div class="checkout-actions">
+                <button class="btn-confirm-order" onclick="sendOrderToWhatsApp()">ناردنی داواکاری بۆ واتسئاپ 💬</button>
+                <button class="btn-close-cart" onclick="closeCartModal()">داخستن</button>
+            </div>
         </div>
     </div>
 
@@ -498,7 +645,7 @@
 
     <div class="cart-bar">
         <div>عەرەبانەی کڕین: <span id="cartCount">0</span> بەرهەم</div>
-        <button onclick="checkoutCart()">ناردنی سەرجەم داواکارییەکان بۆ واتسئاپ 💬</button>
+        <button onclick="openCartModal()">بینینی عەرەبە و ناردنی داواکاری 🛒</button>
     </div>
 
     <div class="floating-buttons">
@@ -661,7 +808,6 @@
                 const card = document.createElement('div');
                 card.className = 'product-card' + (isAdminOpen ? ' admin-mode' : '');
                 
-                // Clicking the card opens modal, except clicking delete button or add to cart button
                 card.onclick = function() {
                     openProductModal(p.name, p.price, p.benefits, p.img);
                 };
@@ -697,18 +843,98 @@
         }
 
         function addToCart(name, price) {
-            cart.push({ name, price });
-            document.getElementById('cartCount').innerText = cart.length;
+            let existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            updateCartCount();
             alert(name + " زیادکرا بۆ عەرەبانەی کڕین!");
         }
 
-        function checkoutCart() {
+        function changeQty(name, amount) {
+            let item = cart.find(i => i.name === name);
+            if (item) {
+                item.qty += amount;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.name !== name);
+                }
+            }
+            updateCartCount();
+            renderCartItems();
+        }
+
+        function updateCartCount() {
+            let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = totalQty;
+        }
+
+        function openCartModal() {
             if (cart.length === 0) {
                 alert("عەرەبانەکەت بەتاڵە!");
                 return;
             }
-            let text = "سڵاو، دەمەوێت ئەم بەرهەمانە داوا بکەم:\n";
-            cart.forEach((item, i) => { text += `${i + 1}. ${item.name} (${item.price})\n`; });
+            renderCartItems();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function renderCartItems() {
+            const listContainer = document.getElementById('cartItemsList');
+            listContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: #888; padding: 10px;">عەرەبانەکەت بەتاڵە</p>';
+                return;
+            }
+
+            cart.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'cart-item-row';
+                row.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <span style="color: #27ae60; font-size: 0.85rem;">${item.price}</span>
+                    </div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">-</button>
+                        <span style="font-weight: bold; min-width: 20px; text-align: center;">${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        function sendOrderToWhatsApp() {
+            if (cart.length === 0) {
+                alert("عەرەبانەکەت بەتاڵە!");
+                return;
+            }
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name || !phone || !address) {
+                alert("تکایە خانەکانی (ناوی تەواو، ژمارەی مۆبایل و ناونیشانی تەواو) پڕبکەرەوە!");
+                return;
+            }
+
+            let text = `📦 داواکاری نوێ لە وێبسایت:\n\n`;
+            text += `👤 ناوی کڕیار: ${name}\n`;
+            text += `📞 ژمارەی مۆبایل: ${phone}\n`;
+            text += `📍 ناونیشانی تەواو: ${address}\n\n`;
+            text += `🛍️ بەرهەمە داواکراوەکان:\n`;
+            
+            cart.forEach((item, i) => { 
+                text += `${i + 1}. ${item.name} - بڕ: ${item.qty} (${item.price})\n`; 
+            });
+
             const url = "https://wa.me/" + myPhoneNumber + "?text=" + encodeURIComponent(text);
             window.open(url, '_blank');
         }
