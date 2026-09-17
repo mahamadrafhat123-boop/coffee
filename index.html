@@ -561,15 +561,15 @@
             </div>
 
             <nav>
-                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی">هەمووی</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت">زەیت</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە">زەیتی زەڵاتە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە">سرکە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون">سابوون</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان">ئاوتکەکان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی">پاککەرەوەی ددان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات">کەرەی چەرەزات</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین">تەحین</button></div>
+                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی" id="catAll">هەمووی</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت" id="catOil">زەیت</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە" id="catSaladOil">زەیتی زەڵاتە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە" id="catVinegar">سرکە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون" id="catSoap">سابوون</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان" id="catOutka">ئاوتکەکان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی" id="catTeeth">پاککەرەوەی ددان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات" id="catNuts">کەرەی چەرەزات</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین" id="catTahini">تەحین</button></div>
                 
                 <div class="glow-wrapper"><button class="delivery-nav-btn" onclick="toggleDeliveryInfo()" id="btnDeliveryNav">🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ</button></div>
                 <div class="glow-wrapper"><button class="admin-toggle-btn" onclick="checkAdminPassword()" id="btnAdminNav">بەشی بەڕێوەبەر ⚙️</button></div>
@@ -750,7 +750,10 @@
                 close: "داخستن",
                 addToCart: "زیادبکە",
                 deleteProd: "سڕینەوەی بەرهەم",
-                modalClose: "داخستن"
+                modalClose: "داخستن",
+                pNamePl: "ناوی بەرهەم بنووسە...",
+                pPricePl: "نرخی بەرهەم بنووسە...",
+                pBenefitsPl: "سوودەکانی بەرهەمەکە بنووسە..."
             },
             ar: {
                 dir: "rtl",
@@ -802,7 +805,10 @@
                 close: "إغلاق",
                 addToCart: "إضافة",
                 deleteProd: "حذف المنتج",
-                modalClose: "إغلاق"
+                modalClose: "إغلاق",
+                pNamePl: "اكتب اسم المنتج...",
+                pPricePl: "اكتب سعر المنتج...",
+                pBenefitsPl: "اكتب فوائد المنتج..."
             },
             en: {
                 dir: "ltr",
@@ -854,7 +860,10 @@
                 close: "Close",
                 addToCart: "Add",
                 deleteProd: "Delete Product",
-                modalClose: "Close"
+                modalClose: "Close",
+                pNamePl: "Enter product name...",
+                pPricePl: "Enter product price...",
+                pBenefitsPl: "Enter product benefits..."
             }
         };
 
@@ -874,6 +883,17 @@
             document.getElementById('txtSplash').innerText = t.splashText;
             document.getElementById('searchInput').placeholder = t.searchPlaceholder;
             
+            // گۆڕینی دەقی دوگمەکانی فلتەری سەرەوە
+            document.getElementById('catAll').innerText = t.all;
+            document.getElementById('catOil').innerText = t.oil;
+            document.getElementById('catSaladOil').innerText = t.saladOil;
+            document.getElementById('catVinegar').innerText = t.vinegar;
+            document.getElementById('catSoap').innerText = t.soap;
+            document.getElementById('catOutka').innerText = t.outka;
+            document.getElementById('catTeeth').innerText = t.teeth;
+            document.getElementById('catNuts').innerText = t.nuts;
+            document.getElementById('catTahini').innerText = t.tahini;
+
             document.getElementById('btnDeliveryNav').innerHTML = t.deliveryNav;
             document.getElementById('btnAdminNav').innerText = t.adminNav;
             document.getElementById('txtDelivTitle').innerText = t.delivTitle;
@@ -885,6 +905,11 @@
             document.getElementById('lblPBen').innerText = t.lblPBen;
             document.getElementById('lblPImg').innerText = t.lblPImg;
             document.getElementById('btnSaveProd').innerText = t.btnSaveProd;
+            
+            // گۆڕینی Placeholderـی فۆرمی زیادکردنی بەرهەم
+            document.getElementById('pName').placeholder = t.pNamePl;
+            document.getElementById('pPrice').placeholder = t.pPricePl;
+            document.getElementById('pBenefits').placeholder = t.pBenefitsPl;
             
             document.getElementById('txtRevTitle').innerText = t.revTitle;
             document.getElementById('txtRevFormTitle').innerText = t.revFormTitle;
