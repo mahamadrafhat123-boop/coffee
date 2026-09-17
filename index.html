@@ -96,7 +96,7 @@
             border: 3px solid #2c5e3b; 
         }
 
-        /* Rotating Glow Border Effect for Search and Categories */
+        /* Hover-triggered Rotating Glow Border for Search */
         .glow-box {
             position: relative;
             border-radius: 25px;
@@ -112,9 +112,17 @@
             position: absolute;
             inset: -50%;
             background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #25D366 360deg);
-            animation: rotateGlow 4s linear infinite;
+            animation: rotateGlow 3s linear infinite;
             z-index: 1;
+            opacity: 0; /* سەرەتا نادیارە */
+            transition: opacity 0.3s ease;
         }
+        /* کاتێک ماوس دەچێتە سەر سێرچەکە یان فۆکس دەبێت */
+        .glow-box:hover::before,
+        .glow-box:focus-within::before {
+            opacity: 1; /* دەردەکەوێت و دەسووڕێتەوە */
+        }
+
         .glow-box-inner {
             position: relative;
             background: #151515;
@@ -134,7 +142,7 @@
             font-size: 1rem; outline: none; 
         }
 
-        /* Categories Navigation Container with Rotating Glow */
+        /* Categories Navigation Container */
         .nav-glow-box {
             position: relative;
             border-radius: 20px;
@@ -143,15 +151,9 @@
             width: 100%;
             max-width: 800px;
             margin: 15px auto 5px;
+            background: #161616;
         }
-        .nav-glow-box::before {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #2e8b57 360deg);
-            animation: rotateGlow 5s linear infinite;
-            z-index: 1;
-        }
+        
         .nav-glow-inner {
             position: relative;
             background: #161616;
@@ -164,14 +166,48 @@
             flex-wrap: wrap;
         }
 
+        /* Hover-triggered Rotating Glow Border for individual Category Buttons */
+        .glow-btn-wrapper {
+            position: relative;
+            border-radius: 15px;
+            padding: 2px;
+            display: inline-block;
+            overflow: hidden;
+        }
+        .glow-btn-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #25D366 360deg);
+            animation: rotateGlow 3s linear infinite;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glow-btn-wrapper:hover::before,
+        .glow-btn-wrapper .nav-btn.active ~ span, /* بۆ ئەوەی اکتیڤیش بێت ڕووناکی هەبێت ئەگەر بتهەوێت */
+        .glow-btn-wrapper:hover .nav-btn::before {
+            opacity: 1;
+        }
+
+        /* ڕێگایەکی زۆر پاکتر و سادەتر بۆ دوگمەی بەشەکان لە کاتی هۆوەردا */
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
             padding: 8px 15px; font-weight: bold; border: 1px solid #333; 
             background: #202020; color: #e0e0e0; border-radius: 15px; 
-            cursor: pointer; transition: 0.2s; font-size: 0.85rem; 
+            cursor: pointer; transition: all 0.3s ease; font-size: 0.85rem; 
+            position: relative;
+            z-index: 2;
         }
         
-        nav button.active, nav button:hover, .admin-toggle-btn:hover, .delivery-nav-btn:hover { 
+        nav button:hover, .admin-toggle-btn:hover, .delivery-nav-btn:hover { 
             background: #2c5e3b; color: white; border-color: #25D366; 
+            box-shadow: 0 0 12px rgba(37, 211, 102, 0.6); /* لێدی درەوشاوە لە کاتی هۆوەردا */
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #2c5e3b; color: white; border-color: #25D366;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
         }
         
         .delivery-nav-btn { color: #a3e0b5; border-color: #2c5e3b; }
@@ -348,14 +384,14 @@
                 <img src="msh.logo.jpg" alt="نوێبوونەوە" class="brand-logo">
             </div>
             
-            <!-- Search Container with Rotating Glow Border -->
+            <!-- Search Container with Hover Glow Border -->
             <div class="glow-box">
                 <div class="glow-box-inner">
                     <input type="text" id="searchInput" class="search-box" placeholder="گەڕان بۆ بەرهەمەکان..." onkeyup="filterProducts()">
                 </div>
             </div>
 
-            <!-- Categories Navigation with Rotating Glow Border -->
+            <!-- Categories Navigation -->
             <div class="nav-glow-box">
                 <div class="nav-glow-inner">
                     <nav id="categoryNav">
