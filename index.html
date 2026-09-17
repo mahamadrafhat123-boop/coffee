@@ -7,7 +7,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
-        body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
+        body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 90px; }
         
         /* Language Bar Style */
         .lang-bar {
@@ -68,17 +68,13 @@
             width: 100%; 
             text-align: center; 
             padding: 30px 20px; 
-            min-height: 350px;
             overflow: hidden;
             border-bottom: 1px solid #2a2a2a; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
-            background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('msh.logo.jpg');
+            background: linear-gradient(rgba(18, 18, 18, 0.88), rgba(18, 18, 18, 0.88)), url('msh.logo.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .header-content { 
@@ -90,49 +86,97 @@
         }
         
         .hero .brand-logo { 
-            width: 130px; 
-            height: 130px; 
+            width: 120px; 
+            height: 120px; 
             border-radius: 12px; 
             object-fit: cover; 
             display: block; 
-            margin: 0 auto 10px; 
+            margin: 0 auto 15px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
             border: 3px solid #2c5e3b; 
         }
 
-        /* Search Container */
-        .search-container { max-width: 500px; margin: 15px auto 10px; padding: 0 15px; }
-        
-        .search-box-wrapper, .glow-wrapper {
+        /* Rotating Glow Border Effect for Search and Categories */
+        .glow-box {
             position: relative;
             border-radius: 25px;
             padding: 2px;
-            background: rgba(26, 26, 26, 0.85);
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            max-width: 480px;
+            margin: 10px auto;
+        }
+        .glow-box::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #25D366 360deg);
+            animation: rotateGlow 4s linear infinite;
+            z-index: 1;
+        }
+        .glow-box-inner {
+            position: relative;
+            background: #151515;
+            border-radius: 23px;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .search-box { 
-            width: 100%; padding: 12px 20px; border: 1px solid #2c5e3b; 
-            background: #1a1a1a; color: #fff; border-radius: 25px; 
-            font-size: 1rem; outline: none; transition: 0.3s; 
+            width: 100%; padding: 12px 20px; border: none; 
+            background: #151515; color: #fff; 
+            font-size: 1rem; outline: none; 
         }
 
-        /* Navigation & Buttons Style */
-        nav { display: flex; justify-content: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; padding: 0 10px; }
-        
-        .glow-wrapper { border-radius: 20px; display: inline-block; }
+        /* Categories Navigation Container with Rotating Glow */
+        .nav-glow-box {
+            position: relative;
+            border-radius: 20px;
+            padding: 2px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            margin: 15px auto 5px;
+        }
+        .nav-glow-box::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #2e8b57 360deg);
+            animation: rotateGlow 5s linear infinite;
+            z-index: 1;
+        }
+        .nav-glow-inner {
+            position: relative;
+            background: #161616;
+            border-radius: 18px;
+            z-index: 2;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
-            padding: 8px 16px; font-weight: bold; border: 1px solid #2c5e3b; 
-            background: rgba(26, 26, 26, 0.85); color: #e0e0e0; border-radius: 20px; 
-            cursor: pointer; transition: 0.2s; font-size: 0.9rem; backdrop-filter: blur(4px); 
-            width: 100%;
+            padding: 8px 15px; font-weight: bold; border: 1px solid #333; 
+            background: #202020; color: #e0e0e0; border-radius: 15px; 
+            cursor: pointer; transition: 0.2s; font-size: 0.85rem; 
         }
         
-        nav button.active, .admin-toggle-btn:hover, .delivery-nav-btn:hover { 
+        nav button.active, nav button:hover, .admin-toggle-btn:hover, .delivery-nav-btn:hover { 
             background: #2c5e3b; color: white; border-color: #25D366; 
         }
         
-        .delivery-nav-btn { color: #a3e0b5; }
+        .delivery-nav-btn { color: #a3e0b5; border-color: #2c5e3b; }
+        .admin-toggle-btn { color: #f1c40f; border-color: #d4ac0d; }
+
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
         .delivery-info-section { display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #25D366; margin-bottom: 30px; }
@@ -182,7 +226,7 @@
         .btn-delete { background: #c0392b; color: white; border: none; padding: 4px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.75rem; display: none; margin-top: 5px; }
         .product-card.admin-mode .btn-delete { display: block; }
 
-        /* Modal Styles - Mobile Compatibility */
+        /* Modal Styles */
         #productModal, #cartModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.85); z-index: 10000; justify-content: center; align-items: center; padding: 20px;
@@ -190,10 +234,7 @@
         .modal-content, .cart-modal-content {
             background: #181818; color: #e0e0e0; padding: 25px; border-radius: 16px;
             max-width: 450px; width: 100%; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.6);
-            border: 1px solid #2c5e3b; 
-            max-height: 85vh; 
-            display: flex; 
-            flex-direction: column;
+            border: 1px solid #2c5e3b; max-height: 85vh; display: flex; flex-direction: column;
         }
         html[dir="ltr"] .modal-content, html[dir="ltr"] .cart-modal-content { text-align: left; }
         html[dir="rtl"] .modal-content, html[dir="rtl"] .cart-modal-content { text-align: right; }
@@ -201,15 +242,10 @@
         .modal-content img { width: 110px; height: 150px; object-fit: contain; margin: 0 auto 12px; border-radius: 8px; background: #222; padding: 5px; flex-shrink: 0; }
         .modal-content .modal-benefits {
             background: #222222; padding: 15px; border-radius: 8px; border: 1px solid #333;
-            white-space: pre-line; line-height: 1.8; margin-bottom: 20px; 
-            overflow-y: auto; 
-            flex: 1; 
-            -webkit-overflow-scrolling: touch;
+            white-space: pre-line; line-height: 1.8; margin-bottom: 20px; overflow-y: auto; flex: 1;
         }
         .close-modal-btn, .btn-close-cart { 
-            background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; 
-            margin-top: auto; 
-            flex-shrink: 0; 
+            background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-top: auto; flex-shrink: 0; 
         }
 
         .cart-items-list { max-height: 200px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
@@ -312,28 +348,31 @@
                 <img src="msh.logo.jpg" alt="نوێبوونەوە" class="brand-logo">
             </div>
             
-            <!-- Search Container -->
-            <div class="search-container">
-                <div class="search-box-wrapper">
+            <!-- Search Container with Rotating Glow Border -->
+            <div class="glow-box">
+                <div class="glow-box-inner">
                     <input type="text" id="searchInput" class="search-box" placeholder="گەڕان بۆ بەرهەمەکان..." onkeyup="filterProducts()">
                 </div>
             </div>
 
-            <!-- Navigation & Categories -->
-            <nav id="categoryNav">
-                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی">هەمووی</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت">زەیت</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە">زەیتی زەڵاتە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە">سرکە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون">سابوون</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان">ئاوتکەکان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی">پاککەرەوەی ددان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات">کەرەی چەرەزات</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین">تەحین</button></div>
-                
-                <div class="glow-wrapper"><button class="delivery-nav-btn" id="txtDeliveryBtn" onclick="toggleDeliveryInfo()">🚚 گەیاندن: بەخۆڕایی بۆ سەرجەم شارەکان</button></div>
-                <div class="glow-wrapper"><button class="admin-toggle-btn" id="txtAdminBtn" onclick="checkAdminPassword()">بەشی بەڕێوەبەر ⚙️</button></div>
-            </nav>
+            <!-- Categories Navigation with Rotating Glow Border -->
+            <div class="nav-glow-box">
+                <div class="nav-glow-inner">
+                    <nav id="categoryNav">
+                        <button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی">هەمووی</button>
+                        <button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت">زەیت</button>
+                        <button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە">زەیتی زەڵاتە</button>
+                        <button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە">سرکە</button>
+                        <button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون">سابوون</button>
+                        <button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان">ئاوتکەکان</button>
+                        <button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی">پاککەرەوەی ددان</button>
+                        <button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات">کەرەی چەرەزات</button>
+                        <button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین">تەحین</button>
+                        <button class="delivery-nav-btn" id="txtDeliveryBtn" onclick="toggleDeliveryInfo()">🚚 گەیاندن: بەخۆڕایی</button>
+                        <button class="admin-toggle-btn" id="txtAdminBtn" onclick="checkAdminPassword()">بەڕێوەبەر ⚙️</button>
+                    </nav>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -465,8 +504,8 @@
                 naturalToothpaste: "پاککەرەوەی ددانی سروشتی",
                 nutButter: "کەرەی چەرەزات",
                 tahini: "تەحین",
-                deliveryBtn: "🚚 گەیاندن: بەخۆڕایی بۆ سەرجەم شارەکان",
-                adminBtn: "بەشی بەڕێوەبەر ⚙️",
+                deliveryBtn: "🚚 گەیاندن: بەخۆڕایی",
+                adminBtn: "بەڕێوەبەر ⚙️",
                 delTitle: "🚚 گەیاندن بەخۆڕایی بۆ سەرجەم شار و قەزاکان",
                 delDesc: "گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە شێوەیەکی خۆڕایی:",
                 freeText: "بەخۆڕایی",
@@ -520,8 +559,8 @@
                 naturalToothpaste: "معجون أسنان طبيعي",
                 nutButter: "زبدة المكسرات",
                 tahini: "طحينة",
-                deliveryBtn: "🚚 التوصيل: مجاني لجميع المدن",
-                adminBtn: "قسم المدير ⚙️",
+                deliveryBtn: "🚚 التوصيل: مجاني",
+                adminBtn: "المدير ⚙️",
                 delTitle: "🚚 التوصيل مجاني لكافة المدن والأقضية",
                 delDesc: "التوصيل متوفر لجميع المدن والأقضية في أسرع وقت وبشكل مجاني:",
                 freeText: "مجاني",
@@ -575,8 +614,8 @@
                 naturalToothpaste: "Natural Toothpaste",
                 nutButter: "Nut Butter",
                 tahini: "Tahini",
-                deliveryBtn: "🚚 Delivery: Free for All Cities",
-                adminBtn: "Admin Panel ⚙️",
+                deliveryBtn: "🚚 Delivery: Free",
+                adminBtn: "Admin ⚙️",
                 delTitle: "🚚 Free Delivery for All Cities & Districts",
                 delDesc: "We provide fast and completely free delivery to all major cities and districts:",
                 freeText: "Free",
@@ -715,7 +754,7 @@
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 3000);
+            }, 2500);
         });
 
         const myPhoneNumber = "9647766944245";
@@ -808,11 +847,8 @@
 
         function filterCategory(category, btn) {
             currentCategory = category;
-            document.querySelectorAll('.glow-wrapper').forEach(w => w.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
+            document.querySelectorAll('#categoryNav .nav-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            btn.closest('.glow-wrapper').classList.add('active');
 
             const t = translations[currentLang];
             let displayCatName = btn.innerText;
