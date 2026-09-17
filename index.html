@@ -96,7 +96,7 @@
             border: 3px solid #2c5e3b; 
         }
 
-        /* Hover-triggered Rotating Glow Border for Search */
+        /* Click/Focus-triggered Rotating Glow Border for Search */
         .glow-box {
             position: relative;
             border-radius: 25px;
@@ -114,13 +114,12 @@
             background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #25D366 360deg);
             animation: rotateGlow 3s linear infinite;
             z-index: 1;
-            opacity: 0; /* سەرەتا نادیارە */
+            opacity: 0; 
             transition: opacity 0.3s ease;
         }
-        /* کاتێک ماوس دەچێتە سەر سێرچەکە یان فۆکس دەبێت */
-        .glow-box:hover::before,
+        /* تەنها لە کاتی کلیک کردن یان نوسین (Focus) لێدە سەوزەکە دەردەکەوێت و دەسووڕێتەوە */
         .glow-box:focus-within::before {
-            opacity: 1; /* دەردەکەوێت و دەسووڕێتەوە */
+            opacity: 1; 
         }
 
         .glow-box-inner {
@@ -166,31 +165,6 @@
             flex-wrap: wrap;
         }
 
-        /* Hover-triggered Rotating Glow Border for individual Category Buttons */
-        .glow-btn-wrapper {
-            position: relative;
-            border-radius: 15px;
-            padding: 2px;
-            display: inline-block;
-            overflow: hidden;
-        }
-        .glow-btn-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: -50%;
-            background: conic-gradient(from 0deg, transparent 0deg, transparent 270deg, #25D366 360deg);
-            animation: rotateGlow 3s linear infinite;
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .glow-btn-wrapper:hover::before,
-        .glow-btn-wrapper .nav-btn.active ~ span, /* بۆ ئەوەی اکتیڤیش بێت ڕووناکی هەبێت ئەگەر بتهەوێت */
-        .glow-btn-wrapper:hover .nav-btn::before {
-            opacity: 1;
-        }
-
-        /* ڕێگایەکی زۆر پاکتر و سادەتر بۆ دوگمەی بەشەکان لە کاتی هۆوەردا */
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
             padding: 8px 15px; font-weight: bold; border: 1px solid #333; 
             background: #202020; color: #e0e0e0; border-radius: 15px; 
@@ -201,7 +175,7 @@
         
         nav button:hover, .admin-toggle-btn:hover, .delivery-nav-btn:hover { 
             background: #2c5e3b; color: white; border-color: #25D366; 
-            box-shadow: 0 0 12px rgba(37, 211, 102, 0.6); /* لێدی درەوشاوە لە کاتی هۆوەردا */
+            box-shadow: 0 0 12px rgba(37, 211, 102, 0.6);
             transform: translateY(-2px);
         }
 
@@ -276,15 +250,27 @@
         html[dir="rtl"] .modal-content, html[dir="rtl"] .cart-modal-content { text-align: right; }
 
         .modal-content img { width: 110px; height: 150px; object-fit: contain; margin: 0 auto 12px; border-radius: 8px; background: #222; padding: 5px; flex-shrink: 0; }
+        
+        /* ڕێکخستنی سکرۆڵی سوودەکان لە موبایلدا بۆ ئەوەی بە ئاسانی ڕابکێشیتە خوارەوە */
         .modal-content .modal-benefits {
-            background: #222222; padding: 15px; border-radius: 8px; border: 1px solid #333;
-            white-space: pre-line; line-height: 1.8; margin-bottom: 20px; overflow-y: auto; flex: 1;
+            background: #222222; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #333;
+            white-space: pre-line; 
+            line-height: 1.8; 
+            margin-bottom: 20px; 
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; /* بۆ ئەوەی لە مۆبایلی ئایفۆن و ئەندرۆید بە لوسترین شێوە سکرۆڵ ببێت */
+            flex: 1;
+            max-height: 250px;
         }
+
         .close-modal-btn, .btn-close-cart { 
             background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-top: auto; flex-shrink: 0; 
         }
 
-        .cart-items-list { max-height: 200px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .cart-items-list { max-height: 200px; overflow-y: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .cart-item-row { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.9rem; }
         .qty-controls { display: flex; align-items: center; gap: 8px; }
         .qty-btn { background: #2c5e3b; color: white; border: none; width: 26px; height: 26px; border-radius: 50%; font-weight: bold; cursor: pointer; }
@@ -314,7 +300,7 @@
 
         .chat-box { display: none; position: absolute; bottom: 65px; right: 0; width: 310px; height: 420px; background: #1a1a1a; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; border: 1px solid #333; }
         .chat-header { background: #2c5e3b; color: white; padding: 12px; font-weight: bold; text-align: center; }
-        .chat-messages { flex: 1; padding: 10px; overflow-y: auto; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px; }
+        .chat-messages { flex: 1; padding: 10px; overflow-y: auto; -webkit-overflow-scrolling: touch; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px; }
         .msg { padding: 8px 12px; border-radius: 10px; max-width: 85%; }
         .msg.bot { background: #2a2a2a; align-self: flex-start; color: #e0e0e0; border: 1px solid #3a3a3a; }
         .msg.user { background: #2c5e3b; color: white; align-self: flex-end; }
@@ -384,7 +370,7 @@
                 <img src="msh.logo.jpg" alt="نوێبوونەوە" class="brand-logo">
             </div>
             
-            <!-- Search Container with Hover Glow Border -->
+            <!-- Search Container with Click/Focus Glowing Border -->
             <div class="glow-box">
                 <div class="glow-box-inner">
                     <input type="text" id="searchInput" class="search-box" placeholder="گەڕان بۆ بەرهەمەکان..." onkeyup="filterProducts()">
