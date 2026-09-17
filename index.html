@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl">
+<html lang="ckb" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,32 @@
         
         body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
         
+        /* Language Bar Style */
+        .lang-bar {
+            background: #181818;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .lang-btn {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #333;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: #2c5e3b;
+            color: white;
+            border-color: #25D366;
+        }
+
         /* Splash Screen */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
@@ -41,8 +67,8 @@
             position: relative; 
             width: 100%; 
             text-align: center; 
-            padding: 40px 20px; 
-            min-height: 380px;
+            padding: 30px 20px; 
+            min-height: 350px;
             overflow: hidden;
             border-bottom: 1px solid #2a2a2a; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
@@ -64,8 +90,8 @@
         }
         
         .hero .brand-logo { 
-            width: 140px; 
-            height: 140px; 
+            width: 130px; 
+            height: 130px; 
             border-radius: 12px; 
             object-fit: cover; 
             display: block; 
@@ -84,48 +110,16 @@
             background: rgba(26, 26, 26, 0.85);
         }
 
-        .search-box-wrapper::before, .glow-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            border-radius: 27px;
-            background: linear-gradient(45deg, #25D366, #00ff88, #114b27, #25D366);
-            background-size: 400%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .search-box-wrapper:focus-within::before {
-            opacity: 1;
-            animation: glowingBorder 3s linear infinite;
-        }
-
-        .glow-wrapper.active::before, .glow-wrapper:hover::before {
-            opacity: 1;
-            animation: glowingBorder 3s linear infinite;
-        }
-
-        @keyframes glowingBorder {
-            0% { background-position: 0 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0 50%; }
-        }
-
         .search-box { 
             width: 100%; padding: 12px 20px; border: 1px solid #2c5e3b; 
             background: #1a1a1a; color: #fff; border-radius: 25px; 
             font-size: 1rem; outline: none; transition: 0.3s; 
         }
-        .search-box:focus { border-color: transparent; }
 
         /* Navigation & Buttons Style */
         nav { display: flex; justify-content: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; padding: 0 10px; }
         
-        .glow-wrapper {
-            border-radius: 20px;
-            display: inline-block;
-        }
+        .glow-wrapper { border-radius: 20px; display: inline-block; }
 
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
             padding: 8px 16px; font-weight: bold; border: 1px solid #2c5e3b; 
@@ -139,21 +133,15 @@
         }
         
         .delivery-nav-btn { color: #a3e0b5; }
-        .delivery-nav-btn strong { color: #f39c12; }
-
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
-        /* Delivery Pricing Info Section */
-        .delivery-info-section { display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #25D366; margin-bottom: 30px; animation: fadeIn 0.4s ease-in-out; }
+        .delivery-info-section { display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #25D366; margin-bottom: 30px; }
         .delivery-info-section.active { display: block; }
         .delivery-info-section h3 { color: #25D366; margin-bottom: 15px; text-align: center; }
         .city-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
         .city-item { background: #242424; padding: 12px; border-radius: 8px; border: 1px solid #333; display: flex; justify-content: space-between; font-size: 0.95rem; }
-        .city-item span:last-child { color: #f39c12; font-weight: bold; }
+        .city-item span:last-child { color: #25D366; font-weight: bold; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Admin Panel Section */
         .admin-section { display: none; margin-bottom: 30px; }
         .admin-section.active { display: block; }
         .add-product-form { background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #2a2a2a; }
@@ -161,310 +149,96 @@
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #25D366; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #333; background: #262626; color: #fff; border-radius: 6px; font-size: 1rem; }
 
-        .btn-submit { background: #2c5e3b; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; transition: 0.2s; }
-        .btn-submit:hover { background: #21472c; }
+        .btn-submit { background: #2c5e3b; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; }
 
         .products-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         
-        /* Product Card Layout */
         .product-card { 
-            border: none; 
-            border-radius: 16px; 
-            padding: 12px 20px; 
-            background: #ffffff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
-            display: flex; 
-            flex-direction: row-reverse; 
-            align-items: center; 
-            justify-content: space-between;
-            gap: 15px; 
-            text-align: right; 
-            cursor: pointer;
-            transition: transform 0.2s ease;
+            border-radius: 16px; padding: 12px 20px; background: #ffffff; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; 
+            align-items: center; justify-content: space-between;
+            gap: 15px; cursor: pointer; transition: transform 0.2s ease;
         }
-        .product-card:hover {
-            transform: translateY(-2px);
-        }
+        html[dir="ltr"] .product-card { flex-direction: row; text-align: left; }
+        html[dir="rtl"] .product-card { flex-direction: row-reverse; text-align: right; }
 
-        .product-clickable {
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            gap: 15px;
-            flex: 1;
-        }
+        .product-clickable { display: flex; align-items: center; gap: 15px; flex: 1; }
+        html[dir="ltr"] .product-clickable { flex-direction: row; }
+        html[dir="rtl"] .product-clickable { flex-direction: row-reverse; }
 
-        .product-img-wrapper {
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .product-card img { 
-            width: 70px; 
-            height: 110px; 
-            object-fit: contain; 
-            border-radius: 6px; 
-        }
-
-        .product-info { 
-            flex: 1; 
-            display: flex;
-            flex-direction: column; 
-            text-align: right;
-        }
+        .product-card img { width: 70px; height: 110px; object-fit: contain; border-radius: 6px; }
+        .product-info { flex: 1; display: flex; flex-direction: column; }
         
-        .product-card h4 { 
-            color: #111111; 
-            margin-bottom: 4px; 
-            font-size: 1.05rem; 
-            font-weight: bold;
-        }
-        
-        .product-card .price { 
-            color: #27ae60; 
-            font-weight: bold; 
-            font-size: 0.95rem; 
-            margin-bottom: 4px; 
-        }
-        
-        .product-card .benefits { 
-            font-size: 0.8rem; 
-            color: #666666; 
-            margin-bottom: 4px; 
-            white-space: pre-line; 
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .product-card h4 { color: #111111; margin-bottom: 4px; font-size: 1.05rem; font-weight: bold; }
+        .product-card .price { color: #27ae60; font-weight: bold; font-size: 0.95rem; margin-bottom: 4px; }
+        .product-card .benefits { font-size: 0.8rem; color: #666666; margin-bottom: 4px; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         .btn-cart { 
-            background-color: #2c5e3b; 
-            color: #ffffff; 
-            border: none; 
-            padding: 8px 18px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 0.85rem; 
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(44, 94, 59, 0.3);
-            flex-shrink: 0;
-            z-index: 2;
+            background-color: #2c5e3b; color: #ffffff; border: none; 
+            padding: 8px 18px; border-radius: 20px; cursor: pointer; 
+            font-weight: bold; font-size: 0.85rem; flex-shrink: 0; z-index: 2; 
         }
-        .btn-cart:hover {
-            background-color: #21472c;
-        }
-
+        .btn-cart:hover { background-color: #21472c; }
         .btn-delete { background: #c0392b; color: white; border: none; padding: 4px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.75rem; display: none; margin-top: 5px; }
         .product-card.admin-mode .btn-delete { display: block; }
 
-        /* Modal Styles for Product Details */
-        #productModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+        /* Modal Styles - Updated for Mobile Compatibility */
+        #productModal, #cartModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85); z-index: 10000; justify-content: center; align-items: center; padding: 20px;
         }
-        .modal-content {
-            background: #181818;
-            color: #e0e0e0;
-            padding: 25px;
-            border-radius: 16px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
-            border: 1px solid #2c5e3b;
-            max-height: 90vh;
-            display: flex;
+        .modal-content, .cart-modal-content {
+            background: #181818; color: #e0e0e0; padding: 25px; border-radius: 16px;
+            max-width: 450px; width: 100%; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+            border: 1px solid #2c5e3b; 
+            max-height: 85vh; 
+            display: flex; 
             flex-direction: column;
         }
-        .modal-content img {
-            width: 110px;
-            height: 150px;
-            object-fit: contain;
-            margin: 0 auto 12px;
-            border-radius: 8px;
-            background: #222;
-            padding: 5px;
-        }
-        .modal-content h3 {
-            color: #ffffff;
-            font-size: 1.3rem;
-            margin-bottom: 6px;
-        }
-        .modal-content .modal-price {
-            color: #27ae60;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
+        html[dir="ltr"] .modal-content, html[dir="ltr"] .cart-modal-content { text-align: left; }
+        html[dir="rtl"] .modal-content, html[dir="rtl"] .cart-modal-content { text-align: right; }
+
+        .modal-content img { width: 110px; height: 150px; object-fit: contain; margin: 0 auto 12px; border-radius: 8px; background: #222; padding: 5px; flex-shrink: 0; }
         .modal-content .modal-benefits {
-            text-align: right;
-            font-size: 0.95rem;
-            color: #cccccc;
-            background: #222222;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            white-space: pre-line;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            max-height: 250px;
-            overflow-y: auto; /* ئەمە وەک لێرە ڕێکخراوە بۆ ئەوەی بتوانیت بچیتە خوارەوە */
+            background: #222222; padding: 15px; border-radius: 8px; border: 1px solid #333;
+            white-space: pre-line; line-height: 1.8; margin-bottom: 20px; 
+            overflow-y: auto; 
+            flex: 1; 
+            -webkit-overflow-scrolling: touch;
         }
-        .close-modal-btn {
-            background: #c0392b;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: auto;
+        .close-modal-btn, .btn-close-cart { 
+            background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; 
+            margin-top: auto; 
+            flex-shrink: 0; 
         }
 
-        /* Cart Modal / Drawer Styles */
-        #cartModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 10001;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-        .cart-modal-content {
-            background: #181818;
-            color: #e0e0e0;
-            padding: 25px;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
-            border: 1px solid #25D366;
-            max-height: 90vh;
-            overflow-y: auto;
-            text-align: right;
-        }
-        .cart-modal-content h3 {
-            color: #25D366;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .cart-items-list {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-        .cart-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #222;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .qty-btn {
-            background: #2c5e3b;
-            color: white;
-            border: none;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .qty-btn:hover { background: #21472c; }
+        .cart-items-list { max-height: 200px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.9rem; }
+        .qty-controls { display: flex; align-items: center; gap: 8px; }
+        .qty-btn { background: #2c5e3b; color: white; border: none; width: 26px; height: 26px; border-radius: 50%; font-weight: bold; cursor: pointer; }
         
-        .customer-form-group {
-            margin-bottom: 12px;
-        }
-        .customer-form-group label {
-            display: block;
-            margin-bottom: 4px;
-            color: #25D366;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        .customer-form-group input {
-            width: 100%;
-            padding: 10px;
-            background: #262626;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .customer-form-group input:focus { border-color: #25D366; }
+        .customer-form-group { margin-bottom: 12px; }
+        .customer-form-group label { display: block; margin-bottom: 4px; color: #25D366; font-size: 0.9rem; font-weight: bold; }
+        .customer-form-group input { width: 100%; padding: 10px; background: #262626; border: 1px solid #333; color: white; border-radius: 6px; font-size: 0.95rem; outline: none; }
 
-        .checkout-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .btn-confirm-order {
-            background: #25D366;
-            color: #121212;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            flex: 1;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.2s;
-        }
-        .btn-confirm-order:hover { background: #20b858; }
-        .btn-close-cart {
-            background: #c0392b;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .checkout-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-confirm-order { background: #25D366; color: #121212; border: none; padding: 12px; border-radius: 8px; font-weight: bold; flex: 1; cursor: pointer; }
 
         .reviews-section { margin: 50px 0; background: #1a1a1a; padding: 30px 20px; border-radius: 15px; border: 1px solid #2a2a2a; }
         .reviews-section h3 { text-align: center; color: #25D366; margin-bottom: 25px; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .review-card { background: #242424; padding: 18px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 1px solid #333; }
-        
-        .review-card .stars, option { color: #ffcc00 !important; }
-        .review-card .stars { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 0 6px rgba(255, 204, 0, 0.5); }
-        .review-card p { font-size: 0.9rem; color: #ccc; }
-        .review-card h5 { margin-top: 10px; color: #25D366; text-align: left; }
+        .review-card { background: #242424; padding: 18px; border-radius: 10px; border: 1px solid #333; }
+        .review-card .stars { color: #ffcc00; font-size: 1.2rem; margin-bottom: 5px; }
+        html[dir="ltr"] .review-card h5 { text-align: right; color: #25D366; margin-top: 10px; }
+        html[dir="rtl"] .review-card h5 { text-align: left; color: #25D366; margin-top: 10px; }
 
         .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #182e1e; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 99; border-top: 1px solid #2c5e3b; }
         .cart-bar button { background: #25D366; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         .floating-buttons { position: fixed; bottom: 70px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
-        .call-btn { background: #e67e22; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .chat-btn { background: #2c5e3b; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .call-btn, .chat-btn { width: 55px; height: 55px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; }
+        .call-btn { background: #e67e22; }
+        .chat-btn { background: #2c5e3b; }
 
         .chat-box { display: none; position: absolute; bottom: 65px; right: 0; width: 310px; height: 420px; background: #1a1a1a; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; border: 1px solid #333; }
         .chat-header { background: #2c5e3b; color: white; padding: 12px; font-weight: bold; text-align: center; }
@@ -479,9 +253,16 @@
 </head>
 <body>
 
+    <!-- Language Selector Bar -->
+    <div class="lang-bar">
+        <button class="lang-btn active" onclick="changeLanguage('ckb')">کوردی</button>
+        <button class="lang-btn" onclick="changeLanguage('ar')">عربي</button>
+        <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+    </div>
+
     <div id="splash-screen">
         <img src="msh.logo.jpg" alt="نوێبوونەوە" class="splash-logo">
-        <div class="splash-text">تکایە چاوەڕوان بە...</div>
+        <div class="splash-text" id="txtSplash">تکایە چاوەڕوان بە...</div>
         <div class="loading-bar"></div>
     </div>
 
@@ -492,35 +273,35 @@
             <h3 id="modalTitle"></h3>
             <div class="modal-price" id="modalPrice"></div>
             <div class="modal-benefits" id="modalBenefits"></div>
-            <button class="close-modal-btn" onclick="closeProductModal()">داخستن</button>
+            <button class="close-modal-btn" id="btnCloseModal" onclick="closeProductModal()">داخستن</button>
         </div>
     </div>
 
     <!-- Cart & Checkout Modal -->
     <div id="cartModal" onclick="closeCartModal()">
         <div class="cart-modal-content" onclick="event.stopPropagation()">
-            <h3>🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
+            <h3 id="txtCartTitle">🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
             
             <div class="cart-items-list" id="cartItemsList"></div>
 
             <div style="margin-top: 15px;">
                 <div class="customer-form-group">
-                    <label>ناوی کەسەکە (ناوی تەواو):</label>
-                    <input type="text" id="custName" placeholder="ناوی خۆت لێرە بنووسە...">
+                    <label id="lblCustName">ناوی کەسەکە (ناوی تەواو):</label>
+                    <input type="text" id="custName" placeholder="...">
                 </div>
                 <div class="customer-form-group">
-                    <label>ژمارەی مۆبایل:</label>
+                    <label id="lblCustPhone">ژمارەی مۆبایل:</label>
                     <input type="tel" id="custPhone" placeholder="0770XXXXXXX">
                 </div>
                 <div class="customer-form-group">
-                    <label>ناونیشانی تەواو:</label>
-                    <input type="text" id="custAddress" placeholder="شار، کۆڵان، خانوو...">
+                    <label id="lblCustAddress">ناونیشانی تەواو:</label>
+                    <input type="text" id="custAddress" placeholder="...">
                 </div>
             </div>
 
             <div class="checkout-actions">
-                <button class="btn-confirm-order" onclick="sendOrderToWhatsApp()">ناردنی داواکاری بۆ واتسئاپ 💬</button>
-                <button class="btn-close-cart" onclick="closeCartModal()">داخستن</button>
+                <button class="btn-confirm-order" id="btnSendOrder" onclick="sendOrderToWhatsApp()">ناردنی داواکاری بۆ واتسئاپ 💬</button>
+                <button class="btn-close-cart" id="btnCloseCart" onclick="closeCartModal()">داخستن</button>
             </div>
         </div>
     </div>
@@ -533,53 +314,53 @@
             
             <div class="search-container">
                 <div class="search-box-wrapper">
-                    <input type="text" id="searchInput" class="search-box" placeholder="گەڕان بۆ بەرهەمەکان یان سوودەکانیان..." onkeyup="filterProducts()">
+                    <input type="text" id="searchInput" class="search-box" placeholder="گەڕان بۆ بەرهەمەکان..." onkeyup="filterProducts()">
                 </div>
             </div>
 
-            <nav>
-                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)">هەمووی</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)">زەیت</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)">زەیتی زەڵاتە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)">سرکە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)">سابوون</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)">ئاوتکەکان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)">پاککەرەوەی ددان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)">کەرەی چەرەزات</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)">تەحین</button></div>
+            <nav id="categoryNav">
+                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی">هەمووی</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت">زەیت</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە">زەیتی زەڵاتە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە">سرکە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون">سابوون</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان">ئاوتکەکان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی">پاککەرەوەی ددان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات">کەرەی چەرەزات</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین">تەحین</button></div>
                 
-                <div class="glow-wrapper"><button class="delivery-nav-btn" onclick="toggleDeliveryInfo()">🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ</button></div>
-                <div class="glow-wrapper"><button class="admin-toggle-btn" onclick="checkAdminPassword()">بەشی بەڕێوەبەر ⚙️</button></div>
+                <div class="glow-wrapper"><button class="delivery-nav-btn" id="txtDeliveryBtn" onclick="toggleDeliveryInfo()">🚚 گەیاندن: بەخۆڕایی بۆ سەرجەم شارەکان</button></div>
+                <div class="glow-wrapper"><button class="admin-toggle-btn" id="txtAdminBtn" onclick="checkAdminPassword()">بەشی بەڕێوەبەر ⚙️</button></div>
             </nav>
         </div>
     </header>
 
     <div class="container">
         <div id="deliveryInfoSection" class="delivery-info-section">
-            <h3>🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان</h3>
-            <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:</p>
+            <h3 id="txtDelTitle">🚚 گەیاندن بەخۆڕایی بۆ سەرجەم شار و قەزاکان</h3>
+            <p id="txtDelDesc" style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە شێوەیەکی خۆڕایی:</p>
             <div class="city-list">
-                <div class="city-item"><span>هەولێر:</span> <span>٣,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>سلێمانی:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>دهۆک:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>کەرکووک:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>هەڵەبجە:</span> <span>٥,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>ڕانیە / پشدەر:</span> <span>٣,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>سۆران / چۆمان:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>شارەزوور / دەربەندیخان:</span> <span>٤,٠٠٠ دینار</span></div>
+                <div class="city-item"><span id="cErbil">هەولێر:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cSlemani">سلێمانی:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cDuhok">دهۆک:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cKirkuk">کەرکووک:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cHalabja">هەڵەبجە:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cRanya">ڕانیە / پشدەر:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cSoran">سۆران / چۆمان:</span> <span class="freeTxt">بەخۆڕایی</span></div>
+                <div class="city-item"><span id="cSharazoor">شارەزوور / دەربەندیخان:</span> <span class="freeTxt">بەخۆڕایی</span></div>
             </div>
         </div>
 
         <div id="adminSection" class="admin-section">
             <div class="add-product-form">
-                <h3 style="color: #25D366; margin-bottom: 15px;">بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ</h3>
+                <h3 id="txtAdminTitle" style="color: #25D366; margin-bottom: 15px;">بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ</h3>
                 <form id="productForm">
                     <div class="form-group">
-                        <label>ناوی بەرهەم:</label>
-                        <input type="text" id="pName" required placeholder="ناوی بەرهەم بنووسە...">
+                        <label id="lblPName">ناوی بەرهەم:</label>
+                        <input type="text" id="pName" required placeholder="...">
                     </div>
                     <div class="form-group">
-                        <label>بەش:</label>
+                        <label id="lblPCat">بەش:</label>
                         <select id="pCategory">
                             <option value="زەیت">زەیت</option>
                             <option value="زەیتی زەڵاتە">زەیتی زەڵاتە</option>
@@ -592,18 +373,18 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>نرخ:</label>
-                        <input type="text" id="pPrice" required placeholder="نرخی بەرهەم بنووسە...">
+                        <label id="lblPPrice">نرخ:</label>
+                        <input type="text" id="pPrice" required placeholder="...">
                     </div>
                     <div class="form-group">
-                        <label>سوودەکان:</label>
-                        <textarea id="pBenefits" rows="3" required placeholder="سوودەکانی بەرهەمەکە بنووسە..."></textarea>
+                        <label id="lblPBenefits">سوودەکان:</label>
+                        <textarea id="pBenefits" rows="3" required placeholder="..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label>هەڵبژاردنی وێنەی بەرهەم:</label>
+                        <label id="lblPImg">هەڵبژاردنی وێنەی بەرهەم:</label>
                         <input type="file" id="pImgFile" accept="image/*">
                     </div>
-                    <button type="submit" class="btn-submit">سەیفکردنی بەرهەم</button>
+                    <button type="submit" class="btn-submit" id="btnSaveProd">سەیفکردنی بەرهەم</button>
                 </form>
             </div>
         </div>
@@ -612,54 +393,49 @@
         <div class="products-grid" id="productsGrid"></div>
 
         <div class="reviews-section">
-            <h3>⭐ ڕای کڕیارە ئازیزەکانمان ⭐</h3>
+            <h3 id="txtReviewHeader">⭐ ڕای کڕیارە ئازیزەکانمان ⭐</h3>
             
-            <form id="reviewForm" style="max-width: 500px; margin: 0 auto 30px; background: #242424; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 1px solid #333;">
-                <h4 style="margin-bottom: 12px; color: #25D366; text-align: center;">ڕاو بۆچوونی خۆت تۆمار بکه</h4>
+            <form id="reviewForm" style="max-width: 500px; margin: 0 auto 30px; background: #242424; padding: 20px; border-radius: 10px; border: 1px solid #333;">
+                <h4 id="txtRevTitle" style="margin-bottom: 12px; color: #25D366; text-align: center;">ڕاو بۆچوونی خۆت تۆمار بکه</h4>
                 <div style="margin-bottom: 10px;">
                     <input type="text" id="revName" placeholder="ناوی تۆ..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;">
                 </div>
                 <div style="margin-bottom: 10px;">
                     <select id="revStars" style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #ffcc00; border-radius: 6px;">
-                        <option value="★★★★★">★★★★★ (پێنج ئەستێرە - زۆر نایاب)</option>
-                        <option value="★★★★☆">★★★★☆ (چوار ئەستێرە - زۆر باش)</option>
-                        <option value="★★★☆☆">★★★☆☆ (سێ ئەستێرە - باش)</option>
+                        <option value="★★★★★">★★★★★ (5 Stars)</option>
+                        <option value="★★★★☆">★★★★☆ (4 Stars)</option>
+                        <option value="★★★☆☆">★★★☆☆ (3 Stars)</option>
                     </select>
                 </div>
                 <div style="margin-bottom: 10px;">
-                    <textarea id="revComment" rows="3" placeholder="تێبینی یان ڕای خۆت بۆ بەرهەمەکان بنووسە..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;"></textarea>
+                    <textarea id="revComment" rows="3" placeholder="تێبینی..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;"></textarea>
                 </div>
-                <button type="submit" style="background: #2c5e3b; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;">بڵاوکردنەوەی ڕا</button>
+                <button type="submit" id="btnPostReview" style="background: #2c5e3b; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;">بڵاوکردنەوەی ڕا</button>
             </form>
 
             <div class="reviews-grid" id="reviewsContainer">
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p>"زەیتی زەیتوونەکەی نوێبوونەوە زۆر ئەسڵی و سروشتی بوو، دەستان خۆش بێت."</p>
+                    <p id="revText1">"زەیتی زەیتوونەکەی نوێبوونەوە زۆر ئەسڵی و سروشتی بوو، دەستان خۆش بێت."</p>
                     <h5>- ئەحمەد م.</h5>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"تەحین و ئاوتکەکانتان زۆر پاک و بەتام بوون. گەیاندنەکەیان زۆر خێرا بوو."</p>
-                    <h5>- سارا ک.</h5>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="cart-bar">
-        <div>عەرەبانەی کڕین: <span id="cartCount">0</span> بەرهەم</div>
-        <button onclick="openCartModal()">بینینی عەرەبە و ناردنی داواکاری 🛒</button>
+        <div><span id="txtCartBarLabel">عەرەبانەی کڕین:</span> <span id="cartCount">0</span> <span id="txtCartBarItems">بەرهەم</span></div>
+        <button onclick="openCartModal()" id="txtCartBarBtn">بینینی عەرەبە و ناردنی داواکاری 🛒</button>
     </div>
 
     <div class="floating-buttons">
-        <a href="tel:07766944245" class="call-btn" title="پەیوەندیکردنی ڕاستەوخۆ">📞</a>
-        <button class="chat-btn" onclick="toggleChat()" title="چات">🤖</button>
+        <a href="tel:07766944245" class="call-btn" title="Call">📞</a>
+        <button class="chat-btn" onclick="toggleChat()" title="Chat">🤖</button>
         
         <div class="chat-box" id="chatBox">
-            <div class="chat-header">یارمەتیدەری نوێبوونەوە 🌿</div>
+            <div class="chat-header" id="txtChatHeader">یارمەتیدەری نوێبوونەوە 🌿</div>
             <div class="chat-messages" id="chatMessages">
-                <div class="msg bot">سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
+                <div class="msg bot" id="txtChatWelcome">سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
             </div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="پرسیارەکەت بنووسە..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -674,12 +450,270 @@
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
+        const translations = {
+            ckb: {
+                splashText: "تکایە چاوەڕوان بە...",
+                searchPlaceholder: "گەڕان بۆ بەرهەمەکان یان سوودەکانیان...",
+                all: "هەمووی",
+                oil: "زەیت",
+                saladOil: "زەیتی زەڵاتە",
+                vinegar: "سرکە",
+                soap: "سابوون",
+                herbs: "ئاوتکەکان",
+                naturalToothpaste: "پاککەرەوەی ددانی سروشتی",
+                nutButter: "کەرەی چەرەزات",
+                tahini: "تەحین",
+                deliveryBtn: "🚚 گەیاندن: بەخۆڕایی بۆ سەرجەم شارەکان",
+                adminBtn: "بەشی بەڕێوەبەر ⚙️",
+                delTitle: "🚚 گەیاندن بەخۆڕایی بۆ سەرجەم شار و قەزاکان",
+                delDesc: "گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە شێوەیەکی خۆڕایی:",
+                freeText: "بەخۆڕایی",
+                erbil: "هەولێر:",
+                slemani: "سلێمانی:",
+                duhok: "دهۆک:",
+                kirkuk: "کەرکووک:",
+                halabja: "هەڵەبجە:",
+                ranya: "ڕانیە / پشدەر:",
+                soran: "سۆران / چۆمان:",
+                sharazoor: "شارەزوور / دەربەندیخان:",
+                adminTitle: "بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ",
+                pNameLbl: "ناوی بەرهەم:",
+                pCatLbl: "بەش:",
+                pPriceLbl: "نرخ:",
+                pBenLbl: "سوودەکان:",
+                pImgLbl: "هەڵبژاردنی وێنەی بەرهەم:",
+                saveProdBtn: "سەیفکردنی بەرهەم",
+                allProducts: "هەموو بەرهەمەکان",
+                categoryTitle: "بەشی ",
+                addCartBtn: "زیادبکە",
+                delProdBtn: "سڕینەوەی بەرهەم",
+                closeBtn: "داخستن",
+                cartTitle: "🛒 عەرەبانەی کڕین و زانیاری داواکاری",
+                custNameLbl: "ناوی کەسەکە (ناوی تەواو):",
+                custPhoneLbl: "ژمارەی مۆبایل:",
+                custAddressLbl: "ناونیشانی تەواو:",
+                sendOrderBtn: "ناردنی داواکاری بۆ واتسئاپ 💬",
+                reviewHeader: "⭐ ڕای کڕیارە ئازیزەکانمان ⭐",
+                revTitle: "ڕاو بۆچوونی خۆت تۆمار بکه",
+                postRevBtn: "بڵاوکردنەوەی ڕا",
+                cartBarLabel: "عەرەبانەی کڕین:",
+                cartBarItems: "بەرهەم",
+                cartBarBtn: "بینینی عەرەبە و ناردنی داواکاری 🛒",
+                chatHeader: "یارمەتیدەری نوێبوونەوە 🌿",
+                chatWelcome: "سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!",
+                chatPlaceholder: "پرسیارەکەت بنووسە...",
+                sendChat: "ناردن",
+                emptyCart: "عەرەبانەکەت بەتاڵە!",
+                addedAlert: " زیادکرا بۆ عەرەبانەی کڕین!"
+            },
+            ar: {
+                splashText: "يرجى الانتظار...",
+                searchPlaceholder: "البحث عن المنتجات أو فوائدها...",
+                all: "الكل",
+                oil: "زيوت",
+                saladOil: "زيت سلطة",
+                vinegar: "خل",
+                soap: "صوبون",
+                herbs: "أعشاب",
+                naturalToothpaste: "معجون أسنان طبيعي",
+                nutButter: "زبدة المكسرات",
+                tahini: "طحينة",
+                deliveryBtn: "🚚 التوصيل: مجاني لجميع المدن",
+                adminBtn: "قسم المدير ⚙️",
+                delTitle: "🚚 التوصيل مجاني لكافة المدن والأقضية",
+                delDesc: "التوصيل متوفر لجميع المدن والأقضية في أسرع وقت وبشكل مجاني:",
+                freeText: "مجاني",
+                erbil: "أربيل:",
+                slemani: "السليمانية:",
+                duhok: "دهوك:",
+                kirkuk: "كركوك:",
+                halabja: "حلبجة:",
+                ranya: "رانية / بشدر:",
+                soran: "سوران / جومان:",
+                sharazoor: "شارزور / دربنديخان:",
+                adminTitle: "إدارة الموقع: إضافة منتج جديد",
+                pNameLbl: "اسم المنتج:",
+                pCatLbl: "القسم:",
+                pPriceLbl: "السعر:",
+                pBenLbl: "الفوائد:",
+                pImgLbl: "اختر صورة المنتج:",
+                saveProdBtn: "حفظ المنتج",
+                allProducts: "جميع المنتجات",
+                categoryTitle: "قسم ",
+                addCartBtn: "إضافة",
+                delProdBtn: "حذف المنتج",
+                closeBtn: "إغلاق",
+                cartTitle: "🛒 سلة المشتريات ومعلومات الطلب",
+                custNameLbl: "اسم الزبون (الاسم الكامل):",
+                custPhoneLbl: "رقم الهاتف:",
+                custAddressLbl: "العنوان بالتفصيل:",
+                sendOrderBtn: "إرسال الطلب إلى الواتساب 💬",
+                reviewHeader: "⭐ آراء زملائنا وزبائننا الأعزاء ⭐",
+                revTitle: "سجل رأيك وتقييمك",
+                postRevBtn: "نشر التقييم",
+                cartBarLabel: "سلة المشتريات:",
+                cartBarItems: "منتجات",
+                cartBarBtn: "عرض السلة وإرسال الطلب 🛒",
+                chatHeader: "مساعد نویبونوة 🌿",
+                chatWelcome: "أهلاً بك! يمكنك الاستفسار عن المنتجات هنا.",
+                chatPlaceholder: "اكتب سؤالك...",
+                sendChat: "إرسال",
+                emptyCart: "سلتك فارغة!",
+                addedAlert: " تم إضافته إلى السلة!"
+            },
+            en: {
+                splashText: "Please wait...",
+                searchPlaceholder: "Search products or benefits...",
+                all: "All",
+                oil: "Oil",
+                saladOil: "Salad Oil",
+                vinegar: "Vinegar",
+                soap: "Soap",
+                herbs: "Herbs",
+                naturalToothpaste: "Natural Toothpaste",
+                nutButter: "Nut Butter",
+                tahini: "Tahini",
+                deliveryBtn: "🚚 Delivery: Free for All Cities",
+                adminBtn: "Admin Panel ⚙️",
+                delTitle: "🚚 Free Delivery for All Cities & Districts",
+                delDesc: "We provide fast and completely free delivery to all major cities and districts:",
+                freeText: "Free",
+                erbil: "Erbil:",
+                slemani: "Sulaymaniyah:",
+                duhok: "Duhok:",
+                kirkuk: "Kirkuk:",
+                halabja: "Halabja:",
+                ranya: "Ranya / Pshdar:",
+                soran: "Soran / Choman:",
+                sharazoor: "Sharazoor / Darbandikhan:",
+                adminTitle: "Website Admin: Add New Product",
+                pNameLbl: "Product Name:",
+                pCatLbl: "Category:",
+                pPriceLbl: "Price:",
+                pBenLbl: "Benefits:",
+                pImgLbl: "Choose Product Image:",
+                saveProdBtn: "Save Product",
+                allProducts: "All Products",
+                categoryTitle: "Category: ",
+                addCartBtn: "Add to Cart",
+                delProdBtn: "Delete Product",
+                closeBtn: "Close",
+                cartTitle: "🛒 Shopping Cart & Order Details",
+                custNameLbl: "Customer Full Name:",
+                custPhoneLbl: "Phone Number:",
+                custAddressLbl: "Full Address:",
+                sendOrderBtn: "Send Order via WhatsApp 💬",
+                reviewHeader: "⭐ Customer Reviews ⭐",
+                revTitle: "Leave Your Review",
+                postRevBtn: "Post Review",
+                cartBarLabel: "Cart:",
+                cartBarItems: "items",
+                cartBarBtn: "View Cart & Send Order 🛒",
+                chatHeader: "NweBunawa Assistant 🌿",
+                chatWelcome: "Hello! Welcome to NweBunawa. Ask me anything about our products!",
+                chatPlaceholder: "Type your question...",
+                sendChat: "Send",
+                emptyCart: "Your cart is empty!",
+                addedAlert: " added to cart!"
+            }
+        };
+
+        let currentLang = 'ckb';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            const htmlRoot = document.getElementById('htmlRoot');
+
+            if (lang === 'en') {
+                htmlRoot.setAttribute('dir', 'ltr');
+                htmlRoot.setAttribute('lang', 'en');
+            } else {
+                htmlRoot.setAttribute('dir', 'rtl');
+                htmlRoot.setAttribute('lang', lang);
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('txtSplash').innerText = t.splashText;
+            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+            document.getElementById('txtDeliveryBtn').innerHTML = t.deliveryBtn;
+            document.getElementById('txtAdminBtn').innerText = t.adminBtn;
+            document.getElementById('txtDelTitle').innerText = t.delTitle;
+            document.getElementById('txtDelDesc').innerText = t.delDesc;
+            
+            document.getElementById('cErbil').innerText = t.erbil;
+            document.getElementById('cSlemani').innerText = t.slemani;
+            document.getElementById('cDuhok').innerText = t.duhok;
+            document.getElementById('cKirkuk').innerText = t.kirkuk;
+            document.getElementById('cHalabja').innerText = t.halabja;
+            document.getElementById('cRanya').innerText = t.ranya;
+            document.getElementById('cSoran').innerText = t.soran;
+            document.getElementById('cSharazoor').innerText = t.sharazoor;
+
+            document.querySelectorAll('.freeTxt').forEach(el => {
+                el.innerText = t.freeText;
+            });
+
+            document.getElementById('txtAdminTitle').innerText = t.adminTitle;
+            document.getElementById('lblPName').innerText = t.pNameLbl;
+            document.getElementById('lblPCat').innerText = t.pCatLbl;
+            document.getElementById('lblPPrice').innerText = t.pPriceLbl;
+            document.getElementById('lblPBenefits').innerText = t.pBenLbl;
+            document.getElementById('lblPImg').innerText = t.pImgLbl;
+            document.getElementById('btnSaveProd').innerText = t.saveProdBtn;
+            document.getElementById('btnCloseModal').innerText = t.closeBtn;
+            document.getElementById('txtCartTitle').innerText = t.cartTitle;
+            document.getElementById('lblCustName').innerText = t.custNameLbl;
+            document.getElementById('lblCustPhone').innerText = t.custPhoneLbl;
+            document.getElementById('lblCustAddress').innerText = t.custAddressLbl;
+            document.getElementById('btnSendOrder').innerText = t.sendOrderBtn;
+            document.getElementById('btnCloseCart').innerText = t.closeBtn;
+            document.getElementById('txtReviewHeader').innerText = t.reviewHeader;
+            document.getElementById('txtRevTitle').innerText = t.revTitle;
+            document.getElementById('btnPostReview').innerText = t.postRevBtn;
+            document.getElementById('txtCartBarLabel').innerText = t.cartBarLabel;
+            document.getElementById('txtCartBarItems').innerText = t.cartBarItems;
+            document.getElementById('txtCartBarBtn').innerText = t.cartBarBtn;
+            document.getElementById('txtChatHeader').innerText = t.chatHeader;
+            document.getElementById('txtChatWelcome').innerText = t.chatWelcome;
+            document.getElementById('chatInput').placeholder = t.chatPlaceholder;
+            document.getElementById('sendChatButton').innerText = t.sendChat;
+
+            updateCategoryButtonNames();
+            renderProducts();
+            renderCartItems();
+        }
+
+        function updateCategoryButtonNames() {
+            const t = translations[currentLang];
+            const mapping = {
+                'هەمووی': t.all,
+                'زەیت': t.oil,
+                'زەیتی زەڵاتە': t.saladOil,
+                'سرکە': t.vinegar,
+                'سابوون': t.soap,
+                'ئاوتکەکان': t.herbs,
+                'پاککەرەوەی ددانی سروشتی': t.naturalToothpaste,
+                'کەرەی چەرەزات': t.nutButter,
+                'تەحین': t.tahini
+            };
+
+            document.querySelectorAll('#categoryNav .nav-btn').forEach(btn => {
+                let catKey = btn.getAttribute('data-cat');
+                if (mapping[catKey]) {
+                    btn.innerText = mapping[catKey];
+                }
+            });
+        }
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 5000);
+            }, 3000);
         });
 
         const myPhoneNumber = "9647766944245";
@@ -709,13 +743,12 @@
         }
 
         function checkAdminPassword() {
-            const pwd = prompt("تکایە ڕەمزی بەشی بەڕێوەبەر بنووسە:");
+            const pwd = prompt("تکایە ڕەمزی بەشی بەڕێوەبەر بنووسە / Enter Password:");
             if (pwd === null) return;
-            
             if (pwd === adminPassword) {
                 toggleAdminPanel();
             } else {
-                alert("ڕەمزەکە هەڵەیە!");
+                alert("ڕەمزەکە هەڵەیە! / Incorrect Password!");
             }
         }
 
@@ -724,7 +757,6 @@
             isAdminOpen = !isAdminOpen;
             if (isAdminOpen) {
                 adminSection.classList.add('active');
-                alert("بە سەرکەوتوویی چووە ناو بەشی بەڕێوەبەرەوە!");
             } else {
                 adminSection.classList.remove('active');
             }
@@ -741,9 +773,7 @@
 
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) { 
-                    saveProduct(event.target.result); 
-                };
+                reader.onload = function(event) { saveProduct(event.target.result); };
                 reader.readAsDataURL(file);
             } else {
                 saveProduct('msh.logo.jpg');
@@ -761,14 +791,13 @@
             };
             products.push(newProduct);
             localStorage.setItem('sharihana_products', JSON.stringify(products));
-            
             productForm.reset();
             renderProducts();
-            alert("بەرهەمەکە پاشەکەوت کرا!");
+            alert("بەرهەمەکە پاشەکەوت کرا! / Saved!");
         }
 
         function deleteProduct(id) {
-            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە؟")) {
+            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە؟ / Delete product?")) {
                 products = products.filter(p => p.id !== id);
                 localStorage.setItem('sharihana_products', JSON.stringify(products));
                 renderProducts();
@@ -777,14 +806,15 @@
 
         function filterCategory(category, btn) {
             currentCategory = category;
-            
             document.querySelectorAll('.glow-wrapper').forEach(w => w.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             
             btn.classList.add('active');
             btn.closest('.glow-wrapper').classList.add('active');
 
-            document.getElementById('sectionTitle').innerText = category === 'هەمووی' ? 'هەموو بەرهەمەکان' : 'بەشی ' + category;
+            const t = translations[currentLang];
+            let displayCatName = btn.innerText;
+            document.getElementById('sectionTitle').innerText = (category === 'هەمووی') ? t.allProducts : (t.categoryTitle + displayCatName);
             renderProducts();
         }
 
@@ -795,6 +825,7 @@
         function renderProducts() {
             productsGrid.innerHTML = '';
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const t = translations[currentLang];
             
             let filtered = currentCategory === 'هەمووی' ? products : products.filter(p => p.category === currentCategory);
             
@@ -811,7 +842,6 @@
                 const card = document.createElement('div');
                 card.className = 'product-card' + (isAdminOpen ? ' admin-mode' : '');
                 
-                // دڵنیابوونەوە لەوەی ئەگەر وێنەی بەرهەم نەبوو لۆگۆ پیشان نەدات بەڵکو وێنەی دروست بەکاربێت
                 let validImg = (p.img && p.img.trim() !== "") ? p.img : 'msh.logo.jpg';
 
                 card.onclick = function() {
@@ -827,10 +857,10 @@
                             <h4>${p.name}</h4>
                             <div class="price">${p.price}</div>
                             <div class="benefits">${p.benefits}</div>
-                            <button class="btn-delete" onclick="event.stopPropagation(); deleteProduct(${p.id})">سڕینەوەی بەرهەم</button>
+                            <button class="btn-delete" onclick="event.stopPropagation(); deleteProduct(${p.id})">${t.delProdBtn}</button>
                         </div>
                     </div>
-                    <button class="btn-cart" onclick="event.stopPropagation(); addToCart('${p.name.replace(/'/g, "\\'")}', '${p.price.replace(/'/g, "\\'")}')">زیادبکە</button>
+                    <button class="btn-cart" onclick="event.stopPropagation(); addToCart('${p.name.replace(/'/g, "\\'")}', '${p.price.replace(/'/g, "\\'")}')">${t.addCartBtn}</button>
                 `;
                 productsGrid.appendChild(card);
             });
@@ -849,6 +879,7 @@
         }
 
         function addToCart(name, price) {
+            const t = translations[currentLang];
             let existing = cart.find(item => item.name === name);
             if (existing) {
                 existing.qty += 1;
@@ -856,7 +887,7 @@
                 cart.push({ name, price, qty: 1 });
             }
             updateCartCount();
-            alert(name + " زیادکرا بۆ عەرەبانەی کڕین!");
+            alert(name + t.addedAlert);
         }
 
         function changeQty(name, amount) {
@@ -877,8 +908,9 @@
         }
 
         function openCartModal() {
+            const t = translations[currentLang];
             if (cart.length === 0) {
-                alert("عەرەبانەکەت بەتاڵە!");
+                alert(t.emptyCart);
                 return;
             }
             renderCartItems();
@@ -894,7 +926,7 @@
             listContainer.innerHTML = '';
 
             if (cart.length === 0) {
-                listContainer.innerHTML = '<p style="text-align: center; color: #888; padding: 10px;">عەرەبانەکەت بەتاڵە</p>';
+                listContainer.innerHTML = '<p style="text-align: center; color: #888; padding: 10px;">عەرەبانەکەت بەتاڵە / Empty</p>';
                 return;
             }
 
@@ -917,8 +949,9 @@
         }
 
         function sendOrderToWhatsApp() {
+            const t = translations[currentLang];
             if (cart.length === 0) {
-                alert("عەرەبانەکەت بەتاڵە!");
+                alert(t.emptyCart);
                 return;
             }
 
@@ -927,18 +960,18 @@
             const address = document.getElementById('custAddress').value.trim();
 
             if (!name || !phone || !address) {
-                alert("تکایە خانەکانی (ناوی تەواو، ژمارەی مۆبایل و ناونیشانی تەواو) پڕبکەرەوە!");
+                alert("تکایە خانەکان بە تەواوی پڕبکەرەوە! / Please fill all fields!");
                 return;
             }
 
-            let text = `📦 داواکاری نوێ لە وێبسایت:\n\n`;
-            text += `👤 ناوی کڕیار: ${name}\n`;
-            text += `📞 ژمارەی مۆبایل: ${phone}\n`;
-            text += `📍 ناونیشانی تەواو: ${address}\n\n`;
-            text += `🛍️ بەرهەمە داواکراوەکان:\n`;
+            let text = `📦 داواکاری نوێ / New Order:\n\n`;
+            text += `👤 Name: ${name}\n`;
+            text += `📞 Phone: ${phone}\n`;
+            text += `📍 Address: ${address}\n\n`;
+            text += `🛍️ Items:\n`;
             
             cart.forEach((item, i) => { 
-                text += `${i + 1}. ${item.name} - بڕ: ${item.qty} (${item.price})\n`; 
+                text += `${i + 1}. ${item.name} - Qty: ${item.qty} (${item.price})\n`; 
             });
 
             const url = "https://wa.me/" + myPhoneNumber + "?text=" + encodeURIComponent(text);
@@ -964,7 +997,7 @@
 
             reviewsContainer.prepend(card);
             reviewForm.reset();
-            alert("سوپاس بۆ ڕاو بۆچوونی خۆت!");
+            alert("سوپاس! / Thank you!");
         });
 
         function toggleChat() {
@@ -975,42 +1008,13 @@
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
-
             if (!text) return;
 
             addMessage(text, 'user');
             input.value = '';
 
             setTimeout(() => {
-                let reply = "";
-                const q = text.toLowerCase();
-                
-                let matchedProducts = products.filter(p => 
-                    q.includes(p.name.toLowerCase()) || 
-                    p.name.toLowerCase().includes(q) ||
-                    p.benefits.toLowerCase().includes(q)
-                );
-
-                if (matchedProducts.length > 0) {
-                    let p = matchedProducts[0];
-                    reply = `بەرهەمی "${p.name}":\n💰 نرخ: ${p.price}\n🌿 سوودەکان: ${p.benefits}`;
-                }
-                else if (q.includes("سڵاو") || q.includes("سلاو") || q.includes("چۆن") || q.includes("مەرحەبا")) {
-                    reply = "سڵاو لە تۆش! بەخێربێیت بۆ نوێبوونەوە. چۆن دەتوانم یارمەتیت بدم؟";
-                } 
-                else if (q.includes("سوپاس") || q.includes("دەستخۆش") || q.includes("مەمنون")) {
-                    reply = "شایەنی نییە ئازیزم! خزمەتکردنی ئێوە شانازییە بۆ ئێمە 🌿";
-                }
-                else if (q.includes("گەیاندن") || q.includes("دیلیڤەری") || q.includes("کرێ")) {
-                    reply = "گەیاندنمان بۆ سەرجەم شار و شارۆچکەکان هەیە.";
-                } 
-                else if (q.includes("ژمارە") || q.includes("تەلەفۆن") || q.includes("پەیوەندی")) {
-                    reply = "پەیوەندیمان پێوە بکە بە: 07766944245";
-                }
-                else {
-                    reply = "ببوورە، دەتوانیت ناوی بەرهەمەکە بنووسیت تا زانیاریت پێ بدم یان لە واتسئاپ پەیوەندی بکەیت!";
-                }
-
+                let reply = (currentLang === 'en') ? "Thank you for your message! We will reply soon." : "سوپاس بۆ پەیامەکەت! لە نزیکترین کاتدا وەڵامت دەدەینەوە.";
                 addMessage(reply, 'bot');
             }, 500);
         }
