@@ -245,7 +245,6 @@
             margin-bottom: 4px; 
         }
         
-        /* چاککردنی بەرزی و سکڕۆڵ لە کارتی سەرەکی بەرهەم */
         .product-card .benefits { 
             font-size: 0.8rem; 
             color: #666666; 
@@ -277,7 +276,7 @@
         .btn-delete { background: #c0392b; color: white; border: none; padding: 4px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.75rem; display: none; margin-top: 5px; }
         .product-card.admin-mode .btn-delete { display: block; }
 
-        /* Modal Styles for Product Details - چاککردنی تەواو بۆ نیشاندانی هەموو سوودەکان بە سکڕۆڵ */
+        /* Modal Styles for Product Details */
         #productModal {
             display: none;
             position: fixed;
@@ -321,29 +320,32 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
-        /* گەورەکردنی بژاردەی سکڕۆڵ و شوێنی دەقەکان لە پەنجەرەی وردەکاریدا */
+        
+        /* لێرەدا قەبارە و بەرزی بەشی سوودەکان کراوەتە گەورەتر بۆ ئەوەی بە ئارەزووی خۆت ڕایکیشیتە خوارەوە و سەرەوە */
         .modal-content .modal-benefits {
             text-align: right;
-            font-size: 0.9rem;
-            color: #cccccc;
+            font-size: 0.95rem;
+            color: #dddddd;
             background: #222222;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             border: 1px solid #333;
             white-space: pre-line;
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 15px;
-            max-height: 45vh;
-            overflow-y: auto;
+            max-height: 55vh; /* گەورەکردنی بەرزی بەشەکە */
+            overflow-y: auto;  /* چالاککردنی سکڕۆڵی دەست بۆ خوارەوە و سەرەوە */
             -webkit-overflow-scrolling: touch;
             flex-grow: 1;
+            scroll-behavior: smooth;
         }
         html[dir="ltr"] .modal-content .modal-benefits { text-align: left; }
+        
         .close-modal-btn {
             background: #c0392b;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
@@ -706,7 +708,6 @@
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
-        // Multi-language dictionary
         const translations = {
             ckb: {
                 dir: "rtl",
@@ -938,7 +939,6 @@
             document.getElementById('lblCustName').innerText = t.lblCustName;
             document.getElementById('custName').placeholder = t.custNamePl;
             document.getElementById('lblCustPhone').innerText = t.lblCustPhone;
-            document.getElementById('lblCustAddress').innerText = t.lblCustAddress;
             document.getElementById('custAddress').placeholder = t.custAddrPl;
             document.getElementById('btnSendOrder').innerText = t.sendOrderWhatsApp;
             document.getElementById('btnCloseCart').innerText = t.close;
@@ -1223,7 +1223,7 @@
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('revName').value;
-            const stars = document.getElementById('revStars').value;
+            const stars = document.getElementById('revStars5').value;
             const comment = document.getElementById('revComment').value;
 
             const card = document.createElement('div');
