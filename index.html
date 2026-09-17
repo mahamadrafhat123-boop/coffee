@@ -245,15 +245,15 @@
             margin-bottom: 4px; 
         }
         
+        /* نوێکردنەوەی ئەم بەشە بۆ ئەوەی لەسەر هەموو مۆبایلێک سکڕۆڵ بێت */
         .product-card .benefits { 
             font-size: 0.8rem; 
             color: #666666; 
             margin-bottom: 4px; 
             white-space: pre-line; 
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            max-height: 55px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .btn-cart { 
@@ -331,6 +331,9 @@
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         html[dir="ltr"] .modal-content .modal-benefits { text-align: left; }
         .close-modal-btn {
@@ -883,7 +886,6 @@
             document.getElementById('txtSplash').innerText = t.splashText;
             document.getElementById('searchInput').placeholder = t.searchPlaceholder;
             
-            // گۆڕینی دەقی دوگمەکانی فلتەری سەرەوە
             document.getElementById('catAll').innerText = t.all;
             document.getElementById('catOil').innerText = t.oil;
             document.getElementById('catSaladOil').innerText = t.saladOil;
@@ -906,7 +908,6 @@
             document.getElementById('lblPImg').innerText = t.lblPImg;
             document.getElementById('btnSaveProd').innerText = t.btnSaveProd;
             
-            // گۆڕینی Placeholderـی فۆرمی زیادکردنی بەرهەم
             document.getElementById('pName').placeholder = t.pNamePl;
             document.getElementById('pPrice').placeholder = t.pPricePl;
             document.getElementById('pBenefits').placeholder = t.pBenefitsPl;
