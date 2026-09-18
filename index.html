@@ -320,7 +320,7 @@
             line-height: 1.8;
             margin-bottom: 20px;
             max-height: 250px;
-            overflow-y: auto; /* ئەمە وەک لێرە ڕێکخراوە بۆ ئەوەی بتوانیت بچیتە خوارەوە */
+            overflow-y: auto;
         }
         .close-modal-btn {
             background: #c0392b;
@@ -679,23 +679,14 @@
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 5000);
+            }, 2000);
+            fetchProducts();
         });
 
         const myPhoneNumber = "9647766944245";
         const adminPassword = "1234";
 
-        let products = JSON.parse(localStorage.getItem('sharihana_products')) || [
-            {
-                id: 1,
-                name: "زەیتی زەیتوون",
-                category: "زەیت",
-                price: "١٠,٠٠٠ دینار",
-                benefits: "سوودەکانی:\n- زۆر بەسوودە بۆ تەندروستی دڵ\n- دەوڵەمەندە بە دژە ئۆکسان\n- بەکاردێت بۆ خواردن و پێست",
-                img: "msh.logo.jpg"
-            }
-        ];
-        
+        let products = [];
         let cart = [];
         let currentCategory = 'هەمووی';
         let isAdminOpen = false;
@@ -742,36 +733,52 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) { 
-                    saveProduct(event.target.result); 
+                    saveProductToSupabase(event.target.result); 
                 };
                 reader.readAsDataURL(file);
             } else {
-                saveProduct('msh.logo.jpg');
+                saveProductToSupabase('msh.logo.jpg');
             }
         });
 
-        function saveProduct(imgSrc) {
+        async function fetchProducts() {
+            const { data, error } = await _supabase.from('products').select('*');
+            if (error) {
+                console.error('Error fetching products:', error);
+            } else {
+                products = data || [];
+                renderProducts();
+            }
+        }
+
+        async function saveProductToSupabase(imgSrc) {
             const newProduct = {
-                id: Date.now(),
                 name: document.getElementById('pName').value,
                 category: document.getElementById('pCategory').value,
                 price: document.getElementById('pPrice').value,
                 benefits: document.getElementById('pBenefits').value,
                 img: imgSrc
             };
-            products.push(newProduct);
-            localStorage.setItem('sharihana_products', JSON.stringify(products));
+
+            const { data, error } = await _supabase.from('products').insert([newProduct]).select();
             
-            productForm.reset();
-            renderProducts();
-            alert("بەرهەمەکە پاشەکەوت کرا!");
+            if (error) {
+                alert("هەڵە ڕویدا لە پاشەکەوتکردن: " + error.message);
+            } else {
+                productForm.reset();
+                await fetchProducts();
+                alert("بەرهەمەکە بە سەرکەوتوویی لە هەموو جیهاندا زیادکرا!");
+            }
         }
 
-        function deleteProduct(id) {
+        async function deleteProduct(id) {
             if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە؟")) {
-                products = products.filter(p => p.id !== id);
-                localStorage.setItem('sharihana_products', JSON.stringify(products));
-                renderProducts();
+                const { error } = await _supabase.from('products').delete().eq('id', id);
+                if (error) {
+                    alert("هەڵە لە سڕینەوە: " + error.message);
+                } else {
+                    await fetchProducts();
+                }
             }
         }
 
@@ -811,7 +818,6 @@
                 const card = document.createElement('div');
                 card.className = 'product-card' + (isAdminOpen ? ' admin-mode' : '');
                 
-                // دڵنیابوونەوە لەوەی ئەگەر وێنەی بەرهەم نەبوو لۆگۆ پیشان نەدات بەڵکو وێنەی دروست بەکاربێت
                 let validImg = (p.img && p.img.trim() !== "") ? p.img : 'msh.logo.jpg';
 
                 card.onclick = function() {
@@ -1023,8 +1029,6 @@
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
-
-        renderProducts();
     </script>
 </body>
 </html>
