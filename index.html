@@ -36,7 +36,7 @@
         @keyframes loadingSlide { 0% { left: -40%; } 50% { left: 100%; } 100% { left: -40%; } }
         @keyframes pulse { 0% { transform: scale(0.98); } 50% { transform: scale(1.03); } 100% { transform: scale(0.98); } }
 
-        /* Header Area with Logo Background */
+        /* Header Area with Logo Background - بچووککردنەوەی قەبارە و ڕێکخستنی پاشبنەما */
         header { 
             position: relative; 
             width: 100%; 
@@ -63,6 +63,7 @@
             margin: 0 auto;
         }
         
+        /* قەبارەی لۆگۆی سەرەکی (ناوەڕاست) کەمێک بچووکتر کرا */
         .hero .brand-logo { 
             width: 95px; 
             height: 95px; 
@@ -143,7 +144,7 @@
         }
         .search-box:focus { border-color: transparent; }
 
-        /* Navigation & Buttons Style */
+        /* Navigation & Buttons Style - بەشەکان کرانە یەک ڕیز و ڕێکخران */
         nav { 
             display: flex; 
             justify-content: center; 
@@ -350,6 +351,7 @@
             margin-bottom: 12px;
         }
         
+        /* Modal Benefits Vertical Scroll */
         .modal-content .modal-benefits {
             font-size: 0.95rem;
             color: #cccccc;
@@ -596,6 +598,7 @@
 
     <header>
         <div class="header-content">
+            <!-- Language Selector - ڕاستکردنەوەی ناوی سۆرانی -->
             <div class="lang-selector-container">
                 <button class="lang-btn active" onclick="setLanguage('ckb', this)">کوردی (سۆرانى)</button>
                 <button class="lang-btn" onclick="setLanguage('ku', this)">کوردی (بادینی)</button>
@@ -613,6 +616,7 @@
                 </div>
             </div>
 
+            <!-- Navigation Buttons - بەشەکان کرانە یەک ڕیز -->
             <nav>
                 <div class="glow-wrapper active"><button class="nav-btn active" data-cat="هەمووی" onclick="filterCategory('هەمووی', this)">هەمووی</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="زەیت" onclick="filterCategory('زەیت', this)">زەیت</button></div>
@@ -752,6 +756,7 @@
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
+        // --- دیکشێنەری زمانەکان (ڕاستکردنەوەی سۆرانى) ---
         const translations = {
             ckb: {
                 pageTitle: "نوێبوونەوە - NWEBUNAWA",
@@ -1067,6 +1072,7 @@
         });
 
         const myPhoneNumber = "9647766944245";
+        const adminPassword = "1234";
 
         let products = [];
         let cart = [];
@@ -1081,19 +1087,16 @@
             }
         }
 
-        // ئەمە بەشە هەموارکراوەکەیە کە لە هەموو مۆبایل و براوسەرێکدا بە ١٢٣٤ کار دەکات
         function checkAdminPassword() {
             const t = translations[currentLang];
-            setTimeout(() => {
-                const pwd = prompt(t.adminPromptPass || "تکایە ڕەمزی بەشی بەڕێوەبەر بنووسە:");
-                if (pwd === null) return;
-                
-                if (pwd.trim() === "1234") {
-                    toggleAdminPanel();
-                } else {
-                    alert(t.wrongPass || "ڕەمزەکە هەڵەیە!");
-                }
-            }, 100);
+            const pwd = prompt(t.adminPromptPass);
+            if (pwd === null) return;
+            
+            if (pwd === adminPassword) {
+                toggleAdminPanel();
+            } else {
+                alert(t.wrongPass);
+            }
         }
 
         function toggleAdminPanel() {
