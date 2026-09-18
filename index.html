@@ -668,10 +668,15 @@
         </div>
     </div>
 
+    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
-        const SUPABASE_URL = 'https://nwebunawa.supabase.co';
+        // دڵنیابە لەوەی ناونیشانی URLـی پڕۆژەکەت لێرەدا ڕاستە و پیتێکی لێ نەبڕاوە
+        const SUPABASE_URL = 'https://qenwuxfbovtlczhkkszx.supabase.co'; 
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
+        
+        // دروستکردنی کلاینتی سۆپابەیس بە شێوازە نوێیەکە
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
         window.addEventListener('load', () => {
@@ -767,7 +772,7 @@
             } else {
                 productForm.reset();
                 await fetchProducts();
-                alert("بەرهەمەکە بە سەرکەوتوویی لە هەموو جیهاندا زیادکرا!");
+                alert("بەرهەمەکە بە سەرکەوتوویی زیادکرا!");
             }
         }
 
