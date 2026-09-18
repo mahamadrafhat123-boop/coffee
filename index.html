@@ -321,7 +321,6 @@
             margin-bottom: 10px;
         }
         
-        /* لێرەدا قەبارە و بەرزی بەشی سوودەکان کراوەتە گەورەتر بۆ ئەوەی بە ئارەزووی خۆت ڕایکیشیتە خوارەوە و سەرەوە */
         .modal-content .modal-benefits {
             text-align: right;
             font-size: 0.95rem;
@@ -333,8 +332,8 @@
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 15px;
-            max-height: 55vh; /* گەورەکردنی بەرزی بەشەکە */
-            overflow-y: auto;  /* چالاککردنی سکڕۆڵی دەست بۆ خوارەوە و سەرەوە */
+            max-height: 55vh;
+            overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             flex-grow: 1;
             scroll-behavior: smooth;
@@ -952,26 +951,43 @@
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 5000);
+            }, 4000);
+            fetchProductsFromSupabase();
         });
 
         const myPhoneNumber = "9647766944245";
         const adminPassword = "1234";
 
-        let products = JSON.parse(localStorage.getItem('sharihana_products')) || [
-            {
-                id: 1,
-                name: "زەیتی زەیتوون",
-                category: "زەیت",
-                price: "١٠,٠٠٠ دینار",
-                benefits: "سوودەکانی:\n- زۆر بەسوودە بۆ تەندروستی دڵ\n- دەوڵەمەندە بە دژە ئۆکسان\n- بەکاردێت بۆ خواردن و پێست",
-                img: "msh.logo.jpg"
-            }
-        ];
-        
+        let products = [];
         let cart = [];
         let currentCategory = 'هەمووی';
         let isAdminOpen = false;
+
+        async function fetchProductsFromSupabase() {
+            try {
+                const { data, error } = await _supabase.from('products').select('*').order('id', { ascending: false });
+                if (error) {
+                    console.error('Error fetching products:', error);
+                    // Fallback to default if table is empty or uninitialized
+                    products = [
+                        {
+                            id: 1,
+                            name: "زەیتی زەیتوون",
+                            category: "زەیت",
+                            price: "١٠,٠٠٠ دینار",
+                            benefits: "سوودەکانی:\n- زۆر بەسوودە بۆ تەندروستی دڵ\n- دەوڵەمەندە بە دژە ئۆکسان\n- بەکاردێت بۆ خواردن و پێست",
+                            img: "msh.logo.jpg"
+                        }
+                    ];
+                } else if (data && data.length > 0) {
+                    products = data;
+                }
+                renderProducts();
+            } catch (err) {
+                console.error(err);
+                renderProducts();
+            }
+        }
 
         function toggleDeliveryInfo() {
             const section = document.getElementById('deliveryInfoSection');
@@ -1015,36 +1031,43 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) { 
-                    saveProduct(event.target.result); 
+                    saveProductToSupabase(event.target.result); 
                 };
                 reader.readAsDataURL(file);
             } else {
-                saveProduct('msh.logo.jpg');
+                saveProductToSupabase('msh.logo.jpg');
             }
         });
 
-        function saveProduct(imgSrc) {
+        async function saveProductToSupabase(imgSrc) {
             const newProduct = {
-                id: Date.now(),
                 name: document.getElementById('pName').value,
                 category: document.getElementById('pCategory').value,
                 price: document.getElementById('pPrice').value,
                 benefits: document.getElementById('pBenefits').value,
                 img: imgSrc
             };
-            products.push(newProduct);
-            localStorage.setItem('sharihana_products', JSON.stringify(products));
+
+            const { data, error } = await _supabase.from('products').insert([newProduct]).select();
             
-            productForm.reset();
-            renderProducts();
-            alert("بەرهەمەکە پاشەکەوت کرا!");
+            if (error) {
+                alert("هەڵە لە پاشەکەوتکردنی بەرهەم: " + error.message);
+                console.error(error);
+            } else {
+                productForm.reset();
+                await fetchProductsFromSupabase();
+                alert("بەرهەمەکە لە هەوردا (Supabase) سەیفکرا و لە هەموو ئامێرەکاندا دەردەکەوێت!");
+            }
         }
 
-        function deleteProduct(id) {
-            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە؟")) {
-                products = products.filter(p => p.id !== id);
-                localStorage.setItem('sharihana_products', JSON.stringify(products));
-                renderProducts();
+        async function deleteProduct(id) {
+            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە لە هەموو ئامێرەکان؟")) {
+                const { error } = await _supabase.from('products').delete().eq('id', id);
+                if (error) {
+                    alert("هەڵە لە سڕینەوەی بەرهەم: " + error.message);
+                } else {
+                    await fetchProductsFromSupabase();
+                }
             }
         }
 
@@ -1223,7 +1246,7 @@
         reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('revName').value;
-            const stars = document.getElementById('revStars5').value;
+            const stars = document.getElementById('revStars').value;
             const comment = document.getElementById('revComment').value;
 
             const card = document.createElement('div');
@@ -1295,8 +1318,6 @@
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
-
-        renderProducts();
     </script>
 </body>
 </html>
