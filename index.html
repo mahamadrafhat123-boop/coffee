@@ -36,16 +36,17 @@
         @keyframes loadingSlide { 0% { left: -40%; } 50% { left: 100%; } 100% { left: -40%; } }
         @keyframes pulse { 0% { transform: scale(0.98); } 50% { transform: scale(1.03); } 100% { transform: scale(0.98); } }
 
-        /* Header Area with Logo Background */
+        /* Header Area with Logo Background - بچووککردنەوەی قەبارە و ڕێکخستنی پاشبنەما */
         header { 
             position: relative; 
             width: 100%; 
+            text-align: center; 
             padding: 25px 15px; 
             min-height: 280px;
             overflow: hidden;
             border-bottom: 1px solid #2a2a2a; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
-            background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('msh.logo.jpg');
+            background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('msh.logo.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -62,20 +63,14 @@
             margin: 0 auto;
         }
         
-        /* لۆگۆی سەرەکی گوازرایەوە بۆ لای ڕاست */
-        .hero {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 0 10px;
-        }
-
+        /* قەبارەی لۆگۆی سەرەکی (ناوەڕاست) کەمێک بچووکتر کرا */
         .hero .brand-logo { 
-            width: 85px; 
-            height: 85px; 
+            width: 95px; 
+            height: 95px; 
             border-radius: 10px; 
             object-fit: cover; 
+            display: block; 
+            margin: 0 auto 8px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
             border: 2px solid #2c5e3b; 
         }
@@ -149,7 +144,7 @@
         }
         .search-box:focus { border-color: transparent; }
 
-        /* Navigation & Buttons Style */
+        /* Navigation & Buttons Style - بەشەکان کرانە یەک ڕیز و ڕێکخران */
         nav { 
             display: flex; 
             justify-content: center; 
@@ -180,41 +175,6 @@
 
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
-        /* Dynamic Category Background Container Area */
-        #categoryBanner {
-            width: 100%;
-            min-height: 160px;
-            border-radius: 14px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: 1px solid #2c5e3b;
-            position: relative;
-            overflow: hidden;
-            transition: background-image 0.5s ease-in-out;
-        }
-        #categoryBanner::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 1;
-        }
-        #categoryBanner h2 {
-            position: relative;
-            z-index: 2;
-            color: #ffffff;
-            font-size: 1.8rem;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-            text-align: center;
-            padding: 0 15px;
-        }
-
         /* Delivery Pricing Info Section */
         .delivery-info-section { display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #25D366; margin-bottom: 30px; animation: fadeIn 0.4s ease-in-out; }
         .delivery-info-section.active { display: block; }
@@ -638,7 +598,7 @@
 
     <header>
         <div class="header-content">
-            <!-- Language Selector -->
+            <!-- Language Selector - ڕاستکردنەوەی ناوی سۆرانی -->
             <div class="lang-selector-container">
                 <button class="lang-btn active" onclick="setLanguage('ckb', this)">کوردی (سۆرانى)</button>
                 <button class="lang-btn" onclick="setLanguage('ku', this)">کوردی (بادینی)</button>
@@ -646,7 +606,6 @@
                 <button class="lang-btn" onclick="setLanguage('ar', this)">العربية</button>
             </div>
 
-            <!-- لۆگۆ گوازرایەوە بۆ لای ڕاست -->
             <div class="hero">
                 <img src="msh.logo.jpg" alt="نوێبوونەوە" class="brand-logo">
             </div>
@@ -657,7 +616,7 @@
                 </div>
             </div>
 
-            <!-- Navigation Buttons -->
+            <!-- Navigation Buttons - بەشەکان کرانە یەک ڕیز -->
             <nav>
                 <div class="glow-wrapper active"><button class="nav-btn active" data-cat="هەمووی" onclick="filterCategory('هەمووی', this)">هەمووی</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="زەیت" onclick="filterCategory('زەیت', this)">زەیت</button></div>
@@ -676,11 +635,6 @@
     </header>
 
     <div class="container">
-        <!-- داینامیکی پاشبنەمای وێنەکان بۆ بەشەکان -->
-        <div id="categoryBanner">
-            <h2 id="sectionTitle">هەموو بەرهەمەکان</h2>
-        </div>
-
         <div id="deliveryInfoSection" class="delivery-info-section">
             <h3 id="deliveryTitle">🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان</h3>
             <p id="deliverySub" style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:</p>
@@ -734,6 +688,7 @@
             </div>
         </div>
 
+        <h2 id="sectionTitle" style="margin-bottom: 20px; color: #25D366;">هەموو بەرهەمەکان</h2>
         <div class="products-grid" id="productsGrid"></div>
 
         <div class="reviews-section">
@@ -801,6 +756,7 @@
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
+        // --- دیکشێنەری زمانەکان (ڕاستکردنەوەی سۆرانى) ---
         const translations = {
             ckb: {
                 pageTitle: "نوێبوونەوە - NWEBUNAWA",
@@ -1098,19 +1054,6 @@
 
         function updateSectionTitleText() {
             const t = translations[currentLang];
-            const banner = document.getElementById('categoryBanner');
-            
-            // گۆڕینی پاشبنەمای بەشەکان بەپێی وێنە داواکراوەکان
-            if (currentCategory === 'زەیت') {
-                banner.style.backgroundImage = "url('74562.png')";
-            } else if (currentCategory === 'تەحین') {
-                banner.style.backgroundImage = "url('74563.png')";
-            } else if (currentCategory === 'زەیتی زەڵاتە') {
-                banner.style.backgroundImage = "url('74564.png')";
-            } else {
-                banner.style.backgroundImage = "url('msh.logo.jpg')";
-            }
-
             if(currentCategory === 'هەمووی') {
                 document.getElementById('sectionTitle').innerText = t.secTitleAll;
             } else {
