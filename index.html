@@ -1081,17 +1081,19 @@
             }
         }
 
-        // لێرەدا پشکنینی ڕەمزی بەڕێوەبەر بۆ هەموو مۆبایل و ئامێرێک کرا بە "1234"
+        // ئەمە بەشە هەموارکراوەکەیە کە لە هەموو مۆبایل و براوسەرێکدا بە ١٢٣٤ کار دەکات
         function checkAdminPassword() {
             const t = translations[currentLang];
-            const pwd = prompt(t.adminPromptPass);
-            if (pwd === null) return;
-            
-            if (pwd === "1234") {
-                toggleAdminPanel();
-            } else {
-                alert(t.wrongPass);
-            }
+            setTimeout(() => {
+                const pwd = prompt(t.adminPromptPass || "تکایە ڕەمزی بەشی بەڕێوەبەر بنووسە:");
+                if (pwd === null) return;
+                
+                if (pwd.trim() === "1234") {
+                    toggleAdminPanel();
+                } else {
+                    alert(t.wrongPass || "ڕەمزەکە هەڵەیە!");
+                }
+            }, 100);
         }
 
         function toggleAdminPanel() {
