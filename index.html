@@ -36,17 +36,17 @@
         @keyframes loadingSlide { 0% { left: -40%; } 50% { left: 100%; } 100% { left: -40%; } }
         @keyframes pulse { 0% { transform: scale(0.98); } 50% { transform: scale(1.03); } 100% { transform: scale(0.98); } }
 
-        /* Header Area with Logo Background */
+        /* Header Area with Logo Background - بچووککردنەوەی قەبارە و ڕێکخستنی پاشبنەما */
         header { 
             position: relative; 
             width: 100%; 
             text-align: center; 
-            padding: 40px 20px; 
-            min-height: 380px;
+            padding: 25px 15px; 
+            min-height: 280px;
             overflow: hidden;
             border-bottom: 1px solid #2a2a2a; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
-            background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)), url('msh.logo.jpg');
+            background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), url('msh.logo.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -63,15 +63,16 @@
             margin: 0 auto;
         }
         
+        /* قەبارەی لۆگۆی سەرەکی (ناوەڕاست) کەمێک بچووکتر کرا */
         .hero .brand-logo { 
-            width: 140px; 
-            height: 140px; 
-            border-radius: 12px; 
+            width: 95px; 
+            height: 95px; 
+            border-radius: 10px; 
             object-fit: cover; 
             display: block; 
-            margin: 0 auto 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-            border: 3px solid #2c5e3b; 
+            margin: 0 auto 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); 
+            border: 2px solid #2c5e3b; 
         }
 
         /* Language Switcher Bar */
@@ -79,16 +80,16 @@
             display: flex;
             justify-content: center;
             gap: 6px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
         .lang-btn {
             background: rgba(26, 26, 26, 0.9);
             color: #ccc;
             border: 1px solid #2c5e3b;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 15px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -99,7 +100,7 @@
         }
 
         /* Search Container */
-        .search-container { max-width: 500px; margin: 15px auto 10px; padding: 0 15px; }
+        .search-container { max-width: 500px; margin: 10px auto; padding: 0 15px; }
         
         .search-box-wrapper, .glow-wrapper {
             position: relative;
@@ -137,14 +138,21 @@
         }
 
         .search-box { 
-            width: 100%; padding: 12px 20px; border: 1px solid #2c5e3b; 
+            width: 100%; padding: 10px 18px; border: 1px solid #2c5e3b; 
             background: #1a1a1a; color: #fff; border-radius: 25px; 
-            font-size: 1rem; outline: none; transition: 0.3s; 
+            font-size: 0.95rem; outline: none; transition: 0.3s; 
         }
         .search-box:focus { border-color: transparent; }
 
-        /* Navigation & Buttons Style */
-        nav { display: flex; justify-content: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; padding: 0 10px; }
+        /* Navigation & Buttons Style - بەشەکان کرانە یەک ڕیز و ڕێکخران */
+        nav { 
+            display: flex; 
+            justify-content: center; 
+            gap: 6px; 
+            margin-top: 12px; 
+            flex-wrap: wrap; 
+            padding: 0 5px; 
+        }
         
         .glow-wrapper {
             border-radius: 20px;
@@ -152,9 +160,9 @@
         }
 
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
-            padding: 8px 16px; font-weight: bold; border: 1px solid #2c5e3b; 
+            padding: 6px 12px; font-weight: bold; border: 1px solid #2c5e3b; 
             background: rgba(26, 26, 26, 0.85); color: #e0e0e0; border-radius: 20px; 
-            cursor: pointer; transition: 0.2s; font-size: 0.9rem; backdrop-filter: blur(4px); 
+            cursor: pointer; transition: 0.2s; font-size: 0.85rem; backdrop-filter: blur(4px); 
             width: 100%;
         }
         
@@ -343,7 +351,7 @@
             margin-bottom: 12px;
         }
         
-        /* لێرەدا تایبەتمەندی سکرۆڵی ستوونی بۆ سوودەکان زیادکراوە */
+        /* Modal Benefits Vertical Scroll */
         .modal-content .modal-benefits {
             font-size: 0.95rem;
             color: #cccccc;
@@ -355,11 +363,10 @@
             line-height: 1.8;
             margin-bottom: 20px;
             max-height: 250px;
-            overflow-y: auto; /* ڕێگە دەدات بە ڕاکێشان و سکرۆڵکردن کاتێک دەقەکە درێژە */
-            scrollbar-width: thin; /* بۆ جوانی سکرۆڵبارەکە لە فایەرفۆکس */
+            overflow-y: auto;
+            scrollbar-width: thin;
             scrollbar-color: #2c5e3b #222;
         }
-        /* دیزاینی سکرۆڵبار بۆ چاوڕۆم و سەفاری */
         .modal-content .modal-benefits::-webkit-scrollbar {
             width: 6px;
         }
@@ -591,9 +598,9 @@
 
     <header>
         <div class="header-content">
-            <!-- Language Selector -->
+            <!-- Language Selector - ڕاستکردنەوەی ناوی سۆرانی -->
             <div class="lang-selector-container">
-                <button class="lang-btn active" onclick="setLanguage('ckb', this)">کوردی (سۆراڵی)</button>
+                <button class="lang-btn active" onclick="setLanguage('ckb', this)">کوردی (سۆرانى)</button>
                 <button class="lang-btn" onclick="setLanguage('ku', this)">کوردی (بادینی)</button>
                 <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
                 <button class="lang-btn" onclick="setLanguage('ar', this)">العربية</button>
@@ -609,6 +616,7 @@
                 </div>
             </div>
 
+            <!-- Navigation Buttons - بەشەکان کرانە یەک ڕیز -->
             <nav>
                 <div class="glow-wrapper active"><button class="nav-btn active" data-cat="هەمووی" onclick="filterCategory('هەمووی', this)">هەمووی</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="زەیت" onclick="filterCategory('زەیت', this)">زەیت</button></div>
@@ -748,7 +756,7 @@
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
-        // --- دیکشێنەری زمانەکان (سۆرانی، بادینی، ئینگلیزی، عەرەبی) ---
+        // --- دیکشێنەری زمانەکان (ڕاستکردنەوەی سۆرانى) ---
         const translations = {
             ckb: {
                 pageTitle: "نوێبوونەوە - NWEBUNAWA",
@@ -854,7 +862,7 @@
                 wrongPass: "رمز هەڵە یە!",
                 adminSuccess: "ب سەرکەفتن چوویە ناڤ بەشێ رێڤەبەری!",
                 prodAddedSuccess: "بەرهەم ب سەرکەفتن هاتە زێدەکرن!",
-                confirmDel: "تۆ د پشترستی ژ ژێبرنا ڤی بەرهەمی؟"
+                confirmDel: "تۆ د پشترستی ژ ژێبرنا ڤی بەرهەمی?"
             },
             en: {
                 pageTitle: "Nwebunawa - Natural Products",
@@ -1025,7 +1033,6 @@
             document.getElementById('chatInput').placeholder = t.phChat;
             document.getElementById('sendChatButton').innerText = t.sendChat;
 
-            // Update Category Dropdown options
             const catSelect = document.getElementById('pCategory');
             Array.from(catSelect.options).forEach(opt => {
                 if(t.cats[opt.value]) {
@@ -1033,7 +1040,6 @@
                 }
             });
 
-            // Update Nav Category Buttons text
             document.querySelectorAll('nav .nav-btn').forEach(btn => {
                 const catKey = btn.getAttribute('data-cat');
                 if(catKey && t.cats[catKey]) {
@@ -1041,7 +1047,6 @@
                 }
             });
 
-            // Update section title header
             updateSectionTitleText();
             renderProducts();
             renderCartItems();
