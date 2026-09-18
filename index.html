@@ -1,26 +1,14 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl" id="htmlRoot">
+<html lang="ckb" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">نوێبوونەوە - NWEBUNAWA</title>
+    <title>نوێبوونەوە - NWEBUNAWA</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
         body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
         
-        /* Language Selector Bar */
-        .lang-bar {
-            position: fixed; top: 10px; left: 10px; z-index: 10002;
-            display: flex; gap: 5px; background: rgba(26,26,26,0.9);
-            padding: 5px; border-radius: 20px; border: 1px solid #2c5e3b;
-        }
-        .lang-btn {
-            background: transparent; border: none; color: #e0e0e0; padding: 4px 10px;
-            border-radius: 15px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s;
-        }
-        .lang-btn.active, .lang-btn:hover { background: #2c5e3b; color: white; }
-
         /* Splash Screen */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
@@ -194,7 +182,6 @@
             cursor: pointer;
             transition: transform 0.2s ease;
         }
-        html[dir="ltr"] .product-card { flex-direction: row; text-align: left; }
         .product-card:hover {
             transform: translateY(-2px);
         }
@@ -206,7 +193,6 @@
             gap: 15px;
             flex: 1;
         }
-        html[dir="ltr"] .product-clickable { flex-direction: row; }
 
         .product-img-wrapper {
             background: transparent;
@@ -229,7 +215,6 @@
             flex-direction: column; 
             text-align: right;
         }
-        html[dir="ltr"] .product-info { text-align: left; }
         
         .product-card h4 { 
             color: #111111; 
@@ -250,9 +235,10 @@
             color: #666666; 
             margin-bottom: 4px; 
             white-space: pre-line; 
-            max-height: 80px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .btn-cart { 
@@ -285,12 +271,12 @@
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
         .modal-content {
             background: #181818;
             color: #e0e0e0;
-            padding: 20px;
+            padding: 25px;
             border-radius: 16px;
             max-width: 450px;
             width: 100%;
@@ -298,48 +284,44 @@
             position: relative;
             box-shadow: 0 5px 25px rgba(0,0,0,0.6);
             border: 1px solid #2c5e3b;
-            max-height: 92vh;
+            max-height: 90vh;
             display: flex;
             flex-direction: column;
         }
         .modal-content img {
-            width: 100px;
-            height: 140px;
+            width: 110px;
+            height: 150px;
             object-fit: contain;
-            margin: 0 auto 10px;
+            margin: 0 auto 12px;
             border-radius: 8px;
+            background: #222;
+            padding: 5px;
         }
         .modal-content h3 {
             color: #ffffff;
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
         }
         .modal-content .modal-price {
             color: #27ae60;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
-        
         .modal-content .modal-benefits {
             text-align: right;
             font-size: 0.95rem;
-            color: #dddddd;
+            color: #cccccc;
             background: #222222;
-            padding: 14px;
+            padding: 15px;
             border-radius: 8px;
             border: 1px solid #333;
             white-space: pre-line;
             line-height: 1.8;
-            margin-bottom: 15px;
-            max-height: 55vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            flex-grow: 1;
-            scroll-behavior: smooth;
+            margin-bottom: 20px;
+            max-height: 250px;
+            overflow-y: auto; /* ئەمە وەک لێرە ڕێکخراوە بۆ ئەوەی بتوانیت بچیتە خوارەوە */
         }
-        html[dir="ltr"] .modal-content .modal-benefits { text-align: left; }
-        
         .close-modal-btn {
             background: #c0392b;
             color: white;
@@ -348,7 +330,6 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.9rem;
             margin-top: auto;
         }
 
@@ -376,7 +357,6 @@
             overflow-y: auto;
             text-align: right;
         }
-        html[dir="ltr"] .cart-modal-content { text-align: left; }
         .cart-modal-content h3 {
             color: #25D366;
             margin-bottom: 15px;
@@ -428,9 +408,7 @@
             color: #25D366;
             font-size: 0.9rem;
             font-weight: bold;
-            text-align: right;
         }
-        html[dir="ltr"] .customer-form-group label { text-align: left; }
         .customer-form-group input {
             width: 100%;
             padding: 10px;
@@ -480,18 +458,15 @@
         .review-card .stars { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 0 6px rgba(255, 204, 0, 0.5); }
         .review-card p { font-size: 0.9rem; color: #ccc; }
         .review-card h5 { margin-top: 10px; color: #25D366; text-align: left; }
-        html[dir="ltr"] .review-card h5 { text-align: right; }
 
         .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #182e1e; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 99; border-top: 1px solid #2c5e3b; }
         .cart-bar button { background: #25D366; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         .floating-buttons { position: fixed; bottom: 70px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
-        html[dir="ltr"] .floating-buttons { right: auto; left: 20px; }
         .call-btn { background: #e67e22; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .chat-btn { background: #2c5e3b; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
         .chat-box { display: none; position: absolute; bottom: 65px; right: 0; width: 310px; height: 420px; background: #1a1a1a; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; border: 1px solid #333; }
-        html[dir="ltr"] .chat-box { right: auto; left: 0; }
         .chat-header { background: #2c5e3b; color: white; padding: 12px; font-weight: bold; text-align: center; }
         .chat-messages { flex: 1; padding: 10px; overflow-y: auto; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px; }
         .msg { padding: 8px 12px; border-radius: 10px; max-width: 85%; }
@@ -504,16 +479,9 @@
 </head>
 <body>
 
-    <!-- Language Selector -->
-    <div class="lang-bar">
-        <button class="lang-btn active" onclick="changeLang('ckb')">کوردی</button>
-        <button class="lang-btn" onclick="changeLang('ar')">عربي</button>
-        <button class="lang-btn" onclick="changeLang('en')">English</button>
-    </div>
-
     <div id="splash-screen">
         <img src="msh.logo.jpg" alt="نوێبوونەوە" class="splash-logo">
-        <div class="splash-text" id="txtSplash">تکایە چاوەڕوان بە...</div>
+        <div class="splash-text">تکایە چاوەڕوان بە...</div>
         <div class="loading-bar"></div>
     </div>
 
@@ -524,35 +492,35 @@
             <h3 id="modalTitle"></h3>
             <div class="modal-price" id="modalPrice"></div>
             <div class="modal-benefits" id="modalBenefits"></div>
-            <button class="close-modal-btn" onclick="closeProductModal()" id="btnCloseModal">داخستن</button>
+            <button class="close-modal-btn" onclick="closeProductModal()">داخستن</button>
         </div>
     </div>
 
     <!-- Cart & Checkout Modal -->
     <div id="cartModal" onclick="closeCartModal()">
         <div class="cart-modal-content" onclick="event.stopPropagation()">
-            <h3 id="txtCartTitle">🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
+            <h3>🛒 عەرەبانەی کڕین و زانیاری داواکاری</h3>
             
             <div class="cart-items-list" id="cartItemsList"></div>
 
             <div style="margin-top: 15px;">
                 <div class="customer-form-group">
-                    <label id="lblCustName">ناوی کەسەکە (ناوی تەواو):</label>
+                    <label>ناوی کەسەکە (ناوی تەواو):</label>
                     <input type="text" id="custName" placeholder="ناوی خۆت لێرە بنووسە...">
                 </div>
                 <div class="customer-form-group">
-                    <label id="lblCustPhone">ژمارەی مۆبایل:</label>
+                    <label>ژمارەی مۆبایل:</label>
                     <input type="tel" id="custPhone" placeholder="0770XXXXXXX">
                 </div>
                 <div class="customer-form-group">
-                    <label id="lblCustAddress">ناونیشانی تەواو:</label>
+                    <label>ناونیشانی تەواو:</label>
                     <input type="text" id="custAddress" placeholder="شار، کۆڵان، خانوو...">
                 </div>
             </div>
 
             <div class="checkout-actions">
-                <button class="btn-confirm-order" onclick="sendOrderToWhatsApp()" id="btnSendOrder">ناردنی داواکاری بۆ واتسئاپ 💬</button>
-                <button class="btn-close-cart" onclick="closeCartModal()" id="btnCloseCart">داخستن</button>
+                <button class="btn-confirm-order" onclick="sendOrderToWhatsApp()">ناردنی داواکاری بۆ واتسئاپ 💬</button>
+                <button class="btn-close-cart" onclick="closeCartModal()">داخستن</button>
             </div>
         </div>
     </div>
@@ -570,26 +538,26 @@
             </div>
 
             <nav>
-                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)" data-cat="هەمووی" id="catAll">هەمووی</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)" data-cat="زەیت" id="catOil">زەیت</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)" data-cat="زەیتی زەڵاتە" id="catSaladOil">زەیتی زەڵاتە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)" data-cat="سرکە" id="catVinegar">سرکە</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)" data-cat="سابوون" id="catSoap">سابوون</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)" data-cat="ئاوتکەکان" id="catOutka">ئاوتکەکان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)" data-cat="پاککەرەوەی ددانی سروشتی" id="catTeeth">پاککەرەوەی ددان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)" data-cat="کەرەی چەرەزات" id="catNuts">کەرەی چەرەزات</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)" data-cat="تەحین" id="catTahini">تەحین</button></div>
+                <div class="glow-wrapper active"><button class="nav-btn active" onclick="filterCategory('هەمووی', this)">هەمووی</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیت', this)">زەیت</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('زەیتی زەڵاتە', this)">زەیتی زەڵاتە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سرکە', this)">سرکە</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('سابوون', this)">سابوون</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('ئاوتکەکان', this)">ئاوتکەکان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)">پاککەرەوەی ددان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('کەرەی چەرەزات', this)">کەرەی چەرەزات</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" onclick="filterCategory('تەحین', this)">تەحین</button></div>
                 
-                <div class="glow-wrapper"><button class="delivery-nav-btn" onclick="toggleDeliveryInfo()" id="btnDeliveryNav">🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ</button></div>
-                <div class="glow-wrapper"><button class="admin-toggle-btn" onclick="checkAdminPassword()" id="btnAdminNav">بەشی بەڕێوەبەر ⚙️</button></div>
+                <div class="glow-wrapper"><button class="delivery-nav-btn" onclick="toggleDeliveryInfo()">🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ</button></div>
+                <div class="glow-wrapper"><button class="admin-toggle-btn" onclick="checkAdminPassword()">بەشی بەڕێوەبەر ⚙️</button></div>
             </nav>
         </div>
     </header>
 
     <div class="container">
         <div id="deliveryInfoSection" class="delivery-info-section">
-            <h3 id="txtDelivTitle">🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان</h3>
-            <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;" id="txtDelivDesc">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:</p>
+            <h3>🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان</h3>
+            <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:</p>
             <div class="city-list">
                 <div class="city-item"><span>هەولێر:</span> <span>٣,٠٠٠ دینار</span></div>
                 <div class="city-item"><span>سلێمانی:</span> <span>٤,٠٠٠ دینار</span></div>
@@ -604,14 +572,14 @@
 
         <div id="adminSection" class="admin-section">
             <div class="add-product-form">
-                <h3 style="color: #25D366; margin-bottom: 15px;" id="txtAdminTitle">بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ</h3>
+                <h3 style="color: #25D366; margin-bottom: 15px;">بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ</h3>
                 <form id="productForm">
                     <div class="form-group">
-                        <label id="lblPName">ناوی بەرهەم:</label>
+                        <label>ناوی بەرهەم:</label>
                         <input type="text" id="pName" required placeholder="ناوی بەرهەم بنووسە...">
                     </div>
                     <div class="form-group">
-                        <label id="lblPCat">بەش:</label>
+                        <label>بەش:</label>
                         <select id="pCategory">
                             <option value="زەیت">زەیت</option>
                             <option value="زەیتی زەڵاتە">زەیتی زەڵاتە</option>
@@ -624,18 +592,18 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label id="lblPPrice">نرخ:</label>
+                        <label>نرخ:</label>
                         <input type="text" id="pPrice" required placeholder="نرخی بەرهەم بنووسە...">
                     </div>
                     <div class="form-group">
-                        <label id="lblPBen">سوودەکان:</label>
+                        <label>سوودەکان:</label>
                         <textarea id="pBenefits" rows="3" required placeholder="سوودەکانی بەرهەمەکە بنووسە..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label id="lblPImg">هەڵبژاردنی وێنەی بەرهەم:</label>
+                        <label>هەڵبژاردنی وێنەی بەرهەم:</label>
                         <input type="file" id="pImgFile" accept="image/*">
                     </div>
-                    <button type="submit" class="btn-submit" id="btnSaveProd">سەیفکردنی بەرهەم</button>
+                    <button type="submit" class="btn-submit">سەیفکردنی بەرهەم</button>
                 </form>
             </div>
         </div>
@@ -644,10 +612,10 @@
         <div class="products-grid" id="productsGrid"></div>
 
         <div class="reviews-section">
-            <h3 id="txtRevTitle">⭐ ڕای کڕیارە ئازیزەکانمان ⭐</h3>
+            <h3>⭐ ڕای کڕیارە ئازیزەکانمان ⭐</h3>
             
             <form id="reviewForm" style="max-width: 500px; margin: 0 auto 30px; background: #242424; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 1px solid #333;">
-                <h4 style="margin-bottom: 12px; color: #25D366; text-align: center;" id="txtRevFormTitle">ڕاو بۆچوونی خۆت تۆمار بکه</h4>
+                <h4 style="margin-bottom: 12px; color: #25D366; text-align: center;">ڕاو بۆچوونی خۆت تۆمار بکه</h4>
                 <div style="margin-bottom: 10px;">
                     <input type="text" id="revName" placeholder="ناوی تۆ..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;">
                 </div>
@@ -661,18 +629,18 @@
                 <div style="margin-bottom: 10px;">
                     <textarea id="revComment" rows="3" placeholder="تێبینی یان ڕای خۆت بۆ بەرهەمەکان بنووسە..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;"></textarea>
                 </div>
-                <button type="submit" style="background: #2c5e3b; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;" id="btnPubRev">بڵاوکردنەوەی ڕا</button>
+                <button type="submit" style="background: #2c5e3b; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;">بڵاوکردنەوەی ڕا</button>
             </form>
 
             <div class="reviews-grid" id="reviewsContainer">
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p id="revText1">"زەیتی زەیتوونەکەی نوێبوونەوە زۆر ئەسڵی و سروشتی بوو، دەستان خۆش بێت."</p>
+                    <p>"زەیتی زەیتوونەکەی نوێبوونەوە زۆر ئەسڵی و سروشتی بوو، دەستان خۆش بێت."</p>
                     <h5>- ئەحمەد م.</h5>
                 </div>
                 <div class="review-card">
                     <div class="stars">★★★★★</div>
-                    <p id="revText2">"تەحین و ئاوتکەکانتان زۆر پاک و بەتام بوون. گەیاندنەکەیان زۆر خێرا بوو."</p>
+                    <p>"تەحین و ئاوتکەکانتان زۆر پاک و بەتام بوون. گەیاندنەکەیان زۆر خێرا بوو."</p>
                     <h5>- سارا ک.</h5>
                 </div>
             </div>
@@ -680,8 +648,8 @@
     </div>
 
     <div class="cart-bar">
-        <div><span id="txtCartBarLabel">عەرەبانەی کڕین:</span> <span id="cartCount">0</span> <span id="txtCartBarItems">بەرهەم</span></div>
-        <button onclick="openCartModal()" id="btnViewCart">بینینی عەرەبە و ناردنی داواکاری 🛒</button>
+        <div>عەرەبانەی کڕین: <span id="cartCount">0</span> بەرهەم</div>
+        <button onclick="openCartModal()">بینینی عەرەبە و ناردنی داواکاری 🛒</button>
     </div>
 
     <div class="floating-buttons">
@@ -689,9 +657,9 @@
         <button class="chat-btn" onclick="toggleChat()" title="چات">🤖</button>
         
         <div class="chat-box" id="chatBox">
-            <div class="chat-header" id="txtChatHeader">یارمەتیدەری نوێبوونەوە 🌿</div>
+            <div class="chat-header">یارمەتیدەری نوێبوونەوە 🌿</div>
             <div class="chat-messages" id="chatMessages">
-                <div class="msg bot" id="txtChatWelcome">سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
+                <div class="msg bot">سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
             </div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="پرسیارەکەت بنووسە..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -700,293 +668,37 @@
         </div>
     </div>
 
-    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://nwebunawa.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_8lR8mXsyLU2Hyb1cGxuSMg_JbqimPlb';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
-        const translations = {
-            ckb: {
-                dir: "rtl",
-                pageTitle: "نوێبوونەوە - NWEBUNAWA",
-                splashText: "تکایە چاوەڕوان بە...",
-                searchPlaceholder: "گەڕان بۆ بەرهەمەکان یان سوودەکانیان...",
-                all: "هەمووی",
-                oil: "زەیت",
-                saladOil: "زەیتی زەڵاتە",
-                vinegar: "سرکە",
-                soap: "سابوون",
-                outka: "ئاوتکەکان",
-                teeth: "پاککەرەوەی ددانی سروشتی",
-                nuts: "کەرەی چەرەزات",
-                tahini: "تەحین",
-                deliveryNav: "🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ",
-                adminNav: "بەشی بەڕێوەبەر ⚙️",
-                delivTitle: "🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان",
-                delivDesc: "گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:",
-                adminTitle: "بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ",
-                lblPName: "ناوی بەرهەم:",
-                lblPCat: "بەش:",
-                lblPPrice: "نرخ:",
-                lblPBen: "سوودەکان:",
-                lblPImg: "هەڵبژاردنی وێنەی بەرهەم:",
-                btnSaveProd: "سەیفکردنی بەرهەم",
-                sectionTitleAll: "هەموو بەرهەمەکان",
-                revTitle: "⭐ ڕای کڕیارە ئازیزەکانمان ⭐",
-                revFormTitle: "ڕاو بۆچوونی خۆت تۆمار بکه",
-                revNamePl: "ناوی تۆ...",
-                revCommPl: "تێبینی یان ڕای خۆت بۆ بەرهەمەکان بنووسە...",
-                btnPubRev: "بڵاوکردنەوەی ڕا",
-                rev1: "\"زەیتی زەیتوونەکەی نوێبوونەوە زۆر ئەسڵی و سروشتی بوو، دەستان خۆش بێت.\"",
-                rev2: "\"تەحین و ئاوتکەکانتان زۆر پاک و بەتام بوون. گەیاندنەکەیان زۆر خێرا بوو.\"",
-                cartBarLabel: "عەرەبانەی کڕین:",
-                cartBarItems: "بەرهەم",
-                viewCartBtn: "بینینی عەرەبە و ناردنی داواکاری 🛒",
-                chatHeader: "یارمەتیدەری نوێبوونەوە 🌿",
-                chatWelcome: "سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!",
-                chatInputPl: "پرسیارەکەت بنووسە...",
-                sendBtn: "ناردن",
-                cartModalTitle: "🛒 عەرەبانەی کڕین و زانیاری داواکاری",
-                lblCustName: "ناوی کەسەکە (ناوی تەواو):",
-                custNamePl: "ناوی خۆت لێرە بنووسە...",
-                lblCustPhone: "ژمارەی مۆبایل:",
-                lblCustAddress: "ناونیشانی تەواو:",
-                custAddrPl: "شار، کۆڵان، خانوو...",
-                sendOrderWhatsApp: "ناردنی داواکاری بۆ واتسئاپ 💬",
-                close: "داخستن",
-                addToCart: "زیادبکە",
-                deleteProd: "سڕینەوەی بەرهەم",
-                modalClose: "داخستن",
-                pNamePl: "ناوی بەرهەم بنووسە...",
-                pPricePl: "نرخی بەرهەم بنووسە...",
-                pBenefitsPl: "سوودەکانی بەرهەمەکە بنووسە..."
-            },
-            ar: {
-                dir: "rtl",
-                pageTitle: "نوێبوونەوە - NWEBUNAWA",
-                splashText: "يرجى الانتظار...",
-                searchPlaceholder: "البحث عن المنتجات أو فوائدها...",
-                all: "الكل",
-                oil: "زيت",
-                saladOil: "زيت سلطة",
-                vinegar: "خل",
-                soap: "صوبون",
-                outka: "أوتكا",
-                teeth: "منظف أسنان طبيعي",
-                nuts: "زبدة المكسرات",
-                tahini: "طحينة",
-                deliveryNav: "🚚 <strong>أسعار التوصيل:</strong> المدن والأسعار",
-                adminNav: "قسم المدير ⚙️",
-                delivTitle: "🚚 أسعار وتكلفة التوصيل لجميع المدن",
-                delivDesc: "التوصيل متوفر لجميع المدن والأقضية في أسرع وقت:",
-                adminTitle: "إدارة الموقع: إضافة منتج جديد",
-                lblPName: "اسم المنتج:",
-                lblPCat: "القسم:",
-                lblPPrice: "السعر:",
-                lblPBen: "الفوائد:",
-                lblPImg: "اختر صورة المنتج:",
-                btnSaveProd: "حفظ المنتج",
-                sectionTitleAll: "جميع المنتجات",
-                revTitle: "⭐ آراء زملائنا الأعزاء ⭐",
-                revFormTitle: "سجل رأيك ورأيك",
-                revNamePl: "اسمك...",
-                revCommPl: "اكتب ملاحظتك أو رأيك...",
-                btnPubRev: "نشر الرأي",
-                rev1: "\"زيت الزيتون من نوێبوونەوە كان أصلياً وطبيعياً جداً، شكراً لكم.\"",
-                rev2: "\"الطحينة والمنتجات كانت نظيفة ولذيذة جداً، التوصيل كان سريعاً.\"",
-                cartBarLabel: "سلة التسوق:",
-                cartBarItems: "منتجات",
-                viewCartBtn: "عرض السلة وإرسال الطلب 🛒",
-                chatHeader: "مساعد نوێبوونەوە 🌿",
-                chatWelcome: "مرحباً بك في نوێبوونەوە! يمكنك الاستفسار عن المنتجات.",
-                chatInputPl: "اكتب سؤالك...",
-                sendBtn: "إرسال",
-                cartModalTitle: "🛒 سلة التسوق ومعلومات الطلب",
-                lblCustName: "اسم الشخص (الاسم الكامل):",
-                custNamePl: "اكتب اسمك هنا...",
-                lblCustPhone: "رقم الهاتف:",
-                lblCustAddress: "العنوان الكامل:",
-                custAddrPl: "المدينة، الحي، البيت...",
-                sendOrderWhatsApp: "إرسال الطلب إلى الواتساب 💬",
-                close: "إغلاق",
-                addToCart: "إضافة",
-                deleteProd: "حذف المنتج",
-                modalClose: "إغلاق",
-                pNamePl: "اكتب اسم المنتج...",
-                pPricePl: "اكتب سعر المنتج...",
-                pBenefitsPl: "اكتب فوائد المنتج..."
-            },
-            en: {
-                dir: "ltr",
-                pageTitle: "NWEBUNAWA - Renewal",
-                splashText: "Please wait...",
-                searchPlaceholder: "Search products or benefits...",
-                all: "All",
-                oil: "Oil",
-                saladOil: "Salad Oil",
-                vinegar: "Vinegar",
-                soap: "Soap",
-                outka: "Outka",
-                teeth: "Natural Teeth Cleaner",
-                nuts: "Nut Butter",
-                tahini: "Tahini",
-                deliveryNav: "🚚 <strong>Delivery Fees:</strong> Cities & Rates",
-                adminNav: "Admin Panel ⚙️",
-                delivTitle: "🚚 Delivery Prices for All Cities",
-                delivDesc: "We provide delivery to cities and districts as fast as possible:",
-                adminTitle: "Website Admin: Add New Product",
-                lblPName: "Product Name:",
-                lblPCat: "Category:",
-                lblPPrice: "Price:",
-                lblPBen: "Benefits:",
-                lblPImg: "Choose Product Image:",
-                btnSaveProd: "Save Product",
-                sectionTitleAll: "All Products",
-                revTitle: "⭐ Customer Reviews ⭐",
-                revFormTitle: "Leave Your Review",
-                revNamePl: "Your Name...",
-                revCommPl: "Write your comment or review...",
-                btnPubRev: "Publish Review",
-                rev1: "\"Nwebunawa's olive oil was very authentic and natural, thank you so much.\"",
-                rev2: "\"The tahini and products were very clean and delicious. Delivery was fast.\"",
-                cartBarLabel: "Shopping Cart:",
-                cartBarItems: "items",
-                viewCartBtn: "View Cart & Send Order 🛒",
-                chatHeader: "Nwebunawa Assistant 🌿",
-                chatWelcome: "Hello! Welcome to Nwebunawa. Feel free to ask about our products!",
-                chatInputPl: "Type your question...",
-                sendBtn: "Send",
-                cartModalTitle: "🛒 Shopping Cart & Order Info",
-                lblCustName: "Full Name:",
-                custNamePl: "Enter your name here...",
-                lblCustPhone: "Phone Number:",
-                lblCustAddress: "Full Address:",
-                custAddrPl: "City, Street, House...",
-                sendOrderWhatsApp: "Send Order to WhatsApp 💬",
-                close: "Close",
-                addToCart: "Add",
-                deleteProd: "Delete Product",
-                modalClose: "Close",
-                pNamePl: "Enter product name...",
-                pPricePl: "Enter product price...",
-                pBenefitsPl: "Enter product benefits..."
-            }
-        };
-
-        let currentLang = 'ckb';
-
-        function changeLang(lang) {
-            currentLang = lang;
-            const t = translations[lang];
-            
-            document.getElementById('htmlRoot').setAttribute('lang', lang);
-            document.getElementById('htmlRoot').setAttribute('dir', t.dir);
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            document.getElementById('pageTitle').innerText = t.pageTitle;
-            document.getElementById('txtSplash').innerText = t.splashText;
-            document.getElementById('searchInput').placeholder = t.searchPlaceholder;
-            
-            document.getElementById('catAll').innerText = t.all;
-            document.getElementById('catOil').innerText = t.oil;
-            document.getElementById('catSaladOil').innerText = t.saladOil;
-            document.getElementById('catVinegar').innerText = t.vinegar;
-            document.getElementById('catSoap').innerText = t.soap;
-            document.getElementById('catOutka').innerText = t.outka;
-            document.getElementById('catTeeth').innerText = t.teeth;
-            document.getElementById('catNuts').innerText = t.nuts;
-            document.getElementById('catTahini').innerText = t.tahini;
-
-            document.getElementById('btnDeliveryNav').innerHTML = t.deliveryNav;
-            document.getElementById('btnAdminNav').innerText = t.adminNav;
-            document.getElementById('txtDelivTitle').innerText = t.delivTitle;
-            document.getElementById('txtDelivDesc').innerText = t.delivDesc;
-            document.getElementById('txtAdminTitle').innerText = t.adminTitle;
-            document.getElementById('lblPName').innerText = t.lblPName;
-            document.getElementById('lblPCat').innerText = t.lblPCat;
-            document.getElementById('lblPPrice').innerText = t.lblPPrice;
-            document.getElementById('lblPBen').innerText = t.lblPBen;
-            document.getElementById('lblPImg').innerText = t.lblPImg;
-            document.getElementById('btnSaveProd').innerText = t.btnSaveProd;
-            
-            document.getElementById('pName').placeholder = t.pNamePl;
-            document.getElementById('pPrice').placeholder = t.pPricePl;
-            document.getElementById('pBenefits').placeholder = t.pBenefitsPl;
-            
-            document.getElementById('txtRevTitle').innerText = t.revTitle;
-            document.getElementById('txtRevFormTitle').innerText = t.revFormTitle;
-            document.getElementById('revName').placeholder = t.revNamePl;
-            document.getElementById('revComment').placeholder = t.revCommPl;
-            document.getElementById('btnPubRev').innerText = t.btnPubRev;
-            document.getElementById('revText1').innerText = t.rev1;
-            document.getElementById('revText2').innerText = t.rev2;
-            
-            document.getElementById('txtCartBarLabel').innerText = t.cartBarLabel;
-            document.getElementById('txtCartBarItems').innerText = t.cartBarItems;
-            document.getElementById('btnViewCart').innerText = t.viewCartBtn;
-            
-            document.getElementById('txtChatHeader').innerText = t.chatHeader;
-            document.getElementById('txtChatWelcome').innerText = t.chatWelcome;
-            document.getElementById('chatInput').placeholder = t.chatInputPl;
-            document.getElementById('sendChatButton').innerText = t.sendBtn;
-            
-            document.getElementById('txtCartTitle').innerText = t.cartModalTitle;
-            document.getElementById('lblCustName').innerText = t.lblCustName;
-            document.getElementById('custName').placeholder = t.custNamePl;
-            document.getElementById('lblCustPhone').innerText = t.lblCustPhone;
-            document.getElementById('custAddress').placeholder = t.custAddrPl;
-            document.getElementById('btnSendOrder').innerText = t.sendOrderWhatsApp;
-            document.getElementById('btnCloseCart').innerText = t.close;
-            document.getElementById('btnCloseModal').innerText = t.modalClose;
-
-            renderProducts();
-        }
-
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 4000);
-            fetchProductsFromSupabase();
+            }, 5000);
         });
 
         const myPhoneNumber = "9647766944245";
         const adminPassword = "1234";
 
-        let products = [];
+        let products = JSON.parse(localStorage.getItem('sharihana_products')) || [
+            {
+                id: 1,
+                name: "زەیتی زەیتوون",
+                category: "زەیت",
+                price: "١٠,٠٠٠ دینار",
+                benefits: "سوودەکانی:\n- زۆر بەسوودە بۆ تەندروستی دڵ\n- دەوڵەمەندە بە دژە ئۆکسان\n- بەکاردێت بۆ خواردن و پێست",
+                img: "msh.logo.jpg"
+            }
+        ];
+        
         let cart = [];
         let currentCategory = 'هەمووی';
         let isAdminOpen = false;
-
-        async function fetchProductsFromSupabase() {
-            try {
-                const { data, error } = await _supabase.from('products').select('*').order('id', { ascending: false });
-                if (error) {
-                    console.error('Error fetching products:', error);
-                    products = [
-                        {
-                            id: 1,
-                            name: "زەیتی زەیتوون",
-                            category: "زەیت",
-                            price: "١٠,٠٠٠ دینار",
-                            benefits: "سوودەکانی:\n- زۆر بەسوودە بۆ تەندروستی دڵ\n- دەوڵەمەندە بە دژە ئۆکسان\n- بەکاردێت بۆ خواردن و پێست",
-                            img: "msh.logo.jpg"
-                        }
-                    ];
-                } else if (data && data.length > 0) {
-                    products = data;
-                }
-                renderProducts();
-            } catch (err) {
-                console.error(err);
-                renderProducts();
-            }
-        }
 
         function toggleDeliveryInfo() {
             const section = document.getElementById('deliveryInfoSection');
@@ -1030,43 +742,36 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(event) { 
-                    saveProductToSupabase(event.target.result); 
+                    saveProduct(event.target.result); 
                 };
                 reader.readAsDataURL(file);
             } else {
-                saveProductToSupabase('msh.logo.jpg');
+                saveProduct('msh.logo.jpg');
             }
         });
 
-        async function saveProductToSupabase(imgSrc) {
+        function saveProduct(imgSrc) {
             const newProduct = {
+                id: Date.now(),
                 name: document.getElementById('pName').value,
                 category: document.getElementById('pCategory').value,
                 price: document.getElementById('pPrice').value,
                 benefits: document.getElementById('pBenefits').value,
                 img: imgSrc
             };
-
-            const { data, error } = await _supabase.from('products').insert([newProduct]).select();
+            products.push(newProduct);
+            localStorage.setItem('sharihana_products', JSON.stringify(products));
             
-            if (error) {
-                alert("هەڵە لە پاشەکەوتکردنی بەرهەم: " + error.message);
-                console.error(error);
-            } else {
-                productForm.reset();
-                await fetchProductsFromSupabase();
-                alert("بەرهەمەکە لە هەوردا (Supabase) سەیفکرا و لە هەموو ئامێرەکاندا دەردەکەوێت!");
-            }
+            productForm.reset();
+            renderProducts();
+            alert("بەرهەمەکە پاشەکەوت کرا!");
         }
 
-        async function deleteProduct(id) {
-            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە لە هەموو ئامێرەکان؟")) {
-                const { error } = await _supabase.from('products').delete().eq('id', id);
-                if (error) {
-                    alert("هەڵە لە سڕینەوەی بەرهەم: " + error.message);
-                } else {
-                    await fetchProductsFromSupabase();
-                }
+        function deleteProduct(id) {
+            if (confirm("دڵنیای لە سڕینەوەی ئەم بەرهەمە؟")) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('sharihana_products', JSON.stringify(products));
+                renderProducts();
             }
         }
 
@@ -1079,8 +784,7 @@
             btn.classList.add('active');
             btn.closest('.glow-wrapper').classList.add('active');
 
-            const t = translations[currentLang];
-            document.getElementById('sectionTitle').innerText = category === 'هەمووی' ? t.sectionTitleAll : (t.all === category ? t.sectionTitleAll : 'بەشی ' + category);
+            document.getElementById('sectionTitle').innerText = category === 'هەمووی' ? 'هەموو بەرهەمەکان' : 'بەشی ' + category;
             renderProducts();
         }
 
@@ -1091,7 +795,6 @@
         function renderProducts() {
             productsGrid.innerHTML = '';
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const t = translations[currentLang];
             
             let filtered = currentCategory === 'هەمووی' ? products : products.filter(p => p.category === currentCategory);
             
@@ -1108,23 +811,26 @@
                 const card = document.createElement('div');
                 card.className = 'product-card' + (isAdminOpen ? ' admin-mode' : '');
                 
+                // دڵنیابوونەوە لەوەی ئەگەر وێنەی بەرهەم نەبوو لۆگۆ پیشان نەدات بەڵکو وێنەی دروست بەکاربێت
+                let validImg = (p.img && p.img.trim() !== "") ? p.img : 'msh.logo.jpg';
+
                 card.onclick = function() {
-                    openProductModal(p.name, p.price, p.benefits, p.img);
+                    openProductModal(p.name, p.price, p.benefits, validImg);
                 };
 
                 card.innerHTML = `
                     <div class="product-clickable">
                         <div class="product-img-wrapper">
-                            <img src="${p.img}" alt="${p.name}">
+                            <img src="${validImg}" alt="${p.name}" onerror="this.src='msh.logo.jpg'">
                         </div>
                         <div class="product-info">
                             <h4>${p.name}</h4>
                             <div class="price">${p.price}</div>
                             <div class="benefits">${p.benefits}</div>
-                            <button class="btn-delete" onclick="event.stopPropagation(); deleteProduct(${p.id})">${t.deleteProd}</button>
+                            <button class="btn-delete" onclick="event.stopPropagation(); deleteProduct(${p.id})">سڕینەوەی بەرهەم</button>
                         </div>
                     </div>
-                    <button class="btn-cart" onclick="event.stopPropagation(); addToCart('${p.name.replace(/'/g, "\\'")}', '${p.price.replace(/'/g, "\\'")}')">${t.addToCart}</button>
+                    <button class="btn-cart" onclick="event.stopPropagation(); addToCart('${p.name.replace(/'/g, "\\'")}', '${p.price.replace(/'/g, "\\'")}')">زیادبکە</button>
                 `;
                 productsGrid.appendChild(card);
             });
@@ -1134,7 +840,7 @@
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('modalPrice').innerText = price;
             document.getElementById('modalBenefits').innerText = benefits;
-            document.getElementById('modalImg').src = img;
+            document.getElementById('modalImg').src = (img && img.trim() !== "") ? img : 'msh.logo.jpg';
             document.getElementById('productModal').style.display = 'flex';
         }
 
@@ -1289,16 +995,16 @@
                     let p = matchedProducts[0];
                     reply = `بەرهەمی "${p.name}":\n💰 نرخ: ${p.price}\n🌿 سوودەکان: ${p.benefits}`;
                 }
-                else if (q.includes("سڵاو") || q.includes("سلاو") || q.includes("چۆن") || q.includes("مەرحەبا") || q.includes("مرحبا") || q.includes("hello")) {
+                else if (q.includes("سڵاو") || q.includes("سلاو") || q.includes("چۆن") || q.includes("مەرحەبا")) {
                     reply = "سڵاو لە تۆش! بەخێربێیت بۆ نوێبوونەوە. چۆن دەتوانم یارمەتیت بدم؟";
                 } 
-                else if (q.includes("سوپاس") || q.includes("دەستخۆش") || q.includes("مەمنون") || q.includes("شكرا") || q.includes("thank")) {
+                else if (q.includes("سوپاس") || q.includes("دەستخۆش") || q.includes("مەمنون")) {
                     reply = "شایەنی نییە ئازیزم! خزمەتکردنی ئێوە شانازییە بۆ ئێمە 🌿";
                 }
-                else if (q.includes("گەیاندن") || q.includes("دیلیڤەری") || q.includes("کرێ") || q.includes("توصيل")) {
+                else if (q.includes("گەیاندن") || q.includes("دیلیڤەری") || q.includes("کرێ")) {
                     reply = "گەیاندنمان بۆ سەرجەم شار و شارۆچکەکان هەیە.";
                 } 
-                else if (q.includes("ژمارە") || q.includes("تەلەفۆن") || q.includes("پەیوەندی") || q.includes("رقم")) {
+                else if (q.includes("ژمارە") || q.includes("تەلەفۆن") || q.includes("پەیوەندی")) {
                     reply = "پەیوەندیمان پێوە بکە بە: 07766944245";
                 }
                 else {
@@ -1317,6 +1023,8 @@
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
+
+        renderProducts();
     </script>
 </body>
 </html>
