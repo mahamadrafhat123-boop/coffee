@@ -342,6 +342,8 @@
             font-weight: bold;
             margin-bottom: 12px;
         }
+        
+        /* لێرەدا تایبەتمەندی سکرۆڵی ستوونی بۆ سوودەکان زیادکراوە */
         .modal-content .modal-benefits {
             font-size: 0.95rem;
             color: #cccccc;
@@ -353,8 +355,23 @@
             line-height: 1.8;
             margin-bottom: 20px;
             max-height: 250px;
-            overflow-y: auto;
+            overflow-y: auto; /* ڕێگە دەدات بە ڕاکێشان و سکرۆڵکردن کاتێک دەقەکە درێژە */
+            scrollbar-width: thin; /* بۆ جوانی سکرۆڵبارەکە لە فایەرفۆکس */
+            scrollbar-color: #2c5e3b #222;
         }
+        /* دیزاینی سکرۆڵبار بۆ چاوڕۆم و سەفاری */
+        .modal-content .modal-benefits::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 4px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-thumb {
+            background: #2c5e3b;
+            border-radius: 4px;
+        }
+
         html[dir="rtl"] .modal-content .modal-benefits { text-align: right; }
         html[dir="ltr"] .modal-content .modal-benefits { text-align: left; }
 
