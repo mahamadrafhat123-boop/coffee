@@ -180,7 +180,7 @@
         .delivery-info-section h3 { color: #25D366; margin-bottom: 15px; text-align: center; }
         .city-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
         .city-item { background: #242424; padding: 12px; border-radius: 8px; border: 1px solid #333; display: flex; justify-content: space-between; font-size: 0.95rem; }
-        .city-item span:last-child { color: #f39c12; font-weight: bold; }
+        .city-item span:last-child { color: #27ae60; font-weight: bold; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -257,28 +257,16 @@
         
         .product-card h4 { 
             color: #111111; 
-            margin-bottom: 4px; 
-            font-size: 1.05rem; 
+            margin-bottom: 6px; 
+            font-size: 1.1rem; 
             font-weight: bold;
+            white-space: nowrap;
         }
         
-        /* لێرەدا نرخ و بەشی سەرەوە ڕێکخرا بۆ ئەوەی زەیتی ڤیتامین خۆر و نرخ پێکەوە ببنە لایەک */
-        .product-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-        html[dir="ltr"] .product-header-row {
-            flex-direction: row-reverse;
-        }
-
         .product-card .price { 
             color: #27ae60; 
             font-weight: bold; 
             font-size: 0.95rem; 
-            white-space: nowrap;
         }
 
         .btn-cart { 
@@ -302,7 +290,7 @@
         .btn-delete { background: #c0392b; color: white; border: none; padding: 4px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.75rem; display: none; margin-top: 5px; }
         .product-card.admin-mode .btn-delete { display: block; }
 
-        /* Modal Styles for Product Details - قەبارە گەورە و پڕ لە بەشی سەرەوە بێ بۆشایی */
+        /* Modal Styles for Product Details */
         #productModal {
             display: none;
             position: fixed;
@@ -334,7 +322,7 @@
 
         .modal-content img {
             width: 100%;
-            height: 420px; /* گەورەکردنی بەرچاوی بەرزی وێنەکە بۆ پڕکردنەوەی بەشی سەرەوە و لابردنی بۆشایی */
+            height: 420px;
             object-fit: contain;
             margin: 0 auto 10px auto;
             border-radius: 12px;
@@ -639,7 +627,7 @@
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="کەرەی چەرەزات" onclick="filterCategory('کەرەی چەرەزات', this)">کەرەی چەرەزات</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="تەحین" onclick="filterCategory('تەحین', this)">تەحین</button></div>
                 
-                <div class="glow-wrapper"><button class="delivery-nav-btn" id="navDeliveryBtn" onclick="toggleDeliveryInfo()">🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ</button></div>
+                <div class="glow-wrapper"><button class="delivery-nav-btn" id="navDeliveryBtn" onclick="toggleDeliveryInfo()">🚚 <strong>کرێی گەیاندن:</strong> خۆڕایی بۆ هەموو شارەکان</button></div>
                 <div class="glow-wrapper"><button class="admin-toggle-btn" id="navAdminBtn" onclick="checkAdminPassword()">بەشی بەڕێوەبەر ⚙️</button></div>
             </nav>
         </div>
@@ -647,17 +635,17 @@
 
     <div class="container">
         <div id="deliveryInfoSection" class="delivery-info-section">
-            <h3 id="deliveryTitle">🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان</h3>
-            <p id="deliverySub" style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:</p>
+            <h3 id="deliveryTitle">🚚 گەیاندن بۆ سەرجەم شارەکان بە خۆڕاییە</h3>
+            <p id="deliverySub" style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە بێ بەرانبەر:</p>
             <div class="city-list">
-                <div class="city-item"><span>هەولێر:</span> <span>٣,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>سلێمانی:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>دهۆک:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>کەرکووک:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>هەڵەبجە:</span> <span>٥,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>ڕانیە / پشدەر:</span> <span>٣,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>سۆران / چۆمان:</span> <span>٤,٠٠٠ دینار</span></div>
-                <div class="city-item"><span>شارەزوور / دەربەندیخان:</span> <span>٤,٠٠٠ دینار</span></div>
+                <div class="city-item"><span>هەولێر:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>سلێمانی:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>دهۆک:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>کەرکووک:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>هەڵەبجە:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>ڕانیە / پشدەر:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>سۆران / چۆمان:</span> <span>خۆڕایی (٠ دینار)</span></div>
+                <div class="city-item"><span>شارەزوور / دەربەندیخان:</span> <span>خۆڕایی (٠ دینار)</span></div>
             </div>
         </div>
 
@@ -773,10 +761,10 @@
                 txtSplashLoading: "تکایە چاوەڕوان بە...",
                 searchInput: "گەڕان بۆ بەرهەمەکان یان سوودەکانیان...",
                 cats: { "هەمووی": "هەمووی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتە", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتکەکان", "پاککەرەوەی ددانی سروشتی": "پاککەرەوەی ددان", "کەرەی چەرەزات": "کەرەی چەرەزات", "تەحین": "تەحین" },
-                deliveryBtn: "🚚 <strong>کرێی گەیاندن:</strong> شارەکان و نرخ",
+                deliveryBtn: "🚚 <strong>کرێی گەیاندن:</strong> خۆڕایی بۆ هەموو شارەکان",
                 adminBtn: "بەشی بەڕێوەبەر ⚙️",
-                deliveryTitle: "🚚 نرخ و کرێی گەیاندن بۆ سەرجەم شارەکان",
-                deliverySub: "گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات:",
+                deliveryTitle: "🚚 گەیاندن بۆ سەرجەم شارەکان بە خۆڕاییە",
+                deliverySub: "گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە بێ بەرانبەر:",
                 adminFormTitle: "بەڕێوەبەری وێبسایت: زیادکردنی بەرهەمی نوێ",
                 lblPName: "ناوی بەرهەم:",
                 phPName: "ناوی بەرهەم بنووسە...",
@@ -826,10 +814,10 @@
                 txtSplashLoading: "هیڤیدارین چاڤەڕێ بکە...",
                 searchInput: "لێگەڕیان بۆ بەرهەمان یان مفایێن وان...",
                 cats: { "هەمووی": "هەمی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتێ", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتک", "پاککەرەوەی ددانی سروشتی": "پاقژکەرەوەیا ددان", "کەرەی چەرەزات": "کەرەیا چەرەزاتا", "تەحین": "تەحین" },
-                deliveryBtn: "🚚 <strong>کرێیا گەهاندنێ:</strong> باژێر و نرخ",
+                deliveryBtn: "🚚 <strong>کرێیا گەهاندنێ:</strong> خۆڕایی بۆ هەمی باژێران",
                 adminBtn: "بەشێ رێڤەبەری ⚙️",
-                deliveryTitle: "🚚 نرخ و کرێیا گەهاندنێ بۆ هەمی باژێران",
-                deliverySub: "گەهاندنا مە بۆ ناڤ باژێر و قەزایان هەیە زووترین دەم:",
+                deliveryTitle: "🚚 گەهاندن بۆ هەمی باژێران ب خۆڕاییە",
+                deliverySub: "گەهاندنا مە بۆ ناڤ باژێر و قەزایان هەیە ب زووترین دەم و ب بێ بەرانبەر:",
                 adminFormTitle: "رێڤەبەرێ وێبسایتی: زێدەکرنا بەرهەمەکێ نوی",
                 lblPName: "ناڤێ بەرهەمی:",
                 phPName: "ناڤێ بەرهەمی بنڤیسە...",
@@ -879,10 +867,10 @@
                 txtSplashLoading: "Please wait...",
                 searchInput: "Search products or benefits...",
                 cats: { "هەمووی": "All", "زەیت": "Oils", "زەیتی زەڵاتە": "Salad Oil", "سرکە": "Vinegar", "سابوون": "Soap", "ئاوتکەکان": "Extracts", "پاککەرەوەی ددانی سروشتی": "Natural Toothpaste", "کەرەی چەرەزات": "Nut Butters", "تەحین": "Tahini" },
-                deliveryBtn: "🚚 <strong>Delivery:</strong> Cities & Rates",
+                deliveryBtn: "🚚 <strong>Delivery:</strong> Free for All Cities",
                 adminBtn: "Admin Panel ⚙️",
-                deliveryTitle: "🚚 Delivery Rates Across All Cities",
-                deliverySub: "Fast delivery available to cities and districts:",
+                deliveryTitle: "🚚 Free Delivery Across All Cities",
+                deliverySub: "Free and fast delivery available to cities and districts:",
                 adminFormTitle: "Website Admin: Add New Product",
                 lblPName: "Product Name:",
                 phPName: "Enter product name...",
@@ -932,10 +920,10 @@
                 txtSplashLoading: "يرجى الانتظار...",
                 searchInput: "البحث عن المنتجات أو فوائدها...",
                 cats: { "هەمووی": "الكل", "زەیت": "زیوت", "زەیتی زەڵاتە": "زيت السلطة", "سرکە": "خل", "سابوون": "صمغ/صابون", "ئاوتکەکان": "مستخلصات", "پاککەرەوەی ددانی سروشتی": "معجون أسنان طبيعي", "کەرەی چەرەزات": "زبدة المكسرات", "تەحین": "طحينة" },
-                deliveryBtn: "🚚 <strong>التوصيل:</strong> المدن والأسعار",
+                deliveryBtn: "🚚 <strong>التوصيل:</strong> مجاني لجميع المدن",
                 adminBtn: "لوحة التحكم ⚙️",
-                deliveryTitle: "🚚 أسعار وأجور التوصيل لجميع المدن",
-                deliverySub: "يتوفر التوصيل السريع إلى كافة المدن والأقضية:",
+                deliveryTitle: "🚚 التوصيل مجاني لجميع المدن",
+                deliverySub: "التوصيل سريع ومجاني إلى كافة المدن والأقضية:",
                 adminFormTitle: "إدارة الموقع: إضافة منتج جديد",
                 lblPName: "اسم المنتج:",
                 phPName: "اكتب اسم المنتج...",
@@ -1226,17 +1214,14 @@
                     openProductModal(p.name, p.price, p.benefits, validImg);
                 };
 
-                // لابردنی بەشی سوودەکان لە کارتی سەرەکی و دانانی ناو و نرخ پێکەوە لە تەنیشت یەکدی
                 card.innerHTML = `
                     <div class="product-clickable">
                         <div class="product-img-wrapper">
                             <img src="${validImg}" alt="${p.name}" onerror="this.src='msh.logo.jpg'">
                         </div>
                         <div class="product-info">
-                            <div class="product-header-row">
-                                <h4>${p.name}</h4>
-                                <div class="price">${p.price}</div>
-                            </div>
+                            <h4>${p.name}</h4>
+                            <div class="price">${p.price}</div>
                             <button class="btn-delete" onclick="event.stopPropagation(); deleteProduct(${p.id})">${t.btnDelProd}</button>
                         </div>
                     </div>
