@@ -36,7 +36,7 @@
         @keyframes loadingSlide { 0% { left: -40%; } 50% { left: 100%; } 100% { left: -40%; } }
         @keyframes pulse { 0% { transform: scale(0.98); } 50% { transform: scale(1.03); } 100% { transform: scale(0.98); } }
 
-        /* Header Area with Logo Background - ڕێکخراو بۆ پڕکردنەوەی تەواوی بەشی سەرەوە */
+        /* Header Area with Logo Background */
         header { 
             position: relative; 
             width: 100%; 
@@ -301,7 +301,7 @@
         .btn-delete { background: #c0392b; color: white; border: none; padding: 4px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.75rem; display: none; margin-top: 5px; }
         .product-card.admin-mode .btn-delete { display: block; }
 
-        /* Modal Styles for Product Details */
+        /* Modal Styles for Product Details - پەنجەرەی وردەکاری بەرهەم قەبارە گەورە و پڕ */
         #productModal {
             display: none;
             position: fixed;
@@ -310,65 +310,68 @@
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
         .modal-content {
             background: #181818;
             color: #e0e0e0;
-            padding: 25px;
+            padding: 20px 20px 25px 20px;
             border-radius: 16px;
-            max-width: 480px;
+            max-width: 520px;
             width: 100%;
             position: relative;
             box-shadow: 0 5px 25px rgba(0,0,0,0.6);
             border: 1px solid #2c5e3b;
-            max-height: 90vh;
+            max-height: 92vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-y: auto;
         }
         html[dir="rtl"] .modal-content { text-align: right; }
         html[dir="ltr"] .modal-content { text-align: left; }
 
         .modal-content img {
-            width: 240px;
-            height: 280px;
+            width: 100%;
+            max-height: 380px; /* گەورەکردنی بەرچاوی بەرزی وێنەکە بۆ ئەوەی جوان و پڕ دیاربێت */
             object-fit: contain;
-            margin: 0 auto 15px;
-            border-radius: 10px;
-            background: #222;
-            padding: 8px;
+            margin: 0 auto 15px auto;
+            border-radius: 12px;
+            background: #1f1f1f;
+            padding: 10px 20px;
             border: 2px solid #2c5e3b;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            order: -2; /* گۆڕدرا بۆ ئەوەی وێنەکە بێتە پێشەوەی هەموو شتێک لە سەرەوە */
+            box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+            order: -2;
         }
         
         .modal-content h3 {
             color: #ffffff;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 6px;
             width: 100%;
-            order: -1; /* ناونیشانی بەرهەم دەکەوێتە دوای وێنە */
+            order: -1;
+            text-align: center;
         }
         .modal-content .modal-price {
             color: #27ae60;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 12px;
             width: 100%;
+            text-align: center;
         }
         
         .modal-content .modal-benefits {
             font-size: 1.05rem;
             color: #ffffff;
             background: #1f1f1f;
-            padding: 18px;
+            padding: 15px;
             border-radius: 10px;
             border: 2px solid #25D366;
             white-space: pre-line;
-            line-height: 1.9;
+            line-height: 1.8;
             margin-bottom: 20px;
-            max-height: 280px;
+            max-height: 220px;
             overflow-y: auto;
             width: 100%;
             scrollbar-width: thin;
@@ -393,12 +396,13 @@
             background: #c0392b;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: auto;
+            margin-top: 5px;
             width: 100%;
+            font-size: 1rem;
         }
 
         /* Cart Modal / Drawer Styles */
