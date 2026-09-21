@@ -9,6 +9,22 @@
         
         body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
         
+        /* Marquee Announcement Bar */
+        .announcement-bar {
+            background-color: #2c5e3b;
+            color: #ffffff;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 1px solid #25D366;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .announcement-bar marquee {
+            width: 100%;
+        }
+
         /* Splash Screen */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
@@ -322,7 +338,7 @@
 
         .modal-content img {
             width: 100%;
-            aspect-ratio: 1 / 1; /* گۆڕدرا بۆ ڕێژەی 1.1 یان لاکێشەیی هاوسەنگ بۆ بەشی سەرەوە */
+            aspect-ratio: 1 / 1;
             max-height: 380px;
             object-fit: contain;
             margin: 0 auto 10px auto;
@@ -358,7 +374,7 @@
             background: #1f1f1f;
             padding: 15px;
             border-radius: 10px;
-            border: none; /* هێڵی سەوزی دەوروبەری سوودەکان لابرا */
+            border: none;
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 20px;
@@ -548,9 +564,20 @@
         .chat-input { display: flex; border-top: 1px solid #333; background: #222; }
         .chat-input input { flex: 1; padding: 10px; border: none; outline: none; background: transparent; color: #fff; }
         .chat-input button { background: #2c5e3b; color: white; border: none; padding: 0 15px; cursor: pointer; font-weight: bold; }
+
+        @keyframes blink {
+            0% { opacity: .2; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: .2; transform: scale(0.8); }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Announcement Marquee Bar with Extended Text -->
+    <div class="announcement-bar">
+        <marquee behavior="scroll" direction="right" scrollamount="5">🌿 بەخێربێن بۆ گیادەرمانی محمد شوانی - لێرەدا کوالێتی و ڕەسەنایەتی لەگەڵدا دەبێت، چونکە لای ئێمە قسەکانمان تەنها دروشم نین بەڵکو هەموو قسەکانمان کردار و ڕاستینە ئاراستەتان دەکەین بۆ تەندروستییەکی باشتر و بەرهەمی ١٠٠٪ سروشتی! 🌿</marquee>
+    </div>
 
     <div id="splash-screen">
         <img src="msh.logo.jpg" alt="نوێبوونەوە" class="splash-logo">
@@ -624,7 +651,7 @@
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="سرکە" onclick="filterCategory('سرکە', this)">سرکە</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="سابوون" onclick="filterCategory('سابوون', this)">سابوون</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="ئاوتکەکان" onclick="filterCategory('ئاوتکەکان', this)">ئاوتکەکان</button></div>
-                <div class="glow-wrapper"><button class="nav-btn" data-cat="پاککەرەوەی ددانی سروشتی" onclick="filterCategory('پاککەرەوەی ددانی سروشتی', this)">پاککەرەوەی ددان</button></div>
+                <div class="glow-wrapper"><button class="nav-btn" data-cat="جوانکاری" onclick="filterCategory('جوانکاری', this)">جوانکاری</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="کەرەی چەرەزات" onclick="filterCategory('کەرەی چەرەزات', this)">کەرەی چەرەزات</button></div>
                 <div class="glow-wrapper"><button class="nav-btn" data-cat="تەحین" onclick="filterCategory('تەحین', this)">تەحین</button></div>
                 
@@ -666,7 +693,7 @@
                             <option value="سرکە">سرکە</option>
                             <option value="سابوون">سابوون</option>
                             <option value="ئاوتکەکان">ئاوتکەکان</option>
-                            <option value="پاککەرەوەی ددانی سروشتی">پاککەرەوەی ددانی سروشتی</option>
+                            <option value="جوانکاری">جوانکاری</option>
                             <option value="کەرەی چەرەزات">کەرەی چەرەزات</option>
                             <option value="تەحین">تەحین</option>
                         </select>
@@ -761,7 +788,7 @@
                 pageTitle: "نوێبوونەوە - NWEBUNAWA",
                 txtSplashLoading: "تکایە چاوەڕوان بە...",
                 searchInput: "گەڕان بۆ بەرهەمەکان یان سوودەکانیان...",
-                cats: { "هەمووی": "هەمووی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتە", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتکەکان", "پاککەرەوەی ددانی سروشتی": "پاککەرەوەی ددان", "کەرەی چەرەزات": "کەرەی چەرەزات", "تەحین": "تەحین" },
+                cats: { "هەمووی": "هەمووی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتە", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتکەکان", "جوانکاری": "جوانکاری", "کەرەی چەرەزات": "کەرەی چەرەزات", "تەحین": "تەحین" },
                 deliveryBtn: "🚚 <strong>کرێی گەیاندن:</strong> خۆڕایی بۆ هەموو شارەکان",
                 adminBtn: "بەشی بەڕێوەبەر ⚙️",
                 deliveryTitle: "🚚 گەیاندن بۆ سەرجەم شارەکان بە خۆڕاییە",
@@ -814,7 +841,7 @@
                 pageTitle: "نویبوونەوە - NWEBUNAWA",
                 txtSplashLoading: "هیڤیدارین چاڤەڕێ بکە...",
                 searchInput: "لێگەڕیان بۆ بەرهەمان یان مفایێن وان...",
-                cats: { "هەمووی": "هەمی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتێ", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتک", "پاککەرەوەی ددانی سروشتی": "پاقژکەرەوەیا ددان", "کەرەی چەرەزات": "کەرەیا چەرەزاتا", "تەحین": "تەحین" },
+                cats: { "هەمووی": "هەمی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتێ", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتک", "جوانکاری": "جوانکاری", "کەرەی چەرەزات": "کەرەیا چەرەزاتا", "تەحین": "تەحین" },
                 deliveryBtn: "🚚 <strong>کرێیا گەهاندنێ:</strong> خۆڕایی بۆ هەمی باژێران",
                 adminBtn: "بەشێ رێڤەبەری ⚙️",
                 deliveryTitle: "🚚 گەهاندن بۆ هەمی باژێران ب خۆڕاییە",
@@ -867,7 +894,7 @@
                 pageTitle: "Nwebunawa - Natural Products",
                 txtSplashLoading: "Please wait...",
                 searchInput: "Search products or benefits...",
-                cats: { "هەمووی": "All", "زەیت": "Oils", "زەیتی زەڵاتە": "Salad Oil", "سرکە": "Vinegar", "سابوون": "Soap", "ئاوتکەکان": "Extracts", "پاککەرەوەی ددانی سروشتی": "Natural Toothpaste", "کەرەی چەرەزات": "Nut Butters", "تەحین": "Tahini" },
+                cats: { "هەمووی": "All", "زەیت": "Oils", "زەیتی زەڵاتە": "Salad Oil", "سرکە": "Vinegar", "سابوون": "Soap", "ئاوتکەکان": "Extracts", "جوانکاری": "Cosmetics", "کەرەی چەرەزات": "Nut Butters", "تەحین": "Tahini" },
                 deliveryBtn: "🚚 <strong>Delivery:</strong> Free for All Cities",
                 adminBtn: "Admin Panel ⚙️",
                 deliveryTitle: "🚚 Free Delivery Across All Cities",
@@ -920,7 +947,7 @@
                 pageTitle: "نوێبوونەوە - المنتجات الطبيعية",
                 txtSplashLoading: "يرجى الانتظار...",
                 searchInput: "البحث عن المنتجات أو فوائدها...",
-                cats: { "هەمووی": "الكل", "زەیت": "زیوت", "زەیتی زەڵاتە": "زيت السلطة", "سرکە": "خل", "سابوون": "صمغ/صابون", "ئاوتکەکان": "مستخلصات", "پاککەرەوەی ددانی سروشتی": "معجون أسنان طبيعي", "کەرەی چەرەزات": "زبدة المكسرات", "تەحین": "طحينة" },
+                cats: { "هەمووی": "الكل", "زەیت": "زیوت", "زەیتی زەڵاتە": "زيت السلطة", "سرکە": "خل", "سابوون": "صمغ/صابون", "ئاوتکەکان": "مستخلصات", "جوانکاری": "تجميل", "کەرەی چەرەزات": "زبدة المكسرات", "تەحین": "طحينة" },
                 deliveryBtn: "🚚 <strong>التوصيل:</strong> مجاني لجميع المدن",
                 adminBtn: "لوحة التحكم ⚙️",
                 deliveryTitle: "🚚 التوصيل مجاني لجميع المدن",
@@ -1380,7 +1407,20 @@
             addMessage(text, 'user');
             input.value = '';
 
+            const container = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'msg bot typing-indicator-msg';
+            typingDiv.innerHTML = `<span style="display: inline-flex; gap: 4px; align-items: center; padding: 4px 8px;">
+                <span style="width: 7px; height: 7px; background: #aaa; border-radius: 50%; animation: blink 1.4s infinite both; animation-delay: 0s;"></span>
+                <span style="width: 7px; height: 7px; background: #aaa; border-radius: 50%; animation: blink 1.4s infinite both; animation-delay: 0.2s;"></span>
+                <span style="width: 7px; height: 7px; background: #aaa; border-radius: 50%; animation: blink 1.4s infinite both; animation-delay: 0.4s;"></span>
+            </span>`;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+
             setTimeout(() => {
+                container.removeChild(typingDiv);
+
                 let reply = "";
                 const q = text.toLowerCase();
                 
@@ -1405,7 +1445,7 @@
                 }
 
                 addMessage(reply, 'bot');
-            }, 500);
+            }, 2000);
         }
 
         function addMessage(msg, sender) {
