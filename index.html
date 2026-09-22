@@ -9,11 +9,11 @@
         
         body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
         
-        /* Marquee Announcement Bar with White Text */
+        /* Marquee Announcement Bar */
         .announcement-bar {
             background-color: #2c5e3b;
-            color: #ffffff !important;
-            padding: 10px 0;
+            color: #ffffff;
+            padding: 8px 0;
             font-size: 0.95rem;
             font-weight: bold;
             overflow: hidden;
@@ -23,7 +23,6 @@
         }
         .announcement-bar marquee {
             width: 100%;
-            color: #ffffff !important;
         }
 
         /* Splash Screen */
@@ -317,30 +316,30 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
-            overflow-y: auto;
         }
         .modal-content {
-            background: #ffffff;
-            color: #222222;
-            padding: 20px;
+            background: #121212;
+            color: #111111;
+            padding: 15px 20px 25px 20px;
             border-radius: 16px;
             max-width: 520px;
             width: 100%;
             position: relative;
             box-shadow: 0 5px 25px rgba(0,0,0,0.6);
             border: 1px solid #2c5e3b;
-            margin: auto;
+            max-height: 95vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: visible;
+            overflow-y: auto;
         }
         html[dir="rtl"] .modal-content { text-align: right; }
         html[dir="ltr"] .modal-content { text-align: left; }
 
         .modal-content img {
             width: 100%;
-            max-height: 280px;
+            aspect-ratio: 1 / 1;
+            max-height: 380px;
             object-fit: contain;
             margin: 0 auto 10px auto;
             border-radius: 12px;
@@ -353,16 +352,15 @@
         
         .modal-content h3 {
             color: #111111;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 6px;
             width: 100%;
             order: -2;
             text-align: center;
-            font-weight: bold;
         }
         .modal-content .modal-price {
             color: #27ae60;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 12px;
             width: 100%;
@@ -371,17 +369,31 @@
         }
         
         .modal-content .modal-benefits {
-            font-size: 1rem;
-            color: #333333;
-            background: #f9f9f9;
+            font-size: 1.05rem;
+            color: #111111;
+            background: #ffffff;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid #e0e0e0;
+            border: none;
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 20px;
+            max-height: 220px;
+            overflow-y: auto;
             width: 100%;
-            overflow: visible;
+            scrollbar-width: thin;
+            scrollbar-color: #25D366 #222;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 4px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-thumb {
+            background: #25D366;
+            border-radius: 4px;
         }
 
         html[dir="rtl"] .modal-content .modal-benefits { text-align: right; }
@@ -410,7 +422,6 @@
             justify-content: center;
             align-items: center;
             padding: 15px;
-            overflow-y: auto;
         }
         .cart-modal-content {
             background: #181818;
@@ -421,7 +432,8 @@
             width: 100%;
             box-shadow: 0 5px 25px rgba(0,0,0,0.7);
             border: 1px solid #25D366;
-            margin: auto;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         html[dir="rtl"] .cart-modal-content { text-align: right; }
         html[dir="ltr"] .cart-modal-content { text-align: left; }
@@ -562,9 +574,9 @@
 </head>
 <body>
 
-    <!-- Announcement Marquee Bar with White Text -->
+    <!-- Announcement Marquee Bar with Extended Text -->
     <div class="announcement-bar">
-        <marquee behavior="scroll" direction="right" scrollamount="5"><span style="color: #ffffff;">🌿 بەخێربێن بۆ گیادەرمانی محمد شوانی - لێرەدا کوالێتی و ڕەسەنایەتی لەگەڵدا دەبێت، چونکە لای ئێمە قسەکانمان تەنها دروشم نین بەڵکو هەموو قسەکانمان کردار و ڕاستینە ئاراستەتان دەکەین بۆ تەندروستییەکی باشتر و بەرهەمی ١٠٠٪ سروشتی! 🌿</span></marquee>
+        <marquee behavior="scroll" direction="right" scrollamount="5">🌿 بەخێربێن بۆ گیادەرمانی محمد شوانی - لێرەدا کوالێتی و ڕەسەنایەتی لەگەڵدا دەبێت، چونکە لای ئێمە قسەکانمان تەنها دروشم نین بەڵکو هەموو قسەکانمان کردار و ڕاستینە ئاراستەتان دەکەین بۆ تەندروستییەکی باشتر و بەرهەمی ١٠٠٪ سروشتی! 🌿</marquee>
     </div>
 
     <div id="splash-screen">
@@ -754,7 +766,7 @@
         <div class="chat-box" id="chatBox">
             <div class="chat-header" id="txtChatHeader">یارمەتیدەری نوێبوونەوە 🌿</div>
             <div class="chat-messages" id="chatMessages">
-                <div class="msg bot" id="txtChatWelcome">سڵاو! بەخێربێیت بۆ گیادەرمانی محمد شوانی. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
+                <div class="msg bot" id="txtChatWelcome">سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!</div>
             </div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="پرسیارەکەت بنووسە..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -773,7 +785,7 @@
         
         const translations = {
             ckb: {
-                pageTitle: "گیادەرمانی محمد شوانی - NWEBUNAWA",
+                pageTitle: "نوێبوونەوە - NWEBUNAWA",
                 txtSplashLoading: "تکایە چاوەڕوان بە...",
                 searchInput: "گەڕان بۆ بەرهەمەکان یان سوودەکانیان...",
                 cats: { "هەمووی": "هەمووی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتە", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتکەکان", "جوانکاری": "جوانکاری", "کەرەی چەرەزات": "کەرەی چەرەزات", "تەحین": "تەحین" },
@@ -812,8 +824,8 @@
                 btnAddCart: "زیادبکە",
                 btnDelProd: "سڕینەوەی بەرهەم",
                 modalClose: "داخستن",
-                chatHeader: "یارمەتیدەری گیادەرمانی محمد شوانی 🌿",
-                chatWelcome: "سڵاو! بەخێربێیت بۆ گیادەرمانی محمد شوانی. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!",
+                chatHeader: "یارمەتیدەری نوێبوونەوە 🌿",
+                chatWelcome: "سڵاو! بەخێربێیت بۆ نوێبوونەوە. دەتوانیت پرسیار لەسەر بەرهەمەکان بکەیت!",
                 phChat: "پرسیارەکەت بنووسە...",
                 sendChat: "ناردن",
                 msgAdded: " زیادکرا بۆ عەرەبانەی کڕین!",
@@ -826,7 +838,7 @@
                 confirmDel: "دڵنیای لە سڕینەوەی ئەم بەرهەمە؟"
             },
             ku: {
-                pageTitle: "گیادەرمانی محمد شوانی - NWEBUNAWA",
+                pageTitle: "نویبوونەوە - NWEBUNAWA",
                 txtSplashLoading: "هیڤیدارین چاڤەڕێ بکە...",
                 searchInput: "لێگەڕیان بۆ بەرهەمان یان مفایێن وان...",
                 cats: { "هەمووی": "هەمی", "زەیت": "زەیت", "زەیتی زەڵاتە": "زەیتی زەڵاتێ", "سرکە": "سرکە", "سابوون": "سابوون", "ئاوتکەکان": "ئاوتک", "جوانکاری": "جوانکاری", "کەرەی چەرەزات": "کەرەیا چەرەزاتا", "تەحین": "تەحین" },
@@ -865,8 +877,8 @@
                 btnAddCart: "زێدەبکە",
                 btnDelProd: "ژێبرنا بەرهەمی",
                 modalClose: "گرتن",
-                chatHeader: "رێڤەبەرێ هاریکار - گیادەرمانی محمد شوانی 🌿",
-                chatWelcome: "سلاڤ! بخێر هاتنی بۆ گیادەرمانی محمد شوانی. تو دشێی پرسیاران ل سەر بەرهەمان بکەی!",
+                chatHeader: "رێڤەبەرێ هاریکار نوێبوونەوە 🌿",
+                chatWelcome: "سلاڤ! بخێر هاتنی بۆ نویبوونەوە. تو دشێی پرسیاران ل سەر بەرهەمان بکەی!",
                 phChat: "پرسارا خۆ بنڤیسە...",
                 sendChat: "هنارتن",
                 msgAdded: " هاتە زێدەکرن بۆ تۆربا کڕینێ!",
@@ -879,7 +891,7 @@
                 confirmDel: "تۆ د پشترستی ژ ژێبرنا ڤی بەرهەمی?"
             },
             en: {
-                pageTitle: "Mohamad Shwani Herbal - Natural Products",
+                pageTitle: "Nwebunawa - Natural Products",
                 txtSplashLoading: "Please wait...",
                 searchInput: "Search products or benefits...",
                 cats: { "هەمووی": "All", "زەیت": "Oils", "زەیتی زەڵاتە": "Salad Oil", "سرکە": "Vinegar", "سابوون": "Soap", "ئاوتکەکان": "Extracts", "جوانکاری": "Cosmetics", "کەرەی چەرەزات": "Nut Butters", "تەحین": "Tahini" },
@@ -918,8 +930,8 @@
                 btnAddCart: "Add",
                 btnDelProd: "Delete Product",
                 modalClose: "Close",
-                chatHeader: "Mohamad Shwani Assistant 🌿",
-                chatWelcome: "Hello! Welcome to Mohamad Shwani Herbal. Feel free to ask about our products!",
+                chatHeader: "Nwebunawa Assistant 🌿",
+                chatWelcome: "Hello! Welcome to Nwebunawa. Feel free to ask about our products!",
                 phChat: "Type your question...",
                 sendChat: "Send",
                 msgAdded: " added to cart!",
@@ -932,7 +944,7 @@
                 confirmDel: "Are you sure you want to delete this product?"
             },
             ar: {
-                pageTitle: "أعشاب محمد شوانی - المنتجات الطبيعية",
+                pageTitle: "نوێبوونەوە - المنتجات الطبيعية",
                 txtSplashLoading: "يرجى الانتظار...",
                 searchInput: "البحث عن المنتجات أو فوائدها...",
                 cats: { "هەمووی": "الكل", "زەیت": "زیوت", "زەیتی زەڵاتە": "زيت السلطة", "سرکە": "خل", "سابوون": "صمغ/صابون", "ئاوتکەکان": "مستخلصات", "جوانکاری": "تجميل", "کەرەی چەرەزات": "زبدة المكسرات", "تەحین": "طحينة" },
@@ -970,8 +982,8 @@
                 btnCloseCart: "إغلاق",
                 btnAddCart: "إغلاق",
                 modalClose: "إغلاق",
-                chatHeader: "مساعد أعشاب محمد شوانی 🌿",
-                chatWelcome: "أهلاً بك في أعشاب محمد شوانی. يمكنك الاستفسار عن أي منتج!",
+                chatHeader: "مساعد نوێبوونەوە 🌿",
+                chatWelcome: "أهلاً بك في نوێبوونەوە. يمكنك الاستفسار عن أي منتج!",
                 phChat: "اكتب سؤالك...",
                 sendChat: "إرسال",
                 msgAdded: " تم إضافته إلى السلة!",
@@ -1423,7 +1435,7 @@
                     reply = `Product: ${p.name}\nPrice: ${p.price}\nBenefits: ${p.benefits}`;
                 }
                 else if (q.includes("سڵاو") || q.includes("سلاو") || q.includes("hello") || q.includes("مەرحەبا") || q.includes("هلا")) {
-                    reply = "Hello! Welcome to Mohamad Shwani Herbal. How can I help you? / سڵاو! بەخێربێیت.";
+                    reply = "Hello! Welcome to Nwebunawa. How can I help you? / سڵاو! بەخێربێیت.";
                 } 
                 else if (q.includes("سوپاس") || q.includes("thanks") || q.includes("مەمنون")) {
                     reply = "You're welcome! / شایەنی نییە!";
