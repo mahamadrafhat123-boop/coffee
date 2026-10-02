@@ -197,13 +197,15 @@
 
         .products-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         
-        /* Product Card Layout */
+        /* Product Card Layout (گۆڕدرا بۆ باکگراوندی مۆری شوشەیی) */
         .product-card { 
-            border: none; 
+            border: 1px solid rgba(155, 89, 182, 0.3); 
             border-radius: 16px; 
             padding: 12px 20px; 
-            background: #ffffff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+            background: rgba(75, 44, 99, 0.25); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2); 
             display: flex; 
             flex-direction: row-reverse; 
             align-items: center; 
@@ -211,7 +213,7 @@
             gap: 15px; 
             text-align: right; 
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
         html[dir="ltr"] .product-card {
             flex-direction: row;
@@ -219,6 +221,7 @@
         }
         .product-card:hover {
             transform: translateY(-2px);
+            background: rgba(75, 44, 99, 0.4);
         }
 
         .product-clickable {
@@ -256,7 +259,7 @@
         html[dir="ltr"] .product-info { text-align: left; }
         
         .product-card h4 { 
-            color: #111111; 
+            color: #ffffff; 
             margin-bottom: 6px; 
             font-size: 1.1rem; 
             font-weight: bold;
@@ -264,7 +267,7 @@
         }
         
         .product-card .price { 
-            color: #27ae60; 
+            color: #2ecc71; 
             font-weight: bold; 
             font-size: 0.95rem; 
         }
@@ -1066,13 +1069,13 @@
             }
         }
 
-        // لێرەدا کاتی پەردەی سەرەتایی کرا بە ١٠٠٠ مڵیزەکرەکە (١ چرکە)
+        // لێرەدا کاتی پەردەی سەرەتایی کرا بە ٠ چرکە
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 1000);
+            }, 0);
             fetchProducts();
         });
 
