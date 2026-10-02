@@ -1,59 +1,13 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl" id="htmlRoot" class="dark">
+<html lang="ckb" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">نوێبوونەوە - NWEBUNAWA</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
         
-        /* Light & Dark Theme Variables */
-        :root {
-            --bg-main: linear-gradient(135deg, #e8f5e9 0%, #ffffff 50%, #c8e6c9 100%);
-            --bg-container: rgba(255, 255, 255, 0.75);
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --text-color: #1a3322;
-            --text-secondary: #2c5e3b;
-            --border-color: rgba(44, 94, 59, 0.25);
-            --glass-shadow: 0 8px 32px 0 rgba(44, 94, 59, 0.15);
-            --header-overlay: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
-        }
-
-        html.dark {
-            --bg-main: linear-gradient(135deg, #0a1f12 0%, #121212 50%, #05140b 100%);
-            --bg-container: rgba(18, 30, 22, 0.75);
-            --bg-card: rgba(24, 40, 28, 0.85);
-            --text-color: #e0e0e0;
-            --text-secondary: #25D366;
-            --border-color: rgba(37, 211, 102, 0.3);
-            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            --header-overlay: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.75));
-        }
-        
-        body { 
-            background: var(--bg-main); 
-            background-attachment: fixed;
-            color: var(--text-color); 
-            line-height: 1.6; 
-            padding-bottom: 80px; 
-            min-height: 100vh;
-        }
-
-        /* Theme Toggle Button Style */
-        .theme-toggle-btn {
-            background: var(--bg-card);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-        }
-        .theme-toggle-btn:hover {
-            background: #2c5e3b;
-            color: white;
-        }
+        body { background-color: #121212; color: #e0e0e0; line-height: 1.6; padding-bottom: 80px; }
 
         /* Splash Screen */
         #splash-screen {
@@ -90,16 +44,15 @@
             padding: 45px 15px; 
             min-height: 420px;
             overflow: hidden;
-            border-bottom: 1px solid var(--border-color); 
-            box-shadow: var(--glass-shadow); 
-            background: var(--header-overlay), url('msh.logo.jpg');
+            border-bottom: 1px solid #2a2a2a; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7); 
+            background: linear-gradient(rgba(18, 18, 18, 0.75), rgba(18, 18, 18, 0.75)), url('msh.logo.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
         }
 
         .header-content { 
@@ -121,24 +74,23 @@
             border: 2px solid #2c5e3b; 
         }
 
-        /* Language & Controls Switcher Bar */
+        /* Language Switcher Bar */
         .lang-selector-container {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 6px;
             margin-bottom: 12px;
             flex-wrap: wrap;
         }
         .lang-btn {
-            background: var(--bg-card);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
+            background: rgba(26, 26, 26, 0.9);
+            color: #ccc;
+            border: 1px solid #2c5e3b;
             padding: 4px 10px;
             border-radius: 15px;
             font-size: 0.8rem;
             cursor: pointer;
-            backdrop-filter: blur(8px);
+            transition: 0.2s;
         }
         .lang-btn.active, .lang-btn:hover {
             background: #2c5e3b;
@@ -153,8 +105,7 @@
             position: relative;
             border-radius: 25px;
             padding: 2px;
-            background: var(--bg-card);
-            backdrop-filter: blur(8px);
+            background: rgba(26, 26, 26, 0.85);
         }
 
         .search-box-wrapper::before, .glow-wrapper::before {
@@ -186,8 +137,8 @@
         }
 
         .search-box { 
-            width: 100%; padding: 10px 18px; border: 1px solid var(--border-color); 
-            background: var(--bg-card); color: var(--text-color); border-radius: 25px; 
+            width: 100%; padding: 10px 18px; border: 1px solid #2c5e3b; 
+            background: #1a1a1a; color: #fff; border-radius: 25px; 
             font-size: 0.95rem; outline: none; transition: 0.3s; 
         }
         .search-box:focus { border-color: transparent; }
@@ -208,9 +159,9 @@
         }
 
         nav button, .admin-toggle-btn, .delivery-nav-btn { 
-            padding: 6px 12px; font-weight: bold; border: 1px solid var(--border-color); 
-            background: var(--bg-card); color: var(--text-color); border-radius: 20px; 
-            cursor: pointer; transition: 0.2s; font-size: 0.85rem; backdrop-filter: blur(8px); 
+            padding: 6px 12px; font-weight: bold; border: 1px solid #2c5e3b; 
+            background: rgba(26, 26, 26, 0.85); color: #e0e0e0; border-radius: 20px; 
+            cursor: pointer; transition: 0.2s; font-size: 0.85rem; backdrop-filter: blur(4px); 
             width: 100%;
         }
         
@@ -218,17 +169,17 @@
             background: #2c5e3b; color: white; border-color: #25D366; 
         }
         
-        .delivery-nav-btn { color: var(--text-secondary); }
+        .delivery-nav-btn { color: #a3e0b5; }
         .delivery-nav-btn strong { color: #f39c12; }
 
         .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
         /* Delivery Pricing Info Section */
-        .delivery-info-section { display: none; background: var(--bg-container); backdrop-filter: blur(12px); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--glass-shadow); margin-bottom: 30px; animation: fadeIn 0.4s ease-in-out; }
+        .delivery-info-section { display: none; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #25D366; margin-bottom: 30px; animation: fadeIn 0.4s ease-in-out; }
         .delivery-info-section.active { display: block; }
         .delivery-info-section h3 { color: #25D366; margin-bottom: 15px; text-align: center; }
         .city-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
-        .city-item { background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.95rem; }
+        .city-item { background: #242424; padding: 12px; border-radius: 8px; border: 1px solid #333; display: flex; justify-content: space-between; font-size: 0.95rem; }
         .city-item span:last-child { color: #27ae60; font-weight: bold; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -236,24 +187,23 @@
         /* Admin Panel Section */
         .admin-section { display: none; margin-bottom: 30px; }
         .admin-section.active { display: block; }
-        .add-product-form { background: var(--bg-container); backdrop-filter: blur(12px); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--glass-shadow); }
+        .add-product-form { background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #2a2a2a; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #25D366; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-color); border-radius: 8px; font-size: 1rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #333; background: #262626; color: #fff; border-radius: 6px; font-size: 1rem; }
 
-        .btn-submit { background: #2c5e3b; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; transition: 0.2s; }
+        .btn-submit { background: #2c5e3b; color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; transition: 0.2s; }
         .btn-submit:hover { background: #21472c; }
 
         .products-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
         
-        /* Product Card Layout - Glassmorphism */
+        /* Product Card Layout */
         .product-card { 
-            border: 1px solid var(--border-color); 
+            border: none; 
             border-radius: 16px; 
             padding: 12px 20px; 
-            background: var(--bg-card); 
-            backdrop-filter: blur(12px);
-            box-shadow: var(--glass-shadow); 
+            background: #ffffff; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
             display: flex; 
             flex-direction: row-reverse; 
             align-items: center; 
@@ -261,7 +211,7 @@
             gap: 15px; 
             text-align: right; 
             cursor: pointer;
-            transition: transform 0.2s ease, background 0.3s;
+            transition: transform 0.2s ease;
         }
         html[dir="ltr"] .product-card {
             flex-direction: row;
@@ -269,7 +219,6 @@
         }
         .product-card:hover {
             transform: translateY(-2px);
-            border-color: #25D366;
         }
 
         .product-clickable {
@@ -284,13 +233,11 @@
         }
 
         .product-img-wrapper {
-            background: rgba(255, 255, 255, 0.9);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border-radius: 8px;
-            padding: 2px;
         }
 
         .product-card img { 
@@ -309,7 +256,7 @@
         html[dir="ltr"] .product-info { text-align: left; }
         
         .product-card h4 { 
-            color: var(--text-color); 
+            color: #111111; 
             margin-bottom: 6px; 
             font-size: 1.1rem; 
             font-weight: bold;
@@ -348,24 +295,22 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0,0,0,0.85);
             z-index: 10000;
             justify-content: center;
             align-items: center;
             padding: 15px;
         }
         .modal-content {
-            background: var(--bg-container);
-            backdrop-filter: blur(15px);
-            color: var(--text-color);
+            background: #121212;
+            color: #111111;
             padding: 15px 20px 25px 20px;
             border-radius: 16px;
             max-width: 520px;
             width: 100%;
             position: relative;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+            border: 1px solid #2c5e3b;
             max-height: 95vh;
             display: flex;
             flex-direction: column;
@@ -382,14 +327,15 @@
             object-fit: contain;
             margin: 0 auto 10px auto;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px;
+            background: #ffffff;
+            padding: 0;
             border: none;
+            box-shadow: none;
             order: -3;
         }
         
         .modal-content h3 {
-            color: var(--text-color);
+            color: #111111;
             font-size: 1.4rem;
             margin-bottom: 6px;
             width: 100%;
@@ -408,18 +354,34 @@
         
         .modal-content .modal-benefits {
             font-size: 1.05rem;
-            color: var(--text-color);
-            background: var(--bg-card);
+            color: #111111;
+            background: #ffffff;
             padding: 15px;
             border-radius: 10px;
-            border: 1px solid var(--border-color);
+            border: none;
             white-space: pre-line;
             line-height: 1.8;
             margin-bottom: 20px;
             max-height: 220px;
             overflow-y: auto;
             width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: #25D366 #222;
         }
+        .modal-content .modal-benefits::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 4px;
+        }
+        .modal-content .modal-benefits::-webkit-scrollbar-thumb {
+            background: #25D366;
+            border-radius: 4px;
+        }
+
+        html[dir="rtl"] .modal-content .modal-benefits { text-align: right; }
+        html[dir="ltr"] .modal-content .modal-benefits { text-align: left; }
 
         .close-modal-btn {
             background: #c0392b;
@@ -439,23 +401,21 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0,0,0,0.8);
             z-index: 10001;
             justify-content: center;
             align-items: center;
             padding: 15px;
         }
         .cart-modal-content {
-            background: var(--bg-container);
-            backdrop-filter: blur(15px);
-            color: var(--text-color);
+            background: #181818;
+            color: #e0e0e0;
             padding: 25px;
             border-radius: 16px;
             max-width: 500px;
             width: 100%;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+            border: 1px solid #25D366;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -471,19 +431,18 @@
             max-height: 200px;
             overflow-y: auto;
             margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #333;
             padding-bottom: 10px;
         }
         .cart-item-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--bg-card);
+            background: #222;
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 8px;
             font-size: 0.9rem;
-            border: 1px solid var(--border-color);
         }
         .qty-controls {
             display: flex;
@@ -503,6 +462,7 @@
             align-items: center;
             justify-content: center;
         }
+        .qty-btn:hover { background: #21472c; }
         
         .customer-form-group {
             margin-bottom: 12px;
@@ -517,13 +477,14 @@
         .customer-form-group input {
             width: 100%;
             padding: 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            border-radius: 8px;
-            font-size: 0.95ln;
+            background: #262626;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
             outline: none;
         }
+        .customer-form-group input:focus { border-color: #25D366; }
 
         .checkout-actions {
             display: flex;
@@ -540,7 +501,9 @@
             flex: 1;
             cursor: pointer;
             font-size: 1rem;
+            transition: 0.2s;
         }
+        .btn-confirm-order:hover { background: #20b858; }
         .btn-close-cart {
             background: #c0392b;
             color: white;
@@ -551,37 +514,49 @@
             cursor: pointer;
         }
 
-        .reviews-section { margin: 50px 0; background: var(--bg-container); backdrop-filter: blur(12px); padding: 30px 20px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--glass-shadow); }
+        .reviews-section { margin: 50px 0; background: #1a1a1a; padding: 30px 20px; border-radius: 15px; border: 1px solid #2a2a2a; }
         .reviews-section h3 { text-align: center; color: #25D366; margin-bottom: 25px; }
         .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .review-card { background: var(--bg-card); padding: 18px; border-radius: 10px; box-shadow: var(--glass-shadow); border: 1px solid var(--border-color); }
-        .review-card .stars { color: #ffcc00 !important; font-size: 1.2rem; margin-bottom: 5px; }
-        .review-card p { font-size: 0.9rem; color: var(--text-color); }
+        .review-card { background: #242424; padding: 18px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 1px solid #333; }
+        html[dir="rtl"] .review-card { text-align: right; }
+        html[dir="ltr"] .review-card { text-align: left; }
+        
+        .review-card .stars, option { color: #ffcc00 !important; }
+        .review-card .stars { font-size: 1.2rem; margin-bottom: 5px; text-shadow: 0 0 6px rgba(255, 204, 0, 0.5); }
+        .review-card p { font-size: 0.9rem; color: #ccc; }
         .review-card h5 { margin-top: 10px; color: #25D366; }
+        html[dir="rtl"] .review-card h5 { text-align: left; }
+        html[dir="ltr"] .review-card h5 { text-align: right; }
 
-        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-container); backdrop-filter: blur(15px); color: var(--text-color); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 99; border-top: 1px solid var(--border-color); }
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #182e1e; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 99; border-top: 1px solid #2c5e3b; }
         .cart-bar button { background: #25D366; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         .floating-buttons { position: fixed; bottom: 70px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         html[dir="ltr"] .floating-buttons { right: auto; left: 20px; }
         
-        .call-btn { background: #e67e22; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .chat-btn { background: #2c5e3b; color: white; width: 55px; height: 55px; border-radius: 50%; border: none; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .call-btn { background: #e67e22; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .chat-btn { background: #2c5e3b; color: white; border: none; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
-        .chat-box { display: none; position: absolute; bottom: 65px; right: 0; width: 310px; height: 420px; background: var(--bg-container); backdrop-filter: blur(15px); border-radius: 12px; box-shadow: var(--glass-shadow); flex-direction: column; overflow: hidden; border: 1px solid var(--border-color); }
+        .chat-box { display: none; position: absolute; bottom: 65px; right: 0; width: 310px; height: 420px; background: #1a1a1a; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.6); flex-direction: column; overflow: hidden; border: 1px solid #333; }
         html[dir="ltr"] .chat-box { right: auto; left: 0; }
         
         .chat-header { background: #2c5e3b; color: white; padding: 12px; font-weight: bold; text-align: center; }
         .chat-messages { flex: 1; padding: 10px; overflow-y: auto; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px; }
         .msg { padding: 8px 12px; border-radius: 10px; max-width: 85%; }
-        .msg.bot { background: var(--bg-card); align-self: flex-start; color: var(--text-color); border: 1px solid var(--border-color); }
+        .msg.bot { background: #2a2a2a; align-self: flex-start; color: #e0e0e0; border: 1px solid #3a3a3a; }
         .msg.user { background: #2c5e3b; color: white; align-self: flex-end; }
-        .chat-input { display: flex; border-top: 1px solid var(--border-color); background: var(--bg-card); }
-        .chat-input input { flex: 1; padding: 10px; border: none; outline: none; background: transparent; color: var(--text-color); }
+        .chat-input { display: flex; border-top: 1px solid #333; background: #222; }
+        .chat-input input { flex: 1; padding: 10px; border: none; outline: none; background: transparent; color: #fff; }
         .chat-input button { background: #2c5e3b; color: white; border: none; padding: 0 15px; cursor: pointer; font-weight: bold; }
+
+        @keyframes blink {
+            0% { opacity: .2; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: .2; transform: scale(0.8); }
+        }
     </style>
 </head>
-<body class="dark">
+<body>
 
     <div id="splash-screen">
         <img src="msh.logo.jpg" alt="نوێبوونەوە" class="splash-logo">
@@ -636,7 +611,6 @@
                 <button class="lang-btn" onclick="setLanguage('ku', this)">کوردی (بادینی)</button>
                 <button class="lang-btn" onclick="setLanguage('en', this)">English</button>
                 <button class="lang-btn" onclick="setLanguage('ar', this)">العربية</button>
-                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ ڕووناک / تاریک</button>
             </div>
 
             <div class="hero">
@@ -669,7 +643,7 @@
     <div class="container">
         <div id="deliveryInfoSection" class="delivery-info-section">
             <h3 id="deliveryTitle">🚚 گەیاندن بۆ سەرجەم شارەکان بە خۆڕاییە</h3>
-            <p id="deliverySub" style="text-align: center; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە بێ بەرانبەر:</p>
+            <p id="deliverySub" style="text-align: center; color: #aaa; font-size: 0.9rem; margin-bottom: 15px;">گەیاندنمان بۆ ناو شار و قەزاکان هەیە بە زووترین کات و بە بێ بەرانبەر:</p>
             <div class="city-list">
                 <div class="city-item"><span>هەولێر:</span> <span>خۆڕایی (٠ دینار)</span></div>
                 <div class="city-item"><span>سلێمانی:</span> <span>خۆڕایی (٠ دینار)</span></div>
@@ -726,20 +700,20 @@
         <div class="reviews-section">
             <h3 id="txtReviewTitle">⭐ ڕای کڕیارە ئازیزەکانمان ⭐</h3>
             
-            <form id="reviewForm" style="max-width: 500px; margin: 0 auto 30px; background: var(--bg-card); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
+            <form id="reviewForm" style="max-width: 500px; margin: 0 auto 30px; background: #242424; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 1px solid #333;">
                 <h4 id="revFormHead" style="margin-bottom: 12px; color: #25D366; text-align: center;">ڕاو بۆچوونی خۆت تۆمار بکه</h4>
                 <div style="margin-bottom: 10px;">
-                    <input type="text" id="revName" placeholder="ناوی تۆ..." required style="width: 100%; padding: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-color); border-radius: 6px;">
+                    <input type="text" id="revName" placeholder="ناوی تۆ..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;">
                 </div>
                 <div style="margin-bottom: 10px;">
-                    <select id="revStars" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: #ffcc00; border-radius: 6px;">
+                    <select id="revStars" style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #ffcc00; border-radius: 6px;">
                         <option value="★★★★★">★★★★★ (پێنج ئەستێرە - زۆر نایاب)</option>
                         <option value="★★★★☆">★★★★☆ (چوار ئەستێرە - زۆر باش)</option>
                         <option value="★★★☆☆">★★★☆☆ (سێ ئەستێرە - باش)</option>
                     </select>
                 </div>
                 <div style="margin-bottom: 10px;">
-                    <textarea id="revComment" rows="3" placeholder="تێبینی یان ڕای خۆت بۆ بەرهەمەکان بنووسە..." required style="width: 100%; padding: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-color); border-radius: 6px;"></textarea>
+                    <textarea id="revComment" rows="3" placeholder="تێبینی یان ڕای خۆت بۆ بەرهەمەکان بنووسە..." required style="width: 100%; padding: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; border-radius: 6px;"></textarea>
                 </div>
                 <button type="submit" id="btnPubReview" style="background: #2c5e3b; color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold;">بڵاوکردنەوەی ڕا</button>
             </form>
@@ -1004,18 +978,6 @@
 
         let currentLang = 'ckb';
 
-        function toggleTheme() {
-            const htmlRoot = document.getElementById('htmlRoot');
-            const themeBtn = document.getElementById('themeToggleBtn');
-            if(htmlRoot.classList.contains('dark')) {
-                htmlRoot.classList.remove('dark');
-                themeBtn.innerText = "🌙 دۆخی تاریک";
-            } else {
-                htmlRoot.classList.add('dark');
-                themeBtn.innerText = "☀️ ڕووناک / تاریک";
-            }
-        }
-
         function setLanguage(lang, btnElement) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -1104,12 +1066,13 @@
             }
         }
 
+        // لێرەدا کاتی پەردەی سەرەتایی کرا بە ١٠٠٠ مڵیزەکرەکە (١ چرکە)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 2000);
+            }, 1000);
             fetchProducts();
         });
 
