@@ -1069,13 +1069,15 @@
             }
         }
 
-        // لێرەدا کاتی پەردەی سەرەتایی کرا بە ٠ چرکە
+        /* لێرەدا کاتی پەردەی سەرەتایی کرا بە ٤ چرکە و پیشاندانی بەرهەمەکان کراوە بە ٠ چرکە */
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
-            }, 0);
+            }, 4000);
+            
+            // داوای داتاکانی بەرهەم بە ٠ چرکە (ڕاستەوخۆ)
             fetchProducts();
         });
 
